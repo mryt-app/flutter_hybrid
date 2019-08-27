@@ -11,14 +11,17 @@
 #import "FLHFlutterHybrid.h"
 #import "UIView+Screenshot.h"
 #import "FLHFirstPageInfo.h"
+#import "FLHHybridPageLifecycle.h"
+#import "FLHNativePageLifecycleMessenger.h"
 
 #define FLUTTER_VIEW_CONTROLLER FLHFlutterHybrid.sharedInstance.flutterViewController
 
 @interface FLHFlutterContainerViewController ()
 
-@property (nonatomic, copy, readwrite) NSString *route;
+@property (nonatomic, copy, readwrite) NSString *routeName;
 @property (nonatomic, strong, readwrite) NSDictionary *params;
 @property (nonatomic, copy, readwrite) NSString *uniqueID;
+@property (nonatomic, strong) FLHPageInfo *pageInfo;
 
 @property (nonatomic, strong) UIImageView *screenshotView;
 @property (nonatomic,assign) BOOL interactivePopGestureActive;
@@ -31,14 +34,14 @@
 
 - (void)dealloc
 {
-    [self notifyWillDealloc];
+    [self _notifyWillDealloc];
     [NSNotificationCenter.defaultCenter removeObserver:self];
 }
 
 - (instancetype)initWithRoute:(NSString *)route params:(NSDictionary *)params {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
-        _route = [route copy];
+        _routeName = [route copy];
         _params = params;
         [self _setup];
     }
@@ -50,6 +53,36 @@
     
     self.view.backgroundColor = UIColor.whiteColor;
     [self _setupView];
+}
+
+#pragma mark - Setup
+
+- (void)_setup
+{
+    static long long serialNumber = 0;
+    serialNumber++;
+    _uniqueID = [NSString stringWithFormat:@"%lld", serialNumber];
+    _pageInfo = [[FLHPageInfo alloc] initWithRouteName:_routeName params:_params uniqueID:_uniqueID];
+    
+    [self.class increaseInstanceCount];
+    
+    // TODO: Post notification
+    SEL sel = @selector(flutterViewDidShow:);
+    NSString *notiName = @"flutter_boost_container_showed";
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:sel
+                                               name:notiName
+                                             object:nil];
+    
+    [self _notifyLifecyleEvent:FLHHybridPageLifecycleDidInit];
+}
+
+- (void)_setupView {
+    // setup screenshot view
+    self.screenshotView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+    self.screenshotView.backgroundColor = [UIColor whiteColor];
+    self.screenshotView.opaque = YES;
+    [self.view addSubview:self.screenshotView];
 }
 
 #pragma mark - View Lifecyle
@@ -74,11 +107,12 @@
     
     [self showScreenshotView];
     
-    //    TODO: Notify flutter pageWillShow
+    [self _notifyLifecyleEvent:FLHHybridPageLifecycleWillAppear];
     
     // Save first time page info.
-    if (![FLHFirstPageInfo.sharedInstance hasInitialized]) {
-        [FLHFirstPageInfo.sharedInstance initializeWithRoute:_route params:_params uniqueID:_uniqueID];
+    if ([FLHFirstPageInfo.sharedInstance firstPageInfo] == nil) {
+        FLHPageInfo *pageInfo = [[FLHPageInfo alloc] initWithRouteName:_routeName params:_params uniqueID:_uniqueID];
+        [FLHFirstPageInfo.sharedInstance initializeFirstPageInfo:pageInfo];
     }
     
     [super viewWillAppear:animated];
@@ -90,7 +124,7 @@
     // Ensure flutter view is attached.
     [self attatchFlutterView];
     
-    //    TODO: Notify flutter pageDidShow
+    [self _notifyLifecyleEvent:FLHHybridPageLifecycleDidAppear];
     
     [FLHFlutterHybrid.sharedInstance addContainerViewController:self];
     
@@ -121,13 +155,13 @@
         [self.view bringSubviewToFront:self.screenshotView];
     }
     
-//    Notify flutter pageWillDisappear
+    [self _notifyLifecyleEvent:FLHHybridPageLifecycleWillDisappear];
     
     [super viewWillDisappear:animated];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
-//    Notify flutter pageDidDisappear
+    [self _notifyLifecyleEvent:FLHHybridPageLifecycleDidDisappear];
     
     [self clearScreenshot];
     [super viewDidDisappear:animated];
@@ -157,34 +191,6 @@ static NSUInteger kInstanceCount = 0;
         [[FLHScreenshotCache sharedInstance] clearAllObjects];
         [FLHFlutterHybrid.sharedInstance pause];
     }
-}
-
-#pragma mark - Setup
-
-- (void)_setup
-{
-    static long long serialNumber = 0;
-    serialNumber++;
-    _uniqueID = [NSString stringWithFormat:@"%lld", serialNumber];
-    
-    [self.class increaseInstanceCount];
-    
-    SEL sel = @selector(flutterViewDidShow:);
-    NSString *notiName = @"flutter_boost_container_showed";
-    [NSNotificationCenter.defaultCenter addObserver:self
-                                           selector:sel
-                                               name:notiName
-                                             object:nil];
-    
-    //    TODO: Notify InitPage
-}
-
-- (void)_setupView {
-    // setup screenshot view
-    self.screenshotView = [[UIImageView alloc] initWithFrame:self.view.bounds];
-    self.screenshotView.backgroundColor = [UIColor whiteColor];
-    self.screenshotView.opaque = YES;
-    [self.view addSubview:self.screenshotView];
 }
 
 #pragma mark - Notification
@@ -293,8 +299,8 @@ static NSUInteger kInstanceCount = 0;
 
 #pragma mark - Action
 
-- (void)notifyWillDealloc {
-    //    TODO: Notify flutter
+- (void)_notifyWillDealloc {
+    [self _notifyLifecyleEvent:FLHHybridPageLifecycleWillDealloc];
     
     [FLHScreenshotCache.sharedInstance removeObjectForKey:self.uniqueID];
     [FLHFlutterHybrid.sharedInstance removeContainerViewController:self];
@@ -302,6 +308,8 @@ static NSUInteger kInstanceCount = 0;
     [self.class decreaseInstanceCount];
 }
 
-
+- (void)_notifyLifecyleEvent:(FLHHybridPageLifecycle)lifecycle {
+    [FLHNativePageLifecycleMessenger.sharedInstance notifyHybridPageLifecycleChanged:lifecycle pageInfo:_pageInfo];
+}
 
 @end

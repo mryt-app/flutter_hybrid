@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "FLHPageInfo.h"
 #import "FLHBaseToolMacro.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -14,12 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 AS_SINGLETON(FLHFirstPageInfo)
 
-@property (nonatomic, copy, readonly) NSString *route;
-@property (nonatomic, strong, readonly, nullable) NSDictionary *params;
-@property (nonatomic, copy, readonly) NSString *uniqueID;
-@property (nonatomic, assign, readonly, getter=hasInitialized) BOOL initialized;
+@property (nonatomic, readonly) FLHPageInfo *firstPageInfo;
 
-- (void)initializeWithRoute:(NSString *)route params:(nullable NSDictionary *)params uniqueID:(NSString *)uniqueID;
+- (void)initializeFirstPageInfo:(FLHPageInfo *)firstPageInfo;
 
 @end
 

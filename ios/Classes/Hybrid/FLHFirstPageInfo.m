@@ -9,10 +9,7 @@
 
 @interface FLHFirstPageInfo ()
 
-@property (nonatomic, copy) NSString *route;
-@property (nonatomic, strong, nullable) NSDictionary *params;
-@property (nonatomic, copy) NSString *uniqueID;
-@property (nonatomic, assign, getter=hasInitialized) BOOL initialized;
+@property (nonatomic, strong) FLHPageInfo *firstPageInfo;
 
 @end
 
@@ -20,13 +17,10 @@
 
 DEF_SINGLETON(FLHFirstPageInfo)
 
-- (void)initializeWithRoute:(NSString *)route params:(NSDictionary *)params uniqueID:(NSString *)uniqueID {
-    guard(!_initialized) else { return; }
-    
-    _initialized = YES;
-    _route = [route copy];
-    _params = params;
-    _uniqueID = [uniqueID copy];
+- (void)initializeFirstPageInfo:(FLHPageInfo *)firstPageInfo {
+    if (_firstPageInfo == nil) {
+        _firstPageInfo = firstPageInfo;
+    }
 }
 
 @end

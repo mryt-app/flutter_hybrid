@@ -1,9 +1,13 @@
 import 'dart:async';
 
-import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_hybrid/messaging/native_messenger_proxy.dart';
+import 'package:flutter_hybrid/messaging/native_navigation_messenger.dart';
+import 'package:flutter_hybrid/messaging/native_page_lifecycle_observer.dart';
 import 'package:flutter_hybrid/page/hybrid_page_container.dart';
+import 'package:flutter_hybrid/page/hybrid_page_coordinator.dart';
 import 'package:flutter_hybrid/page/hybrid_page_observer.dart';
+import 'package:flutter_hybrid/page/hybrid_page_route.dart';
 import 'package:flutter_hybrid/router/router.dart';
 
 typedef Route PrePushRouteCallback(
@@ -30,16 +34,48 @@ class FlutterHybrid {
     HybridPageLifecycleObserverManager();
   HybridPageLifecycleObserverManager get pageLifecycleObserverManager => _pageLifecycleObserverManager;
 
+  final HybridPageCoordinator _pageCoordinator = HybridPageCoordinator();
+  HybridPageCoordinator get pageCoordinator => _pageCoordinator;
+
+  final NativePageLifecycleObserver _nativePageLifecycleObserver = NativePageLifecycleObserver();
+  NativePageLifecycleObserver get nativePageLifecycleObserver => _nativePageLifecycleObserver;
+
+  final NativeNavigationMessenger _nativeNavigationMessenger = NativeNavigationMessenger();
+  NativeNavigationMessenger get nativeNavigationMessenger => _nativeNavigationMessenger;
+
+  final NativeMessengerProxy _nativeMessengerProxy = NativeMessengerProxy();
+
   final Router _router = Router();
   Router get router => _router;
 
-  FlutterHybrid._internal();
+  FlutterHybrid._internal() {
+    _nativeMessengerProxy
+      ..addMessenger(_nativePageLifecycleObserver)
+      ..addMessenger(_nativeNavigationMessenger);
+  }
 
-  static const MethodChannel _channel =
-      const MethodChannel('flutter_hybrid');
+  void registerPageBuilders(Map<String, PageBuilder> builders) {
+    _pageCoordinator.registerPageBuilders(builders);
+  }
 
-  static Future<String> get platformVersion async {
-    final String version = await _channel.invokeMethod('getPlatformVersion');
-    return version;
+  static TransitionBuilder transitionBuilder(
+      {TransitionBuilder builder,
+      PrePushRouteCallback prePushRouteCallback,
+      PostPushRouteCallback postPushRouteCallback}) {
+    return (BuildContext context, Widget child) {
+      assert(child is Navigator, 'child must be Navigator, what is wrong?');
+
+      final HybridPageContainer pageContainer = HybridPageContainer(
+        key: _sharedInstance.pageContainerKey,
+        initialNavigator: child,
+        prePushRouteCallback: prePushRouteCallback,
+        postPushRouteCallback: postPushRouteCallback,
+      );
+      if (builder != null) {
+        return builder(context, pageContainer);
+      } else {
+        return pageContainer;
+      }
+    };
   }
 }

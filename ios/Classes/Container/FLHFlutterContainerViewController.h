@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface FLHFlutterContainerViewController : UIViewController
 
-@property (nonatomic, copy, readonly) NSString *route;
+@property (nonatomic, copy, readonly) NSString *routeName;
 @property (nonatomic, strong, readonly, nullable) NSDictionary *params;
 @property (nonatomic, copy, readonly) NSString *uniqueID;
 
