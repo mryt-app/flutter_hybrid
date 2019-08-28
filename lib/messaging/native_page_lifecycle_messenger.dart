@@ -2,15 +2,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hybrid/messaging/native_messenger.dart';
 import 'package:flutter_hybrid/messaging/native_page_event_handler.dart';
+import 'package:flutter_hybrid/support/logger.dart';
 
-class NativePageLifecycleObserver implements NativeMessenger {
-  MethodChannel _channel;
+class NativePageLifecycleMessenger implements NativeMessenger {
   final Set<NativePageLifecycleEventHandler> _eventHandlers =
       Set<NativePageLifecycleEventHandler>();
-
-  NativePageLifecycleObserver() {
-    _channel.setMethodCallHandler(handleMethodCall);
-  }
 
   VoidCallback addEventHandler(NativePageLifecycleEventHandler eventHandler) {
     _eventHandlers.add(eventHandler);
@@ -21,12 +17,13 @@ class NativePageLifecycleObserver implements NativeMessenger {
     _eventHandlers.remove(eventHandler);
   }
 
-  Future<void> handleMethodCall(MethodCall call) async {
-    String routeName = call.arguments['routeName'];
-    Map params = call.arguments['params'];
-    String pageId = call.arguments['uniqueID'];
+  @override
+  Future<void> handleMethodCall(String method, dynamic arguments) async {
+    String routeName = arguments['routeName'];
+    Map params = arguments['params'];
+    String pageId = arguments['uniqueID'];
     for (NativePageLifecycleEventHandler eventHandler in _eventHandlers) {
-      switch (call.method) {
+      switch (method) {
         case 'nativePageDidInit':
           eventHandler.nativePageDidInit(routeName, params, pageId);
           break;
@@ -55,6 +52,5 @@ class NativePageLifecycleObserver implements NativeMessenger {
 
   @override
   void setMethodChannel(MethodChannel channel) {
-    _channel = channel;
   }
 }

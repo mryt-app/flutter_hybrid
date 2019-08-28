@@ -103,12 +103,12 @@ static int64_t _memoryWarningLimit()
       newCondition = FLHMemoryConditionAboutToDie;
     }
 
-    if (newCondition != self.currentCondition) {
+    if (newCondition != _currentCondition) {
         [[NSNotificationCenter defaultCenter] postNotificationName:kFLHMemoryInspectorChangedNotification
                                                             object:@{kFLHMemoryInspectorKeyCondition:@(newCondition)}];
     }
     
-    self.currentCondition = newCondition;
+    _currentCondition = newCondition;
     
     return newCondition;
 }

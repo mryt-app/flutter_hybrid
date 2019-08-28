@@ -12,7 +12,6 @@
 @property (nonatomic, readonly) NSString *name;
 @property (nonatomic, weak) FlutterMethodChannel *methodChannel;
 
-- (instancetype)initWithMethodChannel:(FlutterMethodChannel *)methodChannel;
 - (void)handleMethodCall:(NSString *)method arguments:(id)arguments result:(FlutterResult)result;
 
 @end

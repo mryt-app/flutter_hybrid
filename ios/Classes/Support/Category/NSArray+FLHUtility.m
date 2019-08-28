@@ -10,7 +10,7 @@
 @implementation NSArray (FLHUtility)
 
 - (NSArray *(^)(FLHMapBlock))flh_map {
-    return ^(MapBlock block) {
+    return ^(FLHMapBlock block) {
         NSMutableArray *array = [NSMutableArray arrayWithCapacity:self.count];
         for (id obj in self) {
             id rtn = block(obj);
@@ -23,7 +23,7 @@
 }
 
 - (NSArray *(^)(FLHFilterBlock))flh_filter {
-    return ^(FilterBlock block) {
+    return ^(FLHFilterBlock block) {
         NSMutableArray *array = [NSMutableArray arrayWithCapacity:self.count];
         for (id obj in self) {
             if (block(obj)) {
@@ -35,7 +35,7 @@
 }
 
 - (NSArray *(^)(FLHSortedBlock))flh_sorted {
-    return ^(SortedBlock block) {
+    return ^(FLHSortedBlock block) {
         return [self sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             return block(obj1, obj2);
         }];
@@ -43,7 +43,7 @@
 }
 
 - (NSArray *(^)(FLHForEachBlock))flh_forEach {
-    return ^(ForEachBlock block) {
+    return ^(FLHForEachBlock block) {
         BOOL stop = NO;
         for (NSUInteger i = 0; i < self.count; i++) {
             block(i, self[i], &stop);
@@ -56,7 +56,7 @@
 }
 
 - (BOOL(^)(FLHContainsBlock))flh_contains {
-    return ^(ContainsBlock block) {
+    return ^(FLHContainsBlock block) {
         BOOL flag = NO;
         for (id obj in self) {
             if (block(obj)) {
@@ -69,7 +69,7 @@
 }
 
 - (NSArray *(^)(FLHDistinctUnionBlock))flh_distinctUnion {
-    return ^(DistinctUnionBlock block) {
+    return ^(FLHDistinctUnionBlock block) {
         NSMutableArray *array1 = [[NSMutableArray alloc] initWithCapacity:self.count];
         NSMutableArray *array2 = [[NSMutableArray alloc] initWithCapacity:self.count];
         for (id item in self) {
@@ -84,7 +84,7 @@
 }
 
 - (id (^)(FLHFetchBlock))flh_fetch {
-    return ^(FetchBlock block) {
+    return ^(FLHFetchBlock block) {
         id item;
         for (id obj in self) {
             if (block(obj)) {

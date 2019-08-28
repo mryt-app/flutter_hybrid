@@ -17,16 +17,18 @@ class NativeMessengerProxy {
       throw 'method name is invalid: $method';
     }
     String messengerName = components.first;
+    String methodName = components.last;
     NativeMessenger messenger = _messengers.firstWhere(
       (aMessenger) => aMessenger.name == messengerName
     );
     if (messenger != null) {
-      return messenger.handleMethodCall(call);
+      return messenger.handleMethodCall(methodName, call.arguments);
     }
   }
 
   VoidCallback addMessenger(NativeMessenger messenger) {
     _messengers.add(messenger);
+    messenger.setMethodChannel(_channel);
     return () => _messengers.remove(messenger);
   }
 

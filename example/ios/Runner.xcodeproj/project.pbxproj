@@ -12,6 +12,11 @@
 		3B80C3941E831B6300D905FE /* App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B80C3931E831B6300D905FE /* App.framework */; };
 		3B80C3951E831B6300D905FE /* App.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3B80C3931E831B6300D905FE /* App.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6CD6863C23154C8800B5895D /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD6863B23154C8800B5895D /* TabBarController.m */; };
+		6CD686402316107300B5895D /* NativeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD6863E2316107300B5895D /* NativeViewController.m */; };
+		6CD686412316107300B5895D /* NativeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6CD6863F2316107300B5895D /* NativeViewController.xib */; };
+		6CD68645231615F200B5895D /* Router.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD68644231615F200B5895D /* Router.m */; };
+		6CD686492316169100B5895D /* UIViewController+Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD686482316169100B5895D /* UIViewController+Utility.m */; };
+		6CD6864D2316511F00B5895D /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD6864C2316511F00B5895D /* NavigationController.m */; };
 		9705A1C61CF904A100538489 /* Flutter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9740EEBA1CF902C7004384FC /* Flutter.framework */; };
 		9705A1C71CF904A300538489 /* Flutter.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9740EEBA1CF902C7004384FC /* Flutter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9740EEB41CF90195004384FC /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 9740EEB21CF90195004384FC /* Debug.xcconfig */; };
@@ -46,6 +51,15 @@
 		45CEE5A290A695274689741A /* libPods-Runner.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Runner.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CD6863A23154C8800B5895D /* TabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
 		6CD6863B23154C8800B5895D /* TabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TabBarController.m; sourceTree = "<group>"; };
+		6CD6863D2316107300B5895D /* NativeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NativeViewController.h; sourceTree = "<group>"; };
+		6CD6863E2316107300B5895D /* NativeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NativeViewController.m; sourceTree = "<group>"; };
+		6CD6863F2316107300B5895D /* NativeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NativeViewController.xib; sourceTree = "<group>"; };
+		6CD68643231615F200B5895D /* Router.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Router.h; sourceTree = "<group>"; };
+		6CD68644231615F200B5895D /* Router.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Router.m; sourceTree = "<group>"; };
+		6CD686472316169100B5895D /* UIViewController+Utility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Utility.h"; sourceTree = "<group>"; };
+		6CD686482316169100B5895D /* UIViewController+Utility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Utility.m"; sourceTree = "<group>"; };
+		6CD6864B2316511F00B5895D /* NavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
+		6CD6864C2316511F00B5895D /* NavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
 		7AFA3C8E1D35360C0083082E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = Flutter/Release.xcconfig; sourceTree = "<group>"; };
 		7AFFD8ED1D35381100E5BB4D /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		7AFFD8EE1D35381100E5BB4D /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -90,8 +104,31 @@
 			children = (
 				6CD6863A23154C8800B5895D /* TabBarController.h */,
 				6CD6863B23154C8800B5895D /* TabBarController.m */,
+				6CD6863D2316107300B5895D /* NativeViewController.h */,
+				6CD6863E2316107300B5895D /* NativeViewController.m */,
+				6CD6863F2316107300B5895D /* NativeViewController.xib */,
+				6CD6864B2316511F00B5895D /* NavigationController.h */,
+				6CD6864C2316511F00B5895D /* NavigationController.m */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		6CD68642231615D900B5895D /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				6CD68643231615F200B5895D /* Router.h */,
+				6CD68644231615F200B5895D /* Router.m */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		6CD686462316167900B5895D /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				6CD686472316169100B5895D /* UIViewController+Utility.h */,
+				6CD686482316169100B5895D /* UIViewController+Utility.m */,
+			);
+			path = Category;
 			sourceTree = "<group>";
 		};
 		81AC2B01BC0852D03BC5B080 /* Frameworks */ = {
@@ -137,6 +174,8 @@
 		97C146F01CF9000F007C117D /* Runner */ = {
 			isa = PBXGroup;
 			children = (
+				6CD686462316167900B5895D /* Category */,
+				6CD68642231615D900B5895D /* Router */,
 				6CD6863923154C7600B5895D /* Controllers */,
 				7AFFD8ED1D35381100E5BB4D /* AppDelegate.h */,
 				7AFFD8EE1D35381100E5BB4D /* AppDelegate.m */,
@@ -222,6 +261,7 @@
 			files = (
 				97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */,
 				3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */,
+				6CD686412316107300B5895D /* NativeViewController.xib in Resources */,
 				9740EEB41CF90195004384FC /* Debug.xcconfig in Resources */,
 				97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */,
 			);
@@ -307,8 +347,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				978B8F6F1D3862AE00F588F7 /* AppDelegate.m in Sources */,
+				6CD686402316107300B5895D /* NativeViewController.m in Sources */,
 				6CD6863C23154C8800B5895D /* TabBarController.m in Sources */,
 				97C146F31CF9000F007C117D /* main.m in Sources */,
+				6CD686492316169100B5895D /* UIViewController+Utility.m in Sources */,
+				6CD6864D2316511F00B5895D /* NavigationController.m in Sources */,
+				6CD68645231615F200B5895D /* Router.m in Sources */,
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

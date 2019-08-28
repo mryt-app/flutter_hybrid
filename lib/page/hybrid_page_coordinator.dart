@@ -1,6 +1,7 @@
+import 'dart:math';
+
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hybrid/flutter_hybrid.dart';
-import 'package:flutter_hybrid/messaging/native_messenger.dart';
 import 'package:flutter_hybrid/messaging/native_page_event_handler.dart';
 import 'package:flutter_hybrid/page/hybrid_page.dart';
 import 'package:flutter_hybrid/page/hybrid_page_route.dart';
@@ -10,9 +11,7 @@ class HybridPageCoordinator implements NativePageLifecycleEventHandler {
   final Map<String, PageBuilder> _pageBuilders = <String, PageBuilder>{};
   PageBuilder _defaultPageBuilder;
 
-  HybridPageCoordinator() {
-    FlutterHybrid.sharedInstance.nativePageLifecycleObserver.addEventHandler(this);
-  }
+  HybridPageCoordinator();
 
   // Page builders
 

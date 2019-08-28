@@ -135,12 +135,18 @@ class HybridPageContainerState extends State<HybridPageContainer> {
     return null;
   }
 
-  void _onShownPageChanged(String old, String now) {
-    Logger.debug('onShownPageChanged old:$old now:$now');
-    // TODO: Notify native shownPageChanged
+  void _onShownPageChanged(String oldPageId, String newPageId) {
+    Logger.debug('onShownPageChanged old:$oldPageId now:$newPageId');
+    FlutterHybrid.sharedInstance
+      .nativeNavigationMessenger.notifyFlutterShownPageChanged(oldPageId, newPageId);
   }
 
   void _refreshOverlayEntries() {
+    Logger.debug('refreshOverlayEntries, onstage: ${_onstagePage.settings}');
+    for (HybridPage offstage in _offstagePages) {
+      Logger.debug('refreshOverlayEntries, offstage: ${offstage.settings}');
+    }
+
     final OverlayState overlayState = _overlayKey.currentState;
     if (overlayState == null) {
       return;

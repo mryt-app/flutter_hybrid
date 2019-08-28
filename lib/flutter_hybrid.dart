@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hybrid/messaging/native_messenger_proxy.dart';
 import 'package:flutter_hybrid/messaging/native_navigation_messenger.dart';
-import 'package:flutter_hybrid/messaging/native_page_lifecycle_observer.dart';
+import 'package:flutter_hybrid/messaging/native_page_lifecycle_messenger.dart';
 import 'package:flutter_hybrid/page/hybrid_page_container.dart';
 import 'package:flutter_hybrid/page/hybrid_page_coordinator.dart';
 import 'package:flutter_hybrid/page/hybrid_page_observer.dart';
@@ -37,8 +37,8 @@ class FlutterHybrid {
   final HybridPageCoordinator _pageCoordinator = HybridPageCoordinator();
   HybridPageCoordinator get pageCoordinator => _pageCoordinator;
 
-  final NativePageLifecycleObserver _nativePageLifecycleObserver = NativePageLifecycleObserver();
-  NativePageLifecycleObserver get nativePageLifecycleObserver => _nativePageLifecycleObserver;
+  final NativePageLifecycleMessenger _nativePageLifecycleObserver = NativePageLifecycleMessenger();
+  NativePageLifecycleMessenger get nativePageLifecycleObserver => _nativePageLifecycleObserver;
 
   final NativeNavigationMessenger _nativeNavigationMessenger = NativeNavigationMessenger();
   NativeNavigationMessenger get nativeNavigationMessenger => _nativeNavigationMessenger;
@@ -48,10 +48,16 @@ class FlutterHybrid {
   final Router _router = Router();
   Router get router => _router;
 
-  FlutterHybrid._internal() {
+  FlutterHybrid._internal();
+
+  void startRun() {
     _nativeMessengerProxy
       ..addMessenger(_nativePageLifecycleObserver)
       ..addMessenger(_nativeNavigationMessenger);
+
+    _nativePageLifecycleObserver.addEventHandler(_pageCoordinator);
+
+    _pageCoordinator.showStartPageIfNeeded();
   }
 
   void registerPageBuilders(Map<String, PageBuilder> builders) {

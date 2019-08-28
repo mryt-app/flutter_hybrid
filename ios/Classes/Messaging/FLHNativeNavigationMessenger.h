@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FLHNativeNavigationMessenger : NSObject<FLHMessenger>
 
+AS_SINGLETON(FLHNativeNavigationMessenger)
+
 @end
 
 NS_ASSUME_NONNULL_END

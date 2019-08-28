@@ -16,13 +16,6 @@ DEF_SINGLETON(FLHNativePageLifecycleMessenger)
     return @"NativePageLifecycle";
 }
 
-- (instancetype)initWithMethodChannel:(FlutterMethodChannel *)methodChannel {
-    if (self = [super init]) {
-        self.methodChannel = methodChannel;
-    }
-    return self;
-}
-
 - (void)handleMethodCall:(NSString *)method arguments:(id)arguments result:(FlutterResult)result {
     result(FlutterMethodNotImplemented);
 }

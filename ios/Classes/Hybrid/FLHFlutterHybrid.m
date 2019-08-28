@@ -14,7 +14,7 @@ typedef FLHFlutterContainerViewController * (^FLHPageBuilder)(NSString *route, N
 @interface FLHFlutterHybrid ()
 
 @property (nonatomic, strong) id<FLHFlutterViewManager> flutterViewManager;
-@property (nonatomic, strong) FLHMutableOrderedDictionary<NSString *, FLHFlutterContainerViewController *> *containerViewControllers;
+@property (nonatomic, strong) FLHMutableOrderedDictionary<NSString *, NSString *> *containerViewControllers;
 
 @property (nonatomic, assign) BOOL isRendering;
 @property (nonatomic, assign) BOOL isRunning;
@@ -44,8 +44,7 @@ DEF_SINGLETON(FLHFlutterHybrid)
     return [_flutterViewManager viewController];
 }
 
-- (void)startFlutterWithPlatform:(id<FLHRouter>)router
-                         onStart:(void (^)(FlutterViewController *))callback {
+- (void)startFlutterWithRouter:(id<FLHRouter>)router {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         self.router = router;
@@ -54,10 +53,6 @@ DEF_SINGLETON(FLHFlutterHybrid)
         
         self.isRendering = YES;
         self.isRunning = YES;
-        
-        if (callback) {
-            callback(self.flutterViewManager.viewController);
-        }
     });
 }
 
@@ -70,7 +65,7 @@ DEF_SINGLETON(FLHFlutterHybrid)
 
 - (void)addContainerViewController:(FLHFlutterContainerViewController *)viewController {
     NSParameterAssert(viewController != nil);
-    _containerViewControllers[viewController.uniqueID] = viewController;
+    _containerViewControllers[viewController.uniqueID] = viewController.uniqueID;
 }
 
 - (void)removeContainerViewController:(FLHFlutterContainerViewController *)viewController {
@@ -81,7 +76,7 @@ DEF_SINGLETON(FLHFlutterHybrid)
 - (BOOL)isTopContainerViewController:(FLHFlutterContainerViewController *)viewController {
     NSParameterAssert(viewController != nil);
     guard(_containerViewControllers.count > 0) else { return NO; }
-    return [_containerViewControllers.allValues.lastObject.uniqueID isEqualToString:viewController.uniqueID];
+    return [_containerViewControllers.allValues.lastObject isEqualToString:viewController.uniqueID];
 }
 
 #pragma mark - App Control

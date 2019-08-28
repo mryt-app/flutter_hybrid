@@ -22,8 +22,7 @@ AS_SINGLETON(FLHFlutterHybrid)
 #pragma mark - Flutter
 
 - (FlutterViewController *)flutterViewController;
-- (void)startFlutterWithPlatform:(id<FLHRouter>)router
-                         onStart:(void (^)(FlutterViewController *))callback;
+- (void)startFlutterWithRouter:(id<FLHRouter>)router;
 
 #pragma mark - Container Management
 

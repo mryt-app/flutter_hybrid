@@ -16,14 +16,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL canPop;
 
 - (void)openPage:(NSString *)route
-          params:(NSDictionary *)params
+          params:(nullable NSDictionary *)params
         animated:(BOOL)animated
-      completion:(void (^)(BOOL finished))completion;
+      completion:(nullable void (^)(BOOL finished))completion;
 
 - (void)closePage:(NSString *)pageId
-           params:(NSDictionary *)params
+           params:(nullable NSDictionary *)params
          animated:(BOOL)animated
-       completion:(void (^)(BOOL finished))completion;
+       completion:(nullable void (^)(BOOL finished))completion;
 
 @end
 

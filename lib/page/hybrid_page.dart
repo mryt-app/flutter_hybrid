@@ -28,6 +28,10 @@ class HybridPageSettings {
       this.routeName = 'default',
       this.params,
       this.builder});
+
+  String toString() {
+    return 'HybridPageSettings(pageId: $uniqueID, routeName: $routeName)';
+  }
 }
 
 class HybridPage extends Navigator {
