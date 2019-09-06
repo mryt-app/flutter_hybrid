@@ -54,7 +54,7 @@ class HybridPageCoordinator implements NativePageLifecycleEventHandler, NativePa
     FlutterHybrid.pageContainer.showHybridPage(pageSettings);
     FlutterHybrid.sharedInstance.pageLifecycleObserverManager.
       notifyObservers(pageSettings, HybridPageLifecycle.appear);
-    
+
     return true;
   }
 
@@ -81,6 +81,7 @@ class HybridPageCoordinator implements NativePageLifecycleEventHandler, NativePa
   // NativePageNavigationEventHandler
   @override
   void nativePageBackButtonDidPressed(String pageId) {
+    Logger.error("pageId="+pageId);
     FlutterHybrid.pageContainer.pageStateOf(pageId)?.onBackButtonPressed();
   }
 

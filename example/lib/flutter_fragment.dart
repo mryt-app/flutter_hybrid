@@ -10,13 +10,13 @@ class FragmentRouteWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('flutter_boost_example'),
+        title: Text('flutter_hybrid_example'),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
           Container(
-            margin: const EdgeInsets.only(top: 80.0),
+            margin: const EdgeInsets.only(top: 100.0),
             child: Text(
               "flutter fragment",
               style: TextStyle(fontSize: 28.0, color: Colors.blue),
@@ -36,7 +36,7 @@ class FragmentRouteWidget extends StatelessWidget {
             child: Container(
                 padding: const EdgeInsets.all(8.0),
                 margin: const EdgeInsets.all(8.0),
-                color: Colors.yellow,
+                color: Colors.grey,
                 child: Text(
                   'open native activity',
                   style: TextStyle(fontSize: 22.0, color: Colors.black),
@@ -48,7 +48,7 @@ class FragmentRouteWidget extends StatelessWidget {
             child: Container(
                 padding: const EdgeInsets.all(8.0),
                 margin: const EdgeInsets.all(8.0),
-                color: Colors.yellow,
+                color: Colors.grey,
                 child: Text(
                   'open flutter activity',
                   style: TextStyle(fontSize: 22.0, color: Colors.black),
@@ -60,7 +60,7 @@ class FragmentRouteWidget extends StatelessWidget {
               child: Container(
                   padding: const EdgeInsets.all(8.0),
                   margin: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 80.0),
-                  color: Colors.yellow,
+                  color: Colors.grey,
                   child: Text(
                     'open flutter fragment',
                     style: TextStyle(fontSize: 22.0, color: Colors.black),

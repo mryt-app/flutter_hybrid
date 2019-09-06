@@ -8,8 +8,8 @@ import android.os.Bundle
 import cn.missfresh.flutter_hybrid.interfaces.IAppInfo
 import cn.missfresh.flutter_hybrid.interfaces.IContainerManager
 import cn.missfresh.flutter_hybrid.interfaces.IFlutterHybridViewProvider
-import cn.missfresh.flutter_hybrid.messaging.FlutterLifecycleMessager
 import cn.missfresh.flutter_hybrid.messaging.LifecycleMessager
+import cn.missfresh.flutter_hybrid.messaging.DataMessager
 import cn.missfresh.flutter_hybrid.messaging.MessagerProxy
 import com.alibaba.fastjson.JSON
 import io.flutter.plugin.common.MethodCall
@@ -30,12 +30,13 @@ class FlutterHybridPlugin : MethodCallHandler, Application.ActivityLifecycleCall
         val holder = FlutterHybridPlugin()
     }
 
-    private var kRid = 0
     private lateinit var mViewProvider: IFlutterHybridViewProvider
     private lateinit var mManager: IContainerManager
     private lateinit var mAppInfo: IAppInfo
     private lateinit var mMessagerProxy: MessagerProxy
-    private lateinit var mLifecycleMessager: FlutterLifecycleMessager
+    private lateinit var mLifecycleMessager: LifecycleMessager
+    private lateinit var mDataMessager: DataMessager
+
     var isFirstLoad = true
 
     private var mCurrentActiveActivity: Activity? = null
@@ -55,14 +56,20 @@ class FlutterHybridPlugin : MethodCallHandler, Application.ActivityLifecycleCall
         channel.setMethodCallHandler(instance)
 
         mMessagerProxy = MessagerProxy(channel)
-        mMessagerProxy.addMessager(LifecycleMessager())
 
-        mLifecycleMessager = FlutterLifecycleMessager()
+        mDataMessager = DataMessager()
+        mMessagerProxy.addMessager(mDataMessager)
+
+        mLifecycleMessager = LifecycleMessager()
         mMessagerProxy.addMessager(mLifecycleMessager)
     }
 
-    fun lifecycleMessager(): FlutterLifecycleMessager {
+    fun lifecycleMessager(): LifecycleMessager {
         return mLifecycleMessager
+    }
+
+    fun dataMessage(): DataMessager {
+        return mDataMessager
     }
 
     fun viewProvider(): IFlutterHybridViewProvider {

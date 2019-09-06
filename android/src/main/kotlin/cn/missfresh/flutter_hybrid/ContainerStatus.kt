@@ -1,7 +1,6 @@
 package cn.missfresh.flutter_hybrid
 
 import android.os.Handler
-import cn.missfresh.flutter_hybrid.interfaces.IContainerManager
 import cn.missfresh.flutter_hybrid.interfaces.IContainerStatus
 import cn.missfresh.flutter_hybrid.interfaces.IFlutterViewContainer
 
@@ -19,7 +18,7 @@ class ContainerStatus : IContainerStatus {
 
     private val mHandler = Handler()
 
-    constructor(manager: IContainerManager, container: IFlutterViewContainer) {
+    constructor(container: IFlutterViewContainer) {
         mContainer = container
         mUniqueId = System.currentTimeMillis().toString() + "_" + hashCode()
     }
@@ -75,16 +74,28 @@ class ContainerStatus : IContainerStatus {
 
         fun create() {
             if (containerStatus == ContainerStatusEnum.STATE_UNKNOW) {
-                FlutterHybridPlugin.instance.lifecycleMessager().invokeMethod("nativePageDidInit", mContainer.getContainerName(), mContainer.getContainerParams(), mUniqueId)
+
+                FlutterHybridPlugin.instance.lifecycleMessager().invokeMethod(
+                        "nativePageDidInit", mContainer.getContainerName(),
+                        mContainer.getContainerParams(), mUniqueId)
+
                 Logger.e("nativePageDidInit")
+
                 containerStatus = ContainerStatusEnum.STATE_CREATED
-                FlutterHybridPlugin.instance.lifecycleMessager().invokeMethod("nativePageWillAppear", mContainer.getContainerName(), mContainer.getContainerParams(), mUniqueId)
+
+                FlutterHybridPlugin.instance.lifecycleMessager().invokeMethod(
+                        "nativePageWillAppear", mContainer.getContainerName(),
+                        mContainer.getContainerParams(), mUniqueId)
             }
         }
 
         fun appear() {
             mHandler.postDelayed({
-                FlutterHybridPlugin.instance.lifecycleMessager().invokeMethod("nativePageDidAppear", mContainer.getContainerName(), mContainer.getContainerParams(), mUniqueId)
+
+                FlutterHybridPlugin.instance.lifecycleMessager().invokeMethod(
+                        "nativePageDidAppear", mContainer.getContainerName(),
+                        mContainer.getContainerParams(), mUniqueId)
+
             }, 10)
             Logger.e("nativePageDidAppear")
             containerStatus = ContainerStatusEnum.STATE_APPEAR
@@ -92,8 +103,16 @@ class ContainerStatus : IContainerStatus {
 
         fun disappear() {
             if (containerStatus < ContainerStatusEnum.STATE_DISAPPEAR) {
-                FlutterHybridPlugin.instance.lifecycleMessager().invokeMethod("nativePageWillDisappear", mContainer.getContainerName(), mContainer.getContainerParams(), mUniqueId)
-                FlutterHybridPlugin.instance.lifecycleMessager().invokeMethod("nativePageDidDisappear", mContainer.getContainerName(), mContainer.getContainerParams(), mUniqueId)
+
+                FlutterHybridPlugin.instance.lifecycleMessager().invokeMethod(
+                        "nativePageWillDisappear", mContainer.getContainerName(),
+                        mContainer.getContainerParams(), mUniqueId)
+
+
+                FlutterHybridPlugin.instance.lifecycleMessager().invokeMethod(
+                        "nativePageDidDisappear", mContainer.getContainerName(),
+                        mContainer.getContainerParams(), mUniqueId)
+
                 Logger.e("nativePageDidDisappear")
                 containerStatus = ContainerStatusEnum.STATE_DISAPPEAR
             }
@@ -101,7 +120,11 @@ class ContainerStatus : IContainerStatus {
 
         fun destroy() {
             if (containerStatus < ContainerStatusEnum.STATE_DESTROYED) {
-                FlutterHybridPlugin.instance.lifecycleMessager().invokeMethod("nativePageWillDealloc", mContainer.getContainerName(), mContainer.getContainerParams(), mUniqueId)
+
+                FlutterHybridPlugin.instance.lifecycleMessager().invokeMethod(
+                        "nativePageWillDealloc", mContainer.getContainerName(),
+                        mContainer.getContainerParams(), mUniqueId)
+
                 Logger.e("nativePageWillDealloc")
                 containerStatus = ContainerStatusEnum.STATE_DESTROYED
             }

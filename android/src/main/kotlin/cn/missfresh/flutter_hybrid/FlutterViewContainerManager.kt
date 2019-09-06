@@ -12,7 +12,6 @@ import io.flutter.plugin.common.PluginRegistry
 import io.flutter.view.FlutterMain
 import io.flutter.view.FlutterRunArguments
 import java.lang.ref.WeakReference
-import java.util.HashMap
 import java.util.HashSet
 import java.util.LinkedHashMap
 
@@ -33,7 +32,7 @@ class FlutterViewContainerManager : IContainerManager {
     override fun onContainerCreate(container: IFlutterViewContainer): PluginRegistry {
         assertCallOnMainThread()
 
-        val record = ContainerStatus(this, container)
+        val record = ContainerStatus(container)
         if (mStatusList.put(container, record) != null) {
             Logger.e("container:" + container.getContainerName() + " already exists!")
             return PluginRegistryImpl(container.getCurrActivity(), container.getFHFlutterView())
@@ -107,7 +106,7 @@ class FlutterViewContainerManager : IContainerManager {
         mStatusList[container]?.apply {
             when (containerStatus()) {
                 ContainerStatusEnum.STATE_UNKNOW.status -> onCreate()
-                ContainerStatusEnum.STATE_CREATED.status  -> onAppear()
+                ContainerStatusEnum.STATE_CREATED.status -> onAppear()
                 ContainerStatusEnum.STATE_APPEAR.status -> onDisappear()
                 ContainerStatusEnum.STATE_DISAPPEAR.status -> onDestroy()
             }
@@ -130,10 +129,9 @@ class FlutterViewContainerManager : IContainerManager {
         assertCallOnMainThread()
 
         mStatusList[container]?.let {
-            val map = HashMap<String, String>()
-            map["name"] = container.getContainerName()
-            map["uniqueId"] = it.uniqueId()
 
+            FlutterHybridPlugin.instance.dataMessage().invokeMethod("backButtonPressed",
+                    container.getContainerName(), container.getContainerParams(), it.uniqueId())
         }
     }
 

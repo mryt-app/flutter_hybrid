@@ -80,7 +80,7 @@ abstract class FlutterViewStub(context: Context) : FrameLayout(context) {
     }
 
     fun onContainerDisappear() {
-        Logger.e("onContainerDisappear")
+
     }
 
     fun snapshot() {
