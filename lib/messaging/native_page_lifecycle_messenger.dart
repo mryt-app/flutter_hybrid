@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hybrid/messaging/native_messenger.dart';
 import 'package:flutter_hybrid/messaging/native_page_event_handler.dart';
-import 'package:flutter_hybrid/support/logger.dart';
 
 class NativePageLifecycleMessenger implements NativeMessenger {
   final Set<NativePageLifecycleEventHandler> _eventHandlers =

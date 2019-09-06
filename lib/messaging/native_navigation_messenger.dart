@@ -1,14 +1,35 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hybrid/messaging/native_messenger.dart';
+import 'package:flutter_hybrid/messaging/native_page_event_handler.dart';
 
 class NativeNavigationMessenger implements NativeMessenger {
   MethodChannel _channel;
+  final Set<NativePageNavigationEventHandler> _eventHandlers =
+      Set<NativePageNavigationEventHandler>();
+
+  VoidCallback addEventHandler(NativePageNavigationEventHandler eventHandler) {
+    _eventHandlers.add(eventHandler);
+    return () => _eventHandlers.remove(eventHandler);
+  }
+
+  void removeEventHandler(NativePageNavigationEventHandler eventHandler) {
+    _eventHandlers.remove(eventHandler);
+  }
 
   // NativeMessenger
 
   @override
   Future<void> handleMethodCall(String method, dynamic arguments) {
-    // TODO: implement handleMethodCall
+    String pageId = arguments['uniqueID'];
+    for (NativePageNavigationEventHandler eventHandler in _eventHandlers) {
+      switch (method) {
+        case 'backButtonPressed':
+          eventHandler.nativePageBackButtonDidPressed(pageId);
+          break;
+        default:
+      }
+    }
     return null;
   }
 
@@ -19,6 +40,8 @@ class NativeNavigationMessenger implements NativeMessenger {
   void setMethodChannel(MethodChannel channel) {
     _channel = channel;
   }
+
+  // Method handle
 
   // Public
 
