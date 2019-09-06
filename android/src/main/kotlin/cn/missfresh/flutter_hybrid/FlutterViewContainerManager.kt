@@ -152,21 +152,11 @@ class FlutterViewContainerManager : IContainerManager {
         }
     }
 
-    override fun onContainerResult(container: IFlutterViewContainer, result: Map<*, *>) {
-        mStatusList[container]?.let {
-            it.onResult(result)
-        }
-    }
-
-    override fun setContainerResult(uniqueId: String, result: Map<*, *>?) {
-        //todo
-    }
-
-    override fun getCurrentTopRecord(): IContainerStatus? {
+    override fun getCurrentTopStatus(): IContainerStatus? {
         return mCurrentStatus
     }
 
-    override fun getLastRecord(): IContainerStatus? {
+    override fun getLastContainerStatus(): IContainerStatus? {
         val values = mStatusList.values
         if (!values.isEmpty()) {
             val array = ArrayList(values)

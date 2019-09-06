@@ -38,7 +38,7 @@ abstract class FHFlutterActivity : FlutterActivity(), IFlutterViewContainer {
     }
 
     override fun createFlutterView(context: Context?): FlutterView {
-        return  FlutterHybridPlugin.instance.viewProvider().createFlutterView(this)
+        return FlutterHybridPlugin.instance.viewProvider().createFlutterView(this)
     }
 
     override fun createFlutterNativeView(): FlutterNativeView {
@@ -102,6 +102,7 @@ abstract class FHFlutterActivity : FlutterActivity(), IFlutterViewContainer {
         init {
             setBackgroundColor(Color.WHITE)
         }
+
         override val getFHFlutterView: FHFlutterView
             get() = this@FHFlutterActivity.getFHFlutterView()
 

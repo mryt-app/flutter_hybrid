@@ -16,30 +16,9 @@ import java.util.HashMap
  */
 class FHFlutterView : FlutterView {
 
-    private var mFirstFrame = false
-    var isResumed = false
-    private lateinit var mFlutterHybridCallback: FlutterHybridCallback
+    private var isResumed = false
 
-
-    constructor(context: Context, attrs: AttributeSet?, nativeView: FlutterNativeView) : super(context, attrs, nativeView) {
-        addFirstFrameListener { mFirstFrame = true }
-
-        try {
-            val field = FlutterView::class.java.getDeclaredField("mSurfaceCallback")
-            field.isAccessible = true
-            val cb = field.get(this) as SurfaceHolder.Callback
-            holder.removeCallback(cb)
-            mFlutterHybridCallback = FlutterHybridCallback(cb)
-            holder.addCallback(mFlutterHybridCallback)
-        } catch (t: Throwable) {
-            Logger.e(t.toString())
-        }
-
-    }
-
-    fun firstFrameCalled(): Boolean {
-        return mFirstFrame
-    }
+    constructor(context: Context, attrs: AttributeSet?, nativeView: FlutterNativeView) : super(context, attrs, nativeView)
 
     override fun onPostResume() {
         super.onPostResume()
@@ -72,43 +51,6 @@ class FHFlutterView : FlutterView {
             return null
         }
         return super.getBitmap()
-    }
-
-    fun scheduleFrame() {
-        if (isResumed) {
-            val map = HashMap<String, String>()
-            map["type"] = "scheduleFrame"
-            // todo
-            //NavigationService.getService().emitEvent(map)
-        }
-    }
-
-    internal inner class FlutterHybridCallback(private val callback: SurfaceHolder.Callback) : SurfaceHolder.Callback {
-
-        override fun surfaceCreated(holder: SurfaceHolder) {
-            try {
-                callback.surfaceCreated(holder)
-            } catch (t: Throwable) {
-                Logger.e(t.toString())
-            }
-        }
-
-        override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
-            try {
-                callback.surfaceChanged(holder, format, width, height)
-                scheduleFrame()
-            } catch (t: Throwable) {
-                Logger.e(t.toString())
-            }
-        }
-
-        override fun surfaceDestroyed(holder: SurfaceHolder) {
-            try {
-                callback.surfaceDestroyed(holder)
-            } catch (t: Throwable) {
-                Logger.e(t.toString())
-            }
-        }
     }
 
     override fun onAttachedToWindow() {

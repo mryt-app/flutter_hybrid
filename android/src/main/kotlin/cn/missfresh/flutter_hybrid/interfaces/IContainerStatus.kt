@@ -19,6 +19,4 @@ interface IContainerStatus {
     fun containerStatus(): Int
 
     fun uniqueId(): String
-
-    fun onResult(Result: Map<*, *>)
 }

@@ -6,12 +6,10 @@ import android.graphics.Color
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
-import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
-import android.widget.ProgressBar
 import cn.missfresh.flutter_hybrid.FlutterHybridPlugin
 import cn.missfresh.flutter_hybrid.Logger
 import cn.missfresh.flutter_hybrid.view.FHFlutterView
@@ -68,7 +66,6 @@ abstract class FlutterViewStub(context: Context) : FrameLayout(context) {
                 }
             }
         }
-        getFHFlutterView.scheduleFrame()
         getFHFlutterView.requestFocus()
         getFHFlutterView.invalidate()
     }

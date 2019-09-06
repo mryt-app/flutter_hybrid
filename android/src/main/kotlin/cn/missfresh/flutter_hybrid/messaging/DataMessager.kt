@@ -76,11 +76,11 @@ class DataMessager : IMessager {
         val pageInfo = HashMap<String, Any>()
         try {
             var containerStatus = FlutterHybridPlugin
-                    .instance.containerManager().getCurrentTopRecord()
+                    .instance.containerManager().getCurrentTopStatus()
 
             if (containerStatus == null) {
                 containerStatus = FlutterHybridPlugin.instance
-                        .containerManager().getLastRecord()
+                        .containerManager().getLastContainerStatus()
             }
 
             containerStatus?.apply {

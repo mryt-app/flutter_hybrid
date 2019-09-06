@@ -44,7 +44,7 @@ class ContainerStatus : IContainerStatus {
          * If current container is finishing, we should call destroy flutter page early.
          */
         if (mContainer.isFinishing()) {
-            mHandler.post(Runnable { mProxy.destroy() })
+            mHandler.post { mProxy.destroy() }
         }
     }
 
@@ -63,10 +63,6 @@ class ContainerStatus : IContainerStatus {
 
     override fun uniqueId(): String {
         return mUniqueId
-    }
-
-    override fun onResult(Result: Map<*, *>) {
-        //NavigationService.onNativePageResult(genResult("onNativePageResult"), mUniqueId, mUniqueId, kotlin.Result, mContainer.getContainerParams())
     }
 
     private inner class LifecycleProxy {

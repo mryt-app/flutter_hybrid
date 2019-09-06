@@ -20,13 +20,9 @@ interface IContainerManager {
 
     fun destroyContainerRecord(name: String, uq: String)
 
-    fun onContainerResult(container: IFlutterViewContainer, result: Map<*, *>)
+    fun getCurrentTopStatus(): IContainerStatus?
 
-    fun setContainerResult(uniqueId: String, result: Map<*, *>?)
-
-    fun getCurrentTopRecord(): IContainerStatus?
-
-    fun getLastRecord(): IContainerStatus?
+    fun getLastContainerStatus(): IContainerStatus?
 
     fun findContainerById(uniqueId: String): IFlutterViewContainer?
 
