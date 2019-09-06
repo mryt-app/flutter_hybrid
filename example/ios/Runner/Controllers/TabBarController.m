@@ -22,12 +22,12 @@
     
     NativeViewController *nativeVC = [NativeViewController new];
     nativeVC.title = @"Native";
-    nativeVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Native" image:nil tag:1];
+    nativeVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Native" image:[[UIImage imageNamed:@"apple_icon"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] tag:1];
     UINavigationController *nativeNav = [[NavigationController alloc] initWithRootViewController:nativeVC];
     
     FLHFlutterContainerViewController *flutterVC = [[FLHFlutterContainerViewController alloc] initWithRoute:@"/flutterPage" params:nil];
     flutterVC.title = @"Flutter";
-    flutterVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"FlutterPage" image:nil tag:2];
+    flutterVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"FlutterPage" image:[[UIImage imageNamed:@"flutter_icon"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] tag:2];
     UINavigationController *flutterNav = [[NavigationController alloc] initWithRootViewController:flutterVC];
     
     self.viewControllers = @[ nativeNav, flutterNav ];

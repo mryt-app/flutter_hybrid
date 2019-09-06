@@ -56,6 +56,7 @@ class FlutterHybrid {
       ..addMessenger(_nativeNavigationMessenger);
 
     _nativePageLifecycleObserver.addEventHandler(_pageCoordinator);
+    _nativeNavigationMessenger.addEventHandler(_pageCoordinator);
 
     _pageCoordinator.showStartPageIfNeeded();
   }

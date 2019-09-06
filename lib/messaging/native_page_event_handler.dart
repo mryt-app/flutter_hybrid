@@ -6,3 +6,7 @@ abstract class NativePageLifecycleEventHandler {
   bool nativePageDidDisappear(String routeName, Map params, String pageId);
   bool nativePageWillDealloc(String routeName, Map params, String pageId);
 }
+
+abstract class NativePageNavigationEventHandler {
+  void nativePageBackButtonDidPressed(String pageId);
+}

@@ -154,13 +154,13 @@ class HybridPageState extends NavigatorState {
     super.dispose();
   }
 
-  void onBackPressed() {
+  void onBackButtonPressed() {
     Logger.debug('onBackPressed');
     if (_backPressedListeners.isEmpty) {
       pop();
     } else {
-      for (VoidCallback cb in _backPressedListeners) {
-        cb();
+      for (VoidCallback callback in _backPressedListeners) {
+        callback();
       }
     }
   }

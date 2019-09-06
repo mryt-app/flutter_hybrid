@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hybrid/flutter_hybrid.dart';
 import 'package:flutter_hybrid/messaging/native_page_event_handler.dart';
@@ -7,7 +5,7 @@ import 'package:flutter_hybrid/page/hybrid_page.dart';
 import 'package:flutter_hybrid/page/hybrid_page_route.dart';
 import 'package:flutter_hybrid/support/logger.dart';
 
-class HybridPageCoordinator implements NativePageLifecycleEventHandler {
+class HybridPageCoordinator implements NativePageLifecycleEventHandler, NativePageNavigationEventHandler {
   final Map<String, PageBuilder> _pageBuilders = <String, PageBuilder>{};
   PageBuilder _defaultPageBuilder;
 
@@ -78,6 +76,12 @@ class HybridPageCoordinator implements NativePageLifecycleEventHandler {
       notifyObservers(_createPageSettings(routeName, params, pageId), HybridPageLifecycle.destroy);
     FlutterHybrid.pageContainer.remove(pageId);
     return true;
+  }
+
+  // NativePageNavigationEventHandler
+  @override
+  void nativePageBackButtonDidPressed(String pageId) {
+    FlutterHybrid.pageContainer.pageStateOf(pageId)?.onBackButtonPressed();
   }
 
   // Public
