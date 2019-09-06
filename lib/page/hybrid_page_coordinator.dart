@@ -89,7 +89,7 @@ class HybridPageCoordinator implements NativePageLifecycleEventHandler {
   /// The first native page may notify flutter before the flutter initialized,
   /// we fetch the first page info, and guarantee it visible.
   void showStartPageIfNeeded() async {
-    final Map<String, dynamic> pageInfo = await FlutterHybrid.sharedInstance
+    final Map<dynamic, dynamic> pageInfo = await FlutterHybrid.sharedInstance
       .nativeNavigationMessenger.fetchStartPageInfo();
     if (pageInfo == null || pageInfo.isEmpty) {
       return;

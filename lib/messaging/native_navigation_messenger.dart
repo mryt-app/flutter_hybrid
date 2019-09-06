@@ -30,9 +30,9 @@ class NativeNavigationMessenger implements NativeMessenger {
     }
   }
 
-  Future<Map<String, dynamic>> fetchStartPageInfo() async {
+  Future<Map<dynamic, dynamic>> fetchStartPageInfo() async {
     try {
-      Map<String, dynamic> pageInfo = await _invokeMethod('fetchStartPageInfo', null);
+      Map<dynamic, dynamic> pageInfo = await _invokeMethod('fetchStartPageInfo', null);
       return pageInfo;
     } on PlatformException catch (e) {
       throw 'Unable to call native method:fetchStartPageInfo, error: $e';

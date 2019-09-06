@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/holo_blue_bright"
+        android:gravity="center"
+        android:padding="30dp"
+        android:text="NativeActivity" />
+
+    <TextView
+        android:id="@+id/tv_open_native_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="30dp"
+        android:text="open native page" />
+
+    <TextView
+        android:id="@+id/tv_open_flutter_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="30dp"
+        android:text="open flutter activity" />
+
+    <TextView
+        android:id="@+id/tv_open_flutter_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="30dp"
+        android:text="open flutter fragment" />
+</LinearLayout>

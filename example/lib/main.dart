@@ -3,6 +3,8 @@ import 'package:flutter_hybrid/flutter_hybrid.dart';
 import 'package:flutter_hybrid_example/color_page.dart';
 import 'package:flutter_hybrid_example/counter.dart';
 import 'package:flutter_hybrid_example/flutter_page.dart';
+import 'package:flutter_hybrid/support/logger.dart';
+import 'package:flutter_hybrid_example/flutter_fragment.dart';
 
 void main() => runApp(MyApp());
 
@@ -18,8 +20,10 @@ class _MyAppState extends State<MyApp> {
 
     FlutterHybrid.sharedInstance.registerPageBuilders({
       '/counter': (routeName, params, _) => CounterPage(),
-      '/colorPage': (routeName, params, _) => ColorPage(color: Color(params['color'])),
+      '/colorPage': (routeName, params, _) =>
+          ColorPage(color: Color(params['color'])),
       '/flutterPage': (routeName, params, _) => FlutterPage(),
+      'flutterFragment': (pageName, params, _) => FragmentRouteWidget(params),
     });
     FlutterHybrid.sharedInstance.startRun();
   }
