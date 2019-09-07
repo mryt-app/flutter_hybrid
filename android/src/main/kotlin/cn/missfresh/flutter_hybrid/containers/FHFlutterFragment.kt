@@ -5,14 +5,10 @@ import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
-import android.widget.ProgressBar
 import cn.missfresh.flutter_hybrid.FlutterHybridPlugin
-import cn.missfresh.flutter_hybrid.Logger
 import cn.missfresh.flutter_hybrid.interfaces.IFlutterViewContainer
 import cn.missfresh.flutter_hybrid.view.FHFlutterView
 
@@ -30,9 +26,9 @@ abstract class FHFlutterFragment : Fragment(), IFlutterViewContainer {
         onRegisterPlugins(FlutterHybridPlugin.instance.containerManager().onContainerCreate(this))
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        mContent = FlutterContent(activity)
+        mContent = FlutterContent(activity!!)
         return mContent
     }
 
@@ -42,7 +38,6 @@ abstract class FHFlutterFragment : Fragment(), IFlutterViewContainer {
             resumed = true
             FlutterHybridPlugin.instance.containerManager().onContainerAppear(this)
             mContent.attachFlutterView(getFHFlutterView())
-            Logger.d("FHFlutterFragment onResume")
         }
     }
 
@@ -52,7 +47,6 @@ abstract class FHFlutterFragment : Fragment(), IFlutterViewContainer {
             resumed = false
             mContent.snapshot()
             FlutterHybridPlugin.instance.containerManager().onContainerDisappear(this)
-            Logger.d("FHFlutterFragment onPause")
         }
     }
 
@@ -67,7 +61,7 @@ abstract class FHFlutterFragment : Fragment(), IFlutterViewContainer {
     }
 
     override fun getCurrActivity(): Activity {
-        return activity
+        return context as Activity
     }
 
     override fun onContainerAppear() {
@@ -79,7 +73,7 @@ abstract class FHFlutterFragment : Fragment(), IFlutterViewContainer {
     }
 
     override fun isFinishing(): Boolean {
-        return activity.isFinishing
+        return (context as Activity).isFinishing
     }
 
     protected fun createFlutterInitCoverView(): View {

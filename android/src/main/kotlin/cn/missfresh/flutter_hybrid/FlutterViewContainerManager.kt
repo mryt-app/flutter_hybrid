@@ -34,7 +34,7 @@ class FlutterViewContainerManager : IContainerManager {
 
         val record = ContainerStatus(container)
         if (mStatusList.put(container, record) != null) {
-            Logger.e("container:" + container.getContainerName() + " already exists!")
+            Logger.e("container ${container.getContainerName()} already exists!")
             return PluginRegistryImpl(container.getCurrActivity(), container.getFHFlutterView())
         }
 
@@ -104,11 +104,13 @@ class FlutterViewContainerManager : IContainerManager {
 
     private fun handleStatusToLifecycle(container: IFlutterViewContainer) {
         mStatusList[container]?.apply {
-            when (containerStatus()) {
-                ContainerStatusEnum.STATE_UNKNOW.status -> onCreate()
-                ContainerStatusEnum.STATE_CREATED.status -> onAppear()
-                ContainerStatusEnum.STATE_APPEAR.status -> onDisappear()
-                ContainerStatusEnum.STATE_DISAPPEAR.status -> onDestroy()
+            when {
+                containerStatus() == ContainerStatusEnum.STATE_UNKNOW.status -> onCreate()
+                containerStatus() == ContainerStatusEnum.STATE_CREATED.status
+                        // Fixed back key unable to respond to clicks when rolling back to the last FHFlutterFragment page
+                        || containerStatus() != ContainerStatusEnum.STATE_DISAPPEAR.status -> onAppear()
+                containerStatus() == ContainerStatusEnum.STATE_APPEAR.status -> onDisappear()
+                containerStatus() == ContainerStatusEnum.STATE_DISAPPEAR.status -> onDestroy()
             }
             mCurrentStatus = this
         }

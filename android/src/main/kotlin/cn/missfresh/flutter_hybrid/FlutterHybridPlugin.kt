@@ -37,8 +37,6 @@ class FlutterHybridPlugin : MethodCallHandler, Application.ActivityLifecycleCall
     private lateinit var mLifecycleMessager: LifecycleMessager
     private lateinit var mDataMessager: DataMessager
 
-    var isFirstLoad = true
-
     private var mCurrentActiveActivity: Activity? = null
 
 
@@ -93,10 +91,6 @@ class FlutterHybridPlugin : MethodCallHandler, Application.ActivityLifecycleCall
         var ctx: Context? = context
         if (ctx == null) {
             ctx = currentActivity()
-        }
-
-        if (ctx == null) {
-            ctx = instance.mAppInfo?.getMainActivity()
         }
 
         if (ctx == null) {

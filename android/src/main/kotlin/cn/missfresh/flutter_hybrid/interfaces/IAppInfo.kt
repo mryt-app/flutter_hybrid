@@ -1,6 +1,5 @@
 package cn.missfresh.flutter_hybrid.interfaces
 
-import android.app.Activity
 import android.app.Application
 import android.content.Context
 
@@ -9,8 +8,6 @@ import android.content.Context
  * on 2019-09-02
  */
 interface IAppInfo {
-
-    fun getMainActivity(): Activity?
 
     fun getApplication(): Application
 

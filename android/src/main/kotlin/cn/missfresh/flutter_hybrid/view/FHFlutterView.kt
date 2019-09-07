@@ -2,13 +2,12 @@ package cn.missfresh.flutter_hybrid.view
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.PixelFormat
 import android.support.v4.view.ViewCompat
 import android.util.AttributeSet
-import android.view.SurfaceHolder
 import cn.missfresh.flutter_hybrid.Logger
 import io.flutter.view.FlutterNativeView
 import io.flutter.view.FlutterView
-import java.util.HashMap
 
 /**
  * Created by sjl
@@ -18,7 +17,11 @@ class FHFlutterView : FlutterView {
 
     private var isResumed = false
 
-    constructor(context: Context, attrs: AttributeSet?, nativeView: FlutterNativeView) : super(context, attrs, nativeView)
+    constructor(context: Context, attrs: AttributeSet?, nativeView: FlutterNativeView) : super(context, attrs, nativeView) {
+        // solve the first time loading a black screen
+        setZOrderOnTop(true)
+        holder.setFormat(PixelFormat.TRANSLUCENT)
+    }
 
     override fun onPostResume() {
         super.onPostResume()

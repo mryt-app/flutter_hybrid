@@ -5,6 +5,7 @@ import cn.missfresh.flutter_hybrid.interfaces.IFlutterHybridViewProvider
 import cn.missfresh.flutter_hybrid.interfaces.IFlutterViewContainer
 import cn.missfresh.flutter_hybrid.view.FHFlutterNativeView
 import cn.missfresh.flutter_hybrid.view.FHFlutterView
+import java.lang.Exception
 
 /**
  * Created by sjl
@@ -17,12 +18,8 @@ class FlutterHybridViewProvider internal constructor(private val mAppInfo: IAppI
     private var mFlutterNativeView: FHFlutterNativeView? = null
 
     override fun createFlutterView(container: IFlutterViewContainer): FHFlutterView {
-        var activity = mAppInfo.getMainActivity()
+        var activity = container.getCurrActivity()
 
-        if (activity == null) {
-            Logger.d("create Flutter View not with MainActivity")
-            activity = container.getCurrActivity()
-        }
         if (mFlutterView == null) {
             mFlutterView = FHFlutterView(activity, null, createFlutterNativeView(container))
         }
@@ -47,7 +44,11 @@ class FlutterHybridViewProvider internal constructor(private val mAppInfo: IAppI
     }
 
     override fun destroy() {
-        mFlutterView?.destroy()
-        mFlutterNativeView?.destroy()
+        try {
+            mFlutterView?.destroy()
+            mFlutterNativeView?.destroy()
+        } catch (e: Exception) {
+            Logger.e("FlutterHybridViewProvider destroy error : $e")
+        }
     }
 }

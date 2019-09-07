@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
-import cn.missfresh.flutter_hybrid.FlutterHybridPlugin
 import cn.missfresh.flutter_hybrid.Logger
 import cn.missfresh.flutter_hybrid.view.FHFlutterView
 
@@ -21,7 +20,7 @@ import cn.missfresh.flutter_hybrid.view.FHFlutterView
 abstract class FlutterViewStub(context: Context) : FrameLayout(context) {
 
     private var mBitmap: Bitmap? = null
-    private lateinit var mSnapshot: ImageView
+    private var mSnapshot: ImageView
     private var mStub: FrameLayout = FrameLayout(context)
     private var mCover: View? = null
 
@@ -36,36 +35,18 @@ abstract class FlutterViewStub(context: Context) : FrameLayout(context) {
         mSnapshot = ImageView(context)
         mSnapshot.scaleType = ImageView.ScaleType.FIT_CENTER
         mSnapshot.layoutParams = LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+
         mCover = initFlutterCoverView()
         addView(mCover, LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
     }
 
     fun onContainerAppear() {
         Logger.d("onContainerAppear")
-
-        if (FlutterHybridPlugin.instance.isFirstLoad) {
-            FlutterHybridPlugin.instance.isFirstLoad = false
-            mHandler.postDelayed({
-                refresh()
-                removeCover()
-            }, 1000)
-        } else {
-            refresh()
-            removeCover()
-        }
+        refresh()
+        removeCover()
     }
 
     private fun refresh() {
-        if (mSnapshot.parent === this@FlutterViewStub) {
-            removeView(mSnapshot)
-            mSnapshot.setImageBitmap(null)
-            mBitmap?.let {
-                if (!it.isRecycled) {
-                    it.recycle()
-                    mBitmap = null
-                }
-            }
-        }
         getFHFlutterView.requestFocus()
         getFHFlutterView.invalidate()
     }
@@ -81,8 +62,9 @@ abstract class FlutterViewStub(context: Context) : FrameLayout(context) {
     }
 
     fun snapshot() {
-        if (mStub.childCount <= 0 || mSnapshot.parent != null)
+        if (mStub.childCount <= 0 || mSnapshot.parent != null) {
             return
+        }
 
         val fhFlutterView = mStub.getChildAt(0) as FHFlutterView
         mBitmap = fhFlutterView?.bitmap
@@ -101,10 +83,9 @@ abstract class FlutterViewStub(context: Context) : FrameLayout(context) {
     }
 
     fun attachFlutterView(flutterView: FHFlutterView) {
+        Logger.d("attachFlutterView")
         if (flutterView.parent !== mStub) {
             mHandler.removeMessages(ViewStatusHandler.MSG_DETACH)
-
-            Logger.d("attachFlutterView")
 
             flutterView.parent?.let {
                 (it as ViewGroup).removeView(flutterView)
@@ -116,34 +97,37 @@ abstract class FlutterViewStub(context: Context) : FrameLayout(context) {
 
 
     fun detachFlutterView() {
+        Logger.d("detachFlutterView")
         if (mStub?.childCount <= 0) {
             return
         }
 
         val fhFlutterView = mStub.getChildAt(0) as FHFlutterView
 
-        if (mSnapshot.parent == null) {
-            mBitmap = fhFlutterView?.bitmap
-            mBitmap?.let {
-                if (!it.isRecycled) {
-                    mSnapshot.setImageBitmap(it)
-                    Logger.d("snapshot view")
-                    addView(mSnapshot)
+        fhFlutterView?.let {
+            if (mSnapshot.parent == null) {
+                mBitmap = it.bitmap
+                mBitmap?.let { bitmap ->
+                    if (!bitmap.isRecycled) {
+                        mSnapshot.setImageBitmap(bitmap)
+                        Logger.d("snapshot view")
+                        addView(mSnapshot)
+                    }
                 }
             }
-        }
 
-        val msg = Message()
-        msg.what = ViewStatusHandler.MSG_DETACH
-        msg.obj = Runnable {
-            fhFlutterView?.parent?.let {
-                if (it == mStub) {
-                    Logger.d("detachFlutterView")
-                    mStub.removeView(fhFlutterView)
+            val msg = Message()
+            msg.what = ViewStatusHandler.MSG_DETACH
+            msg.obj = Runnable {
+                fhFlutterView?.parent?.let {
+                    if (it == mStub) {
+                        Logger.d("detachFlutterView")
+                        mStub.removeView(fhFlutterView)
+                    }
                 }
             }
+            mHandler.sendMessageDelayed(msg, 18)
         }
-        mHandler.sendMessageDelayed(msg, 18)
     }
 
     fun removeViews() {

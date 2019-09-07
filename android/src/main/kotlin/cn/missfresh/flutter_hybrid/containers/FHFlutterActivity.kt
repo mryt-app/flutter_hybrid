@@ -4,14 +4,9 @@ import android.app.Activity
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
-import android.view.Gravity
 import android.view.View
-import android.view.ViewGroup
 import android.view.Window
-import android.widget.FrameLayout
-import android.widget.ProgressBar
 import cn.missfresh.flutter_hybrid.FlutterHybridPlugin
-import cn.missfresh.flutter_hybrid.Logger
 import cn.missfresh.flutter_hybrid.interfaces.IFlutterViewContainer
 import cn.missfresh.flutter_hybrid.view.FHFlutterView
 import io.flutter.app.FlutterActivity

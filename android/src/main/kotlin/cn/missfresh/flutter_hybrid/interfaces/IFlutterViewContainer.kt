@@ -10,10 +10,6 @@ import io.flutter.plugin.common.PluginRegistry
  */
 interface IFlutterViewContainer {
 
-    companion object {
-        const val RESULT_KEY = "_flutter_hybrid_result_"
-    }
-
     fun getContainerName(): String
 
     fun getContainerParams(): Map<String, Any>
