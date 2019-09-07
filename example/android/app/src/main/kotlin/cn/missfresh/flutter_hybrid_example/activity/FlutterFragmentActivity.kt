@@ -22,9 +22,11 @@ class FlutterFragmentActivity : AppCompatActivity() {
 
         mFragment = FlutterFragment.instance("hello world")
 
-        supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.fragment_stub, mFragment)
-                .commit()
+        mFragment?.let {
+            supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.fragment_stub, mFragment!!)
+                    .commit()
+        }
     }
 }

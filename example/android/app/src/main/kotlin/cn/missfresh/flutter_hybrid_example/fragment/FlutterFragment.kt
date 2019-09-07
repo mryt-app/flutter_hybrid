@@ -35,12 +35,14 @@ class FlutterFragment : FHFlutterFragment() {
 
     override fun getContainerParams(): Map<String, Any> {
         val params = HashMap<String, String>()
-        params["tag"] = arguments.getString("tag")
+        arguments?.let {
+            params["tag"] = it.getString("tag")
+        }
         return params
     }
 
     override fun destroyContainerView() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     override fun onRegisterPlugins(registry: PluginRegistry) {

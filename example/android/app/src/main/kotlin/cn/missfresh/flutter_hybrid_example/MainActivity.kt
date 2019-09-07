@@ -1,25 +1,35 @@
 package cn.missfresh.flutter_hybrid_example
 
+import android.app.Application
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import cn.missfresh.flutter_hybrid.FlutterHybridPlugin
-import cn.missfresh.flutter_hybrid.Logger
+import cn.missfresh.flutter_hybrid.interfaces.IAppInfo
 import cn.missfresh.flutter_hybrid_example.util.RouterUtil
-
 import io.flutter.app.FlutterActivity
 import io.flutter.plugins.GeneratedPluginRegistrant
 import kotlinx.android.synthetic.main.main_activity.*
-import java.lang.ref.WeakReference
 
 class MainActivity : FlutterActivity(), View.OnClickListener {
 
-    companion object {
-        var sRef: WeakReference<MainActivity>? = null
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sRef = WeakReference(this)
+
+        FlutterHybridPlugin.instance.init(object : IAppInfo {
+
+            override fun getApplication(): Application {
+                return application
+            }
+
+            override fun isDebug(): Boolean {
+                return true
+            }
+
+            override fun startActivity(context: Context, url: String, requestCode: Int): Boolean {
+                return RouterUtil.openPageByUrl(context, url, requestCode)
+            }
+        })
 
         setContentView(R.layout.main_activity)
         initView()
@@ -43,8 +53,6 @@ class MainActivity : FlutterActivity(), View.OnClickListener {
 
     override fun onDestroy() {
         super.onDestroy()
-        FlutterHybridPlugin.instance.destroy()
-        sRef?.clear()
-        sRef = null
+        FlutterHybridPlugin.instance.viewProvider().destroy()
     }
 }
