@@ -32,16 +32,16 @@ class FHFlutterView : FlutterView {
         if (!isResumed) {
             isResumed = true
             super.onPostResume()
-            Logger.d("resume flutter view")
         }
+        Logger.d("resume flutter view")
     }
 
     fun stopFlutterView() {
         if (isResumed) {
             isResumed = false
             super.onStop()
-            Logger.d("stop flutter view")
         }
+        Logger.d("stop flutter view")
     }
 
     override fun detach(): FlutterNativeView {
@@ -60,5 +60,4 @@ class FHFlutterView : FlutterView {
         super.onAttachedToWindow()
         ViewCompat.requestApplyInsets(this)
     }
-
 }

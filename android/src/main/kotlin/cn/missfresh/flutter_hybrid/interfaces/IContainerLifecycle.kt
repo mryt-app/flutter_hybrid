@@ -4,7 +4,7 @@ package cn.missfresh.flutter_hybrid.interfaces
  * Created by sjl
  * on 2019-09-02
  */
-interface IContainerStatus {
+interface IContainerLifecycle {
 
     fun onCreate()
 
@@ -16,7 +16,7 @@ interface IContainerStatus {
 
     fun getContainer(): IFlutterViewContainer
 
-    fun containerStatus(): Int
+    fun getState(): Int
 
-    fun uniqueId(): String
+    fun containerId(): String
 }

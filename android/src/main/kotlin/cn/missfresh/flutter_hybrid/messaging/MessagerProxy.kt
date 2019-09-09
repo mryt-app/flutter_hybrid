@@ -11,7 +11,7 @@ class MessagerProxy {
 
     private var mMethodChannel: MethodChannel
 
-    private var messagerSet: HashSet<IMessager> = hashSetOf()
+    private var messagerSet: HashSet<Messager> = hashSetOf()
 
     constructor(methodChannel: MethodChannel) {
         mMethodChannel = methodChannel
@@ -36,12 +36,12 @@ class MessagerProxy {
         }
     }
 
-    fun addMessager(messager: IMessager) {
+    fun addMessager(messager: Messager) {
         messagerSet.add(messager)
         messager.setMethodChannel(mMethodChannel)
     }
 
-    fun removeMessager(messager: IMessager) {
+    fun removeMessager(messager: Messager) {
         messagerSet.remove(messager)
     }
 }

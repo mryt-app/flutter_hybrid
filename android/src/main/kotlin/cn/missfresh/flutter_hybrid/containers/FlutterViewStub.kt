@@ -12,21 +12,19 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import cn.missfresh.flutter_hybrid.Logger
 import cn.missfresh.flutter_hybrid.view.FHFlutterView
+import io.flutter.view.FlutterView
 
 /**
  * Created by sjl
  * on 2019-09-02
  */
-abstract class FlutterViewStub(context: Context) : FrameLayout(context) {
+class FlutterViewStub(context: Context, private val flutterView: FlutterView) : FrameLayout(context) {
 
+    private var mCoverView: View? = null
     private var mBitmap: Bitmap? = null
     private var mSnapshot: ImageView
     private var mStub: FrameLayout = FrameLayout(context)
-    private var mCover: View? = null
-
     private val mHandler: Handler = ViewStatusHandler(Looper.getMainLooper())
-
-    protected abstract val getFHFlutterView: FHFlutterView
 
     init {
         mStub.setBackgroundColor(Color.WHITE)
@@ -36,8 +34,8 @@ abstract class FlutterViewStub(context: Context) : FrameLayout(context) {
         mSnapshot.scaleType = ImageView.ScaleType.FIT_CENTER
         mSnapshot.layoutParams = LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
 
-        mCover = initFlutterCoverView()
-        addView(mCover, LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
+        mCoverView = initFlutterCoverView()
+        addView(mCoverView, LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
     }
 
     fun onContainerAppear() {
@@ -46,19 +44,19 @@ abstract class FlutterViewStub(context: Context) : FrameLayout(context) {
         removeCover()
     }
 
+    fun onContainerDisappear() {
+
+    }
+
     private fun refresh() {
-        getFHFlutterView.requestFocus()
-        getFHFlutterView.invalidate()
+        flutterView.requestFocus()
+        flutterView.invalidate()
     }
 
     private fun removeCover() {
-        mCover?.let {
+        mCoverView?.let {
             removeView(it)
         }
-    }
-
-    fun onContainerDisappear() {
-
     }
 
     fun snapshot() {
@@ -76,7 +74,7 @@ abstract class FlutterViewStub(context: Context) : FrameLayout(context) {
         }
     }
 
-    protected fun initFlutterCoverView(): View {
+    private fun initFlutterCoverView(): View {
         val initCover = View(context)
         initCover.setBackgroundColor(Color.WHITE)
         return initCover
@@ -94,7 +92,6 @@ abstract class FlutterViewStub(context: Context) : FrameLayout(context) {
             mStub.addView(flutterView, LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
         }
     }
-
 
     fun detachFlutterView() {
         Logger.d("detachFlutterView")

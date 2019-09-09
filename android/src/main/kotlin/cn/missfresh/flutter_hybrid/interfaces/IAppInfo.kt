@@ -11,7 +11,8 @@ interface IAppInfo {
 
     fun getApplication(): Application
 
+    fun startActivity(context: Context, url: String, requestCode: Int): Boolean
+
     fun isDebug(): Boolean
 
-    fun startActivity(context: Context, url: String, requestCode: Int): Boolean
 }

@@ -1,19 +1,15 @@
 package cn.missfresh.flutter_hybrid
 
-import android.app.Activity
 import android.os.Handler
 import android.os.Looper
 import android.text.TextUtils
+import cn.missfresh.flutter_hybrid.interfaces.IContainerLifecycle
 import cn.missfresh.flutter_hybrid.interfaces.IContainerManager
-import cn.missfresh.flutter_hybrid.interfaces.IContainerStatus
 import cn.missfresh.flutter_hybrid.interfaces.IFlutterViewContainer
 import cn.missfresh.flutter_hybrid.view.FHFlutterView
 import io.flutter.plugin.common.PluginRegistry
 import io.flutter.view.FlutterMain
 import io.flutter.view.FlutterRunArguments
-import java.lang.ref.WeakReference
-import java.util.HashSet
-import java.util.LinkedHashMap
 
 /**
  * Created by sjl
@@ -21,24 +17,18 @@ import java.util.LinkedHashMap
  */
 class FlutterViewContainerManager : IContainerManager {
 
-    private val mStatusList = LinkedHashMap<IFlutterViewContainer, IContainerStatus>()
+    private var mCurrentStatus: IContainerLifecycle? = null
 
-    private var mCurrentStatus: IContainerStatus? = null
-
-    private val mStatusRefs = HashSet<StatusRef>()
-
-    private val mHandler = Handler(Looper.getMainLooper())
+    private val mStatusList = HashMap<IFlutterViewContainer, IContainerLifecycle>()
 
     override fun onContainerCreate(container: IFlutterViewContainer): PluginRegistry {
         assertCallOnMainThread()
 
-        val record = ContainerStatus(container)
-        if (mStatusList.put(container, record) != null) {
+        val containerLifecycleManager = ContainerLifecycleManager(container)
+        if (mStatusList.put(container, containerLifecycleManager) != null) {
             Logger.e("container ${container.getContainerName()} already exists!")
-            return PluginRegistryImpl(container.getCurrActivity(), container.getFHFlutterView())
+            return PluginRegistryImpl(container.getFHFlutterView())
         }
-
-        mStatusRefs.add(StatusRef(record.uniqueId(), container))
 
         FlutterMain.ensureInitializationComplete(container.getCurrActivity().applicationContext, null)
         val flutterView = FlutterHybridPlugin.instance.viewProvider().createFlutterView(container)
@@ -52,22 +42,40 @@ class FlutterViewContainerManager : IContainerManager {
             }
         }
 
-        handleStatusToLifecycle(container)
+        mStatusList[container]?.apply {
+            if (getState() == ContainerLifecycleEnum.STATE_UN_KNOW.status) {
+                onCreate()
+            }
 
-        return PluginRegistryImpl(container.getCurrActivity(), container.getFHFlutterView())
+            mCurrentStatus = this
+        }
+
+        return PluginRegistryImpl(container.getFHFlutterView())
     }
 
     override fun onContainerAppear(container: IFlutterViewContainer) {
         assertCallOnMainThread()
 
-        handleStatusToLifecycle(container)
+        mStatusList[container]?.apply {
+            //            if (getState() != ContainerLifecycleEnum.STATE_CREATED.status
+//                    && getState() != ContainerLifecycleEnum.STATE_DISAPPEAR.status) {
+            if (getState() != ContainerLifecycleEnum.STATE_CREATED.status) {
+                Logger.e("performAppear state error, current state:" + getState())
+                return
+            }
+            onAppear()
+            mCurrentStatus = this
+        }
     }
 
     override fun onContainerDisappear(container: IFlutterViewContainer) {
         assertCallOnMainThread()
-
-        handleStatusToLifecycle(container)
-
+        mStatusList[container]?.apply {
+            if (getState() == ContainerLifecycleEnum.STATE_APPEAR.status) {
+                onDisappear()
+            }
+            mCurrentStatus = this
+        }
         if (!container.isFinishing()) {
             checkIfFlutterViewNeedStopLater()
         }
@@ -77,7 +85,7 @@ class FlutterViewContainerManager : IContainerManager {
         assertCallOnMainThread()
 
         mCurrentStatus?.let {
-            if (it.getContainer() === container) {
+            if (it.getContainer() == container) {
                 mCurrentStatus = null
             }
         }
@@ -88,39 +96,29 @@ class FlutterViewContainerManager : IContainerManager {
             return
         }
 
-        handleStatusToLifecycle(container)
+        mStatusList[container]?.apply {
+            if (getState() == ContainerLifecycleEnum.STATE_DESTROYED.status) {
+                onDestroy()
+            }
+            mCurrentStatus = this
+        }
 
         checkIfFlutterViewNeedStopLater()
     }
 
     private fun checkIfFlutterViewNeedStopLater() {
-        mHandler.postDelayed({
+        Handler(Looper.getMainLooper()).postDelayed({
             if (!hasContainerAppear()) {
                 FlutterHybridPlugin.instance.viewProvider().stopFlutterView()
             }
         }, 100)
     }
 
-
-    private fun handleStatusToLifecycle(container: IFlutterViewContainer) {
-        mStatusList[container]?.apply {
-            when {
-                containerStatus() == ContainerStatusEnum.STATE_UNKNOW.status -> onCreate()
-                containerStatus() == ContainerStatusEnum.STATE_CREATED.status
-                        // Fixed back key unable to respond to clicks when rolling back to the last FHFlutterFragment page
-                        || containerStatus() != ContainerStatusEnum.STATE_DISAPPEAR.status -> onAppear()
-                containerStatus() == ContainerStatusEnum.STATE_APPEAR.status -> onDisappear()
-                containerStatus() == ContainerStatusEnum.STATE_DISAPPEAR.status -> onDestroy()
-            }
-            mCurrentStatus = this
-        }
-    }
-
     override fun hasContainerAppear(): Boolean {
         assertCallOnMainThread()
 
         for (entry in mStatusList.entries) {
-            if (entry.value.containerStatus() === ContainerStatusEnum.STATE_APPEAR.status) {
+            if (entry.value.getState() === ContainerLifecycleEnum.STATE_APPEAR.status) {
                 return true
             }
         }
@@ -133,16 +131,16 @@ class FlutterViewContainerManager : IContainerManager {
         mStatusList[container]?.let {
 
             FlutterHybridPlugin.instance.dataMessage().invokeMethod("backButtonPressed",
-                    container.getContainerName(), container.getContainerParams(), it.uniqueId())
+                    container.getContainerName(), container.getContainerParams(), it.containerId())
         }
     }
 
-    override fun destroyContainerRecord(name: String, uq: String) {
+    override fun destroyContainer(name: String, uq: String) {
         assertCallOnMainThread()
 
         var done = false
         for (entry in mStatusList.entries) {
-            if (TextUtils.equals(uq, entry.value.uniqueId())) {
+            if (TextUtils.equals(uq, entry.value.containerId())) {
                 entry.key.destroyContainerView()
                 done = true
                 break
@@ -150,41 +148,21 @@ class FlutterViewContainerManager : IContainerManager {
         }
 
         if (!done) {
-            Logger.e("destroyContainerRecord can not find name:$name uniqueId:$uq")
+            Logger.e("destroyContainer can not find name:$name containerId:$uq")
         }
     }
 
-    override fun getCurrentTopStatus(): IContainerStatus? {
+    override fun getCurrentStatus(): IContainerLifecycle? {
         return mCurrentStatus
     }
 
-    override fun getLastContainerStatus(): IContainerStatus? {
+    override fun getLastContainerStatus(): IContainerLifecycle? {
         val values = mStatusList.values
         if (!values.isEmpty()) {
             val array = ArrayList(values)
             return array[array.size - 1]
         }
         return null
-    }
-
-    override fun findContainerById(uniqueId: String): IFlutterViewContainer? {
-        var container: IFlutterViewContainer? = null
-        for (entry in mStatusList.entries) {
-            if (TextUtils.equals(uniqueId, entry.value.uniqueId())) {
-                container = entry.key
-                break
-            }
-        }
-
-        if (container == null) {
-            for (ref in mStatusRefs) {
-                if (TextUtils.equals(uniqueId, ref.uniqueId)) {
-                    return ref.container.get()
-                }
-            }
-        }
-
-        return container
     }
 
     override fun onShownContainerChanged(old: String, now: String) {
@@ -194,11 +172,11 @@ class FlutterViewContainerManager : IContainerManager {
         var nowContainer: IFlutterViewContainer? = null
 
         for (entry in mStatusList.entries) {
-            if (TextUtils.equals(old, entry.value.uniqueId())) {
+            if (TextUtils.equals(old, entry.value.containerId())) {
                 oldContainer = entry.key
             }
 
-            if (TextUtils.equals(now, entry.value.uniqueId())) {
+            if (TextUtils.equals(now, entry.value.containerId())) {
                 nowContainer = entry.key
             }
 
@@ -218,15 +196,7 @@ class FlutterViewContainerManager : IContainerManager {
         }
     }
 
-    class StatusRef internal constructor(val uniqueId: String, container: IFlutterViewContainer) {
-        val container: WeakReference<IFlutterViewContainer>
-
-        init {
-            this.container = WeakReference(container)
-        }
-    }
-
-    class PluginRegistryImpl internal constructor(activity: Activity, private val fhFlutterView: FHFlutterView) : PluginRegistry {
+    class PluginRegistryImpl internal constructor(private val fhFlutterView: FHFlutterView) : PluginRegistry {
 
         override fun registrarFor(pluginKey: String): PluginRegistry.Registrar {
             return fhFlutterView.pluginRegistry.registrarFor(pluginKey)

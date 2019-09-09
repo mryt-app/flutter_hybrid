@@ -2,9 +2,7 @@ package cn.missfresh.flutter_hybrid.containers
 
 import android.app.Activity
 import android.content.Context
-import android.graphics.Color
 import android.os.Bundle
-import android.view.View
 import android.view.Window
 import cn.missfresh.flutter_hybrid.FlutterHybridPlugin
 import cn.missfresh.flutter_hybrid.interfaces.IFlutterViewContainer
@@ -19,13 +17,13 @@ import io.flutter.view.FlutterView
  */
 abstract class FHFlutterActivity : FlutterActivity(), IFlutterViewContainer {
 
-    private lateinit var mFlutterContent: FlutterContent
+    private lateinit var mFlutterContent: FlutterViewStub
 
     override fun onCreate(savedInstanceState: Bundle?) {
         window.requestFeature(Window.FEATURE_NO_TITLE)
         super.onCreate(savedInstanceState)
 
-        mFlutterContent = FlutterContent(this)
+        mFlutterContent = FlutterViewStub(this, FlutterHybridPlugin.instance.viewProvider().createFlutterView(this))
         setContentView(mFlutterContent)
 
         FlutterHybridPlugin.instance.containerManager().onContainerCreate(this)
@@ -37,7 +35,7 @@ abstract class FHFlutterActivity : FlutterActivity(), IFlutterViewContainer {
     }
 
     override fun createFlutterNativeView(): FlutterNativeView {
-        return FlutterHybridPlugin.instance.viewProvider().createFlutterNativeView(this)
+        return FlutterHybridPlugin.instance.viewProvider().getFlutterNativeView(this)
     }
 
     override fun onPostResume() {
@@ -84,25 +82,5 @@ abstract class FHFlutterActivity : FlutterActivity(), IFlutterViewContainer {
 
     override fun retainFlutterNativeView(): Boolean {
         return true
-    }
-
-    fun createFlutterInitCoverView(): View {
-        val initCover = View(this)
-        initCover.setBackgroundColor(Color.WHITE)
-        return initCover
-    }
-
-    internal inner class FlutterContent(context: Context) : FlutterViewStub(context) {
-
-        init {
-            setBackgroundColor(Color.WHITE)
-        }
-
-        override val getFHFlutterView: FHFlutterView
-            get() = this@FHFlutterActivity.getFHFlutterView()
-
-        fun createFlutterInitCoverView(): View {
-            return this@FHFlutterActivity.createFlutterInitCoverView()
-        }
     }
 }

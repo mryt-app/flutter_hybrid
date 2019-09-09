@@ -1,7 +1,7 @@
 package cn.missfresh.flutter_hybrid.interfaces
 
-import cn.missfresh.flutter_hybrid.view.FHFlutterNativeView
 import cn.missfresh.flutter_hybrid.view.FHFlutterView
+import io.flutter.view.FlutterNativeView
 
 /**
  * Created by sjl
@@ -11,7 +11,7 @@ interface IFlutterHybridViewProvider {
 
     fun createFlutterView(container: IFlutterViewContainer): FHFlutterView
 
-    fun createFlutterNativeView(container: IFlutterViewContainer): FHFlutterNativeView
+    fun getFlutterNativeView(container: IFlutterViewContainer): FlutterNativeView
 
     fun getFHFlutterView(): FHFlutterView?
 

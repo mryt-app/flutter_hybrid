@@ -1,34 +1,32 @@
 package cn.missfresh.flutter_hybrid
 
-import cn.missfresh.flutter_hybrid.interfaces.IAppInfo
 import cn.missfresh.flutter_hybrid.interfaces.IFlutterHybridViewProvider
 import cn.missfresh.flutter_hybrid.interfaces.IFlutterViewContainer
-import cn.missfresh.flutter_hybrid.view.FHFlutterNativeView
 import cn.missfresh.flutter_hybrid.view.FHFlutterView
-import java.lang.Exception
+import io.flutter.view.FlutterNativeView
 
 /**
  * Created by sjl
  * on 2019-09-02
  */
-class FlutterHybridViewProvider internal constructor(private val mAppInfo: IAppInfo) : IFlutterHybridViewProvider {
+class FlutterHybridViewProvider : IFlutterHybridViewProvider {
 
     private var mFlutterView: FHFlutterView? = null
 
-    private var mFlutterNativeView: FHFlutterNativeView? = null
+    private var mFlutterNativeView: FlutterNativeView? = null
 
     override fun createFlutterView(container: IFlutterViewContainer): FHFlutterView {
         var activity = container.getCurrActivity()
 
         if (mFlutterView == null) {
-            mFlutterView = FHFlutterView(activity, null, createFlutterNativeView(container))
+            mFlutterView = FHFlutterView(activity, null, getFlutterNativeView(container))
         }
         return mFlutterView!!
     }
 
-    override fun createFlutterNativeView(container: IFlutterViewContainer): FHFlutterNativeView {
+    override fun getFlutterNativeView(container: IFlutterViewContainer): FlutterNativeView {
         if (mFlutterNativeView == null) {
-            mFlutterNativeView = FHFlutterNativeView(container.getCurrActivity().applicationContext)
+            mFlutterNativeView = FlutterNativeView(container.getCurrActivity().applicationContext)
         }
         return mFlutterNativeView!!
     }

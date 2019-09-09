@@ -42,7 +42,7 @@ class FlutterFragment : FHFlutterFragment() {
     }
 
     override fun destroyContainerView() {
-
+        activity?.finish()
     }
 
     override fun onRegisterPlugins(registry: PluginRegistry) {

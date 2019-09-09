@@ -1,8 +1,6 @@
 package cn.missfresh.flutter_hybrid.containers
 
 import android.app.Activity
-import android.content.Context
-import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -18,7 +16,7 @@ import cn.missfresh.flutter_hybrid.view.FHFlutterView
  */
 abstract class FHFlutterFragment : Fragment(), IFlutterViewContainer {
 
-    private lateinit var mContent: FlutterContent
+    private lateinit var mFlutterContent: FlutterViewStub
     private var resumed = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,8 +26,8 @@ abstract class FHFlutterFragment : Fragment(), IFlutterViewContainer {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        mContent = FlutterContent(activity!!)
-        return mContent
+        mFlutterContent = FlutterViewStub(activity!!, FlutterHybridPlugin.instance.viewProvider().createFlutterView(this))
+        return mFlutterContent
     }
 
     override fun onResume() {
@@ -37,7 +35,7 @@ abstract class FHFlutterFragment : Fragment(), IFlutterViewContainer {
         if (!resumed) {
             resumed = true
             FlutterHybridPlugin.instance.containerManager().onContainerAppear(this)
-            mContent.attachFlutterView(getFHFlutterView())
+            mFlutterContent.attachFlutterView(getFHFlutterView())
         }
     }
 
@@ -45,14 +43,14 @@ abstract class FHFlutterFragment : Fragment(), IFlutterViewContainer {
         super.onPause()
         if (resumed) {
             resumed = false
-            mContent.snapshot()
+            mFlutterContent.snapshot()
             FlutterHybridPlugin.instance.containerManager().onContainerDisappear(this)
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mContent.removeViews()
+        mFlutterContent.removeViews()
         FlutterHybridPlugin.instance.containerManager().onContainerDestroy(this)
     }
 
@@ -65,31 +63,15 @@ abstract class FHFlutterFragment : Fragment(), IFlutterViewContainer {
     }
 
     override fun onContainerAppear() {
-        mContent.onContainerAppear()
+        mFlutterContent.onContainerAppear()
     }
 
     override fun onContainerDisappear() {
-        mContent.onContainerDisappear()
+        mFlutterContent.onContainerDisappear()
     }
 
     override fun isFinishing(): Boolean {
         return (context as Activity).isFinishing
-    }
-
-    protected fun createFlutterInitCoverView(): View {
-        val initCover = View(context)
-        initCover.setBackgroundColor(Color.WHITE)
-        return initCover
-    }
-
-    internal inner class FlutterContent(context: Context) : FlutterViewStub(context) {
-
-        override val getFHFlutterView: FHFlutterView
-            get() = this@FHFlutterFragment.getFHFlutterView()
-
-        fun createFlutterInitCoverView(): View {
-            return this@FHFlutterFragment.createFlutterInitCoverView()
-        }
     }
 
 }

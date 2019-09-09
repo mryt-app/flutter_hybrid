@@ -18,16 +18,13 @@ interface IContainerManager {
 
     fun onBackPressed(container: IFlutterViewContainer)
 
-    fun destroyContainerRecord(name: String, uq: String)
+    fun destroyContainer(name: String, containerId: String)
 
-    fun getCurrentTopStatus(): IContainerStatus?
+    fun getCurrentStatus(): IContainerLifecycle?
 
-    fun getLastContainerStatus(): IContainerStatus?
-
-    fun findContainerById(uniqueId: String): IFlutterViewContainer?
+    fun getLastContainerStatus(): IContainerLifecycle?
 
     fun onShownContainerChanged(old: String, now: String)
 
     fun hasContainerAppear(): Boolean
-
 }

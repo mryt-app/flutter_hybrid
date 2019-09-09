@@ -2,6 +2,7 @@ package cn.missfresh.flutter_hybrid.messaging
 
 import cn.missfresh.flutter_hybrid.FlutterHybridPlugin
 import cn.missfresh.flutter_hybrid.Logger
+import cn.missfresh.flutter_hybrid.router.Router
 import io.flutter.plugin.common.MethodChannel
 
 /**
@@ -9,38 +10,47 @@ import io.flutter.plugin.common.MethodChannel
  * on 2019-09-03
  * 数据通信
  */
-class DataMessager : IMessager {
+class DataMessager : Messager() {
 
     companion object {
+        const val NAME_MESSAGER = "NativeNavigation"
+
+        //protocol name
         const val OPEN_PAGE = "openPage"
         const val CLOSE_PAGE = "closePage"
         const val FETCH_START_PAGE_INFO = "fetchStartPageInfo"
         const val SHOWN_PAGE_CHANGED = "flutterShownPageChanged"
         const val FLUTTER_CAN_POP_CHANGED = "flutterCanPopChanged"
+
+        // flutterCanPopChanged protocol parameter
+        const val CAN_POP = "canPop"
+        // flutterShownPageChanged protocol parameter
+        const val OLD_PAGE = "oldPage"
+        const val NEW_PAGE = "newPage"
+
+        // closePage protocol parameter
+        const val PAGE_ID = "pageId"
     }
 
+    /**
+     * Messager name
+     */
     override fun name(): String {
-        return "NativeNavigation"
-    }
-
-    private var mMethodChannel: MethodChannel? = null
-
-    override fun setMethodChannel(channel: MethodChannel) {
-        mMethodChannel = channel
+        return NAME_MESSAGER
     }
 
     override fun handleMethodCall(method: String, arguments: Any?, result: MethodChannel.Result) {
-        Logger.e("handleMethodCall=$method")
+        Logger.d("handleMethodCall:$method")
 
         when (method) {
             OPEN_PAGE -> {
                 arguments as Map<*, *>
-                openPage(arguments)
+                openPage(arguments[ROUTE_NAME].toString(), arguments[PARAMS] as Map<*, *>)
                 return
             }
             CLOSE_PAGE -> {
                 arguments as Map<*, *>
-                closePage(arguments)
+                closePage(arguments[PAGE_ID].toString())
                 return
             }
             FETCH_START_PAGE_INFO -> {
@@ -48,35 +58,36 @@ class DataMessager : IMessager {
                 return
             }
             SHOWN_PAGE_CHANGED -> {
+                Logger.e(SHOWN_PAGE_CHANGED+"========")
                 arguments as Map<*, *>
-                showPageChanged(arguments)
+                showPageChanged(arguments[OLD_PAGE].toString(),
+                        arguments[NEW_PAGE].toString())
                 return
             }
             FLUTTER_CAN_POP_CHANGED -> {
                 arguments as Map<*, *>
-                flutterCanPop(result, arguments)
+                flutterCanPop(result, arguments[CAN_POP] as Boolean)
                 return
             }
         }
     }
 
-    private fun flutterCanPop(result: MethodChannel.Result, arguments: Map<*, *>) {
-        result.success(arguments["canPop"] as Boolean)
+    private fun flutterCanPop(result: MethodChannel.Result, canPop: Boolean) {
+        result?.success(canPop)
     }
 
-    private fun showPageChanged(arguments: Map<*, *>) {
-        Logger.e("oldPage=" + arguments["oldPage"])
-        Logger.e("newPage=" + arguments["newPage"])
+    private fun showPageChanged(oldPage: String, newPage: String) {
+        Logger.e("$OLD_PAGE=$oldPage")
+        Logger.e("$NEW_PAGE=$newPage")
         FlutterHybridPlugin.instance.containerManager()
-                .onShownContainerChanged(arguments["oldPage"]
-                        .toString(), arguments["newPage"].toString())
+                .onShownContainerChanged(oldPage, newPage)
     }
 
     private fun fetchStartPageInfo(result: MethodChannel.Result) {
         val pageInfo = HashMap<String, Any>()
         try {
             var containerStatus = FlutterHybridPlugin
-                    .instance.containerManager().getCurrentTopStatus()
+                    .instance.containerManager().getCurrentStatus()
 
             if (containerStatus == null) {
                 containerStatus = FlutterHybridPlugin.instance
@@ -85,13 +96,13 @@ class DataMessager : IMessager {
 
             containerStatus?.apply {
 
-                pageInfo["routeName"] = getContainer().getContainerName()
-                pageInfo["params"] = getContainer().getContainerParams()
-                pageInfo["uniqueId"] = uniqueId()
+                pageInfo[ROUTE_NAME] = getContainer().getContainerName()
+                pageInfo[PARAMS] = getContainer().getContainerParams()
+                pageInfo[UNIQUE_ID] = containerId()
 
-                Logger.d("routeName=" + pageInfo["routeName"])
-                Logger.d("params=" + pageInfo["params"])
-                Logger.d("uniqueId=" + pageInfo["uniqueId"])
+                Logger.d(ROUTE_NAME + "=" + pageInfo[ROUTE_NAME])
+                Logger.d(PARAMS + "=" + pageInfo[PARAMS])
+                Logger.d(UNIQUE_ID + "=" + pageInfo[UNIQUE_ID])
             }
 
             result.success(pageInfo)
@@ -101,39 +112,20 @@ class DataMessager : IMessager {
         }
     }
 
-    private fun closePage(arguments: Map<*, *>) {
-        FlutterHybridPlugin.instance.containerManager()
-                .destroyContainerRecord("", arguments["pageId"].toString())
+    /**
+     * Close page with pageId
+     * @param pageId
+     */
+    private fun closePage(pageId: String) {
+        Router().closePage(pageId)
     }
 
-    private fun openPage(arguments: Map<*, *>) {
-        FlutterHybridPlugin.instance.openPage(null,
-                arguments["routeName"].toString(), arguments["params"] as Map<*, *>)
-    }
-
-    fun invokeMethod(methodName: String, routeName: String, params: Map<*, *>, uniqueId: String) {
-        val args = hashMapOf<String, Any>()
-        args["routeName"] = routeName
-        args["params"] = params
-        args["uniqueID"] = uniqueId
-        invokeMethod(methodName, args)
-    }
-
-    private fun invokeMethod(method: String, params: Map<*, *>) {
-        var channelMethod = name() + "." + method
-        Logger.e("$channelMethod")
-        mMethodChannel?.invokeMethod(channelMethod, params, object : MethodChannel.Result {
-            override fun notImplemented() {
-                Logger.e("invokeMethod $method  notImplemented")
-            }
-
-            override fun error(p0: String?, msg: String?, p2: Any?) {
-                Logger.e("invokeMethod $method error : $msg")
-            }
-
-            override fun success(p0: Any?) {
-                Logger.e("invokeMethod $method success")
-            }
-        })
+    /**
+     * open a new page
+     * @param routeName
+     * @param params
+     */
+    private fun openPage(routeName: String, params: Map<*, *>) {
+        Router().openPage(null, routeName, params)
     }
 }
