@@ -44,6 +44,7 @@
 }
 
 - (void)pause {
+    [[_engine lifecycleChannel] sendMessage:@"AppLifecycleState.paused"];
     [self.viewController flh_viewWillDisappear:NO];
     [self.viewController flh_viewDidDisappear:NO];
 }
@@ -51,6 +52,7 @@
 - (void)resume {
     [self.viewController flh_viewWillAppear:NO];
     [self.viewController flh_viewDidAppear:NO];
+    [self.engine.lifecycleChannel sendMessage:@"AppLifecycleState.resumed"];
 }
 
 - (void)inactive {

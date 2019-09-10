@@ -18,9 +18,19 @@ DEF_SINGLETON(FLHNativeNavigationMessenger)
     return @"NativeNavigation";
 }
 
+#pragma mark - Public
+
+- (void)backButtonPressedOnPage:(NSString *)pageId {
+    NSString *flutterMethodName = [NSString stringWithFormat:@"%@.%@", self.name, @"backButtonPressed"];
+    [self.methodChannel invokeMethod:flutterMethodName arguments:@{ @"uniqueID": pageId }];
+}
+
+#pragma mark - Method Call Handle
+
 - (void)handleMethodCall:(NSString *)method arguments:(id)arguments result:(FlutterResult)result {
     if ([method isEqualToString:@"flutterCanPopChanged"]) {
-        
+        [self _flutterCanPopChanged:arguments];
+        result(@(YES));
     } else if ([method isEqualToString:@"fetchStartPageInfo"]) {
         NSDictionary *pageInfo = [FLHFirstPageInfo.sharedInstance.firstPageInfo toJSON];
         result(pageInfo);
@@ -54,6 +64,11 @@ DEF_SINGLETON(FLHNativeNavigationMessenger)
     [FLHFlutterHybrid.sharedInstance.router closePage:pageId params:params animated:animated completion:^(BOOL finished) {
         result(@(finished));
     }];
+}
+
+- (void)_flutterCanPopChanged:(id)arguments {
+    BOOL canPop = [arguments[@"canPop"] boolValue];
+    FLHFlutterHybrid.sharedInstance.router.flutterCanPop = canPop;
 }
 
 @end

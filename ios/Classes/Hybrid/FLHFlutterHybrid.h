@@ -24,6 +24,10 @@ AS_SINGLETON(FLHFlutterHybrid)
 - (FlutterViewController *)flutterViewController;
 - (void)startFlutterWithRouter:(id<FLHRouter>)router;
 
+#pragma mark - Public
+
+- (void)popOnPage:(NSString *)pageId;
+
 #pragma mark - Container Management
 
 - (BOOL)containsContainerViewController:(FLHFlutterContainerViewController *)viewController;

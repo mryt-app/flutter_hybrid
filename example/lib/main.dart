@@ -19,9 +19,8 @@ class _MyAppState extends State<MyApp> {
     super.initState();
 
     FlutterHybrid.sharedInstance.registerPageBuilders({
-      '/counter': (routeName, params, _) => CounterPage(),
-      '/colorPage': (routeName, params, _) =>
-          ColorPage(color: Color(params['color'])),
+      '/counter': (routeName, params, pageId) => CounterPage(pageId: pageId),
+      '/colorPage': (routeName, params, pageId) => ColorPage(color: Color(params['color']), pageId: pageId),
       '/flutterPage': (routeName, params, _) => FlutterPage(),
       'flutterFragment': (pageName, params, _) => FragmentRouteWidget(params),
     });

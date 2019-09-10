@@ -17,7 +17,7 @@
 #define FLUTTER_VIEW_CONTROLLER                       \
   FLHFlutterHybrid.sharedInstance.flutterViewController
 
-@interface FLHFlutterContainerViewController ()
+@interface FLHFlutterContainerViewController () <UIGestureRecognizerDelegate>
 
 @property(nonatomic, copy, readwrite) NSString *routeName;
 @property(nonatomic, strong, readwrite) NSDictionary *params;
@@ -30,6 +30,27 @@
 @end
 
 @implementation FLHFlutterContainerViewController
+
+#pragma mark - Instance Counter
+
+static NSUInteger kInstanceCount = 0;
+
++ (NSUInteger)instanceCount {
+    return kInstanceCount;
+}
+
++ (void)increaseInstanceCount {
+    kInstanceCount++;
+}
+
++ (void)decreaseInstanceCount {
+    kInstanceCount--;
+    if ([self.class instanceCount] == 0) {
+        [[FLHScreenshotCache sharedInstance] clearAllObjects];
+//        The FlutterViewController isn't visible to user, we think the Flutter app is paused.
+        [FLHFlutterHybrid.sharedInstance pause];
+    }
+}
 
 #pragma mark - Lifecycle
 
@@ -67,11 +88,10 @@
 
   [self.class increaseInstanceCount];
 
-  SEL sel = @selector(flutterViewDidShow:);
-  NSString *notiName = @"FlutterShownPageChanged";
+  SEL sel = @selector(onFlutterShownPageChanged:);
   [NSNotificationCenter.defaultCenter addObserver:self
                                          selector:sel
-                                             name:notiName
+                                             name:@"FlutterShownPageChanged"
                                            object:nil];
 
   [self _notifyLifecyleEvent:FLHHybridPageLifecycleDidInit];
@@ -87,18 +107,12 @@
 
 #pragma mark - View Lifecyle
 
-- (void)viewDidLayoutSubviews {
-  [super viewDidLayoutSubviews];
-  [FLHFlutterHybrid.sharedInstance resume];
-}
-
 - (void)viewWillAppear:(BOOL)animated {
   if (self.navigationController.interactivePopGestureRecognizer.state ==
       UIGestureRecognizerStateBegan) {
     self.interactivePopGestureActive = true;
   }
 
-  [FLHFlutterHybrid.sharedInstance resume];
   // For new page, we should attach flutter view in viewWillAppear
   // for better performance.
   if (![FLHFlutterHybrid.sharedInstance containsContainerViewController:self]) {
@@ -111,10 +125,7 @@
 
   // Save first time page info.
   if ([FLHFirstPageInfo.sharedInstance firstPageInfo] == nil) {
-    FLHPageInfo *pageInfo = [[FLHPageInfo alloc] initWithRouteName:_routeName
-                                                            params:_params
-                                                          uniqueID:_uniqueID];
-    [FLHFirstPageInfo.sharedInstance initializeFirstPageInfo:pageInfo];
+    [FLHFirstPageInfo.sharedInstance initializeFirstPageInfo:_pageInfo];
   }
 
   [super viewWillAppear:animated];
@@ -132,16 +143,8 @@
 
   [super viewDidAppear:animated];
 
-  __weak typeof(self) weakSelf = self;
-  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)),
-                 dispatch_get_main_queue(), ^{
-                   if (weakSelf.isViewLoaded && weakSelf.view.window) {
-                     // viewController is visible
-                     [weakSelf showFlutterView];
-                   }
-                 });
-
   self.interactivePopGestureActive = NO;
+  self.navigationController.interactivePopGestureRecognizer.delegate = self;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -159,7 +162,7 @@
   }
 
   [self _notifyLifecyleEvent:FLHHybridPageLifecycleWillDisappear];
-
+  [FLHFlutterHybrid.sharedInstance inactive];
   [super viewWillDisappear:animated];
 }
 
@@ -167,42 +170,13 @@
   [self _notifyLifecyleEvent:FLHHybridPageLifecycleDidDisappear];
 
   [self clearScreenshot];
-  [super viewDidDisappear:animated];
-
-  [FLHFlutterHybrid.sharedInstance inactive];
   self.interactivePopGestureActive = NO;
-}
-
-#pragma mark - Instance Counter
-
-static NSUInteger kInstanceCount = 0;
-
-+ (NSUInteger)instanceCount {
-  return kInstanceCount;
-}
-
-+ (void)increaseInstanceCount {
-  kInstanceCount++;
-  if (kInstanceCount == 1) {
-    [FLHFlutterHybrid.sharedInstance resume];
-  }
-}
-
-+ (void)decreaseInstanceCount {
-  kInstanceCount--;
-  if ([self.class instanceCount] == 0) {
-    [[FLHScreenshotCache sharedInstance] clearAllObjects];
-    [FLHFlutterHybrid.sharedInstance pause];
-  }
+  [super viewDidDisappear:animated];
 }
 
 #pragma mark - Notification
 
-- (void)flutterViewDidAppear:(NSDictionary *)params {
-  // Notify flutter view appeared.
-}
-
-- (void)flutterViewDidShow:(NSNotification *)notification {
+- (void)onFlutterShownPageChanged:(NSNotification *)notification {
     __weak typeof(self) weakSelf = self;
     NSDictionary *userInfo = notification.userInfo;
     if ([userInfo[@"newPage"] isEqual:self.uniqueID]) {
@@ -297,7 +271,6 @@ static NSUInteger kInstanceCount = 0;
     self.screenshotView.backgroundColor = UIColor.clearColor;
     if (screenshotViewIndex > flutterViewIndex) {
       [self.view insertSubview:self.screenshotView belowSubview:flutterView];
-      [self flutterViewDidAppear:@{ @"uniqueID" : self.uniqueID ?: @"" }];
     }
   }
 
@@ -305,8 +278,18 @@ static NSUInteger kInstanceCount = 0;
 
   // Invalidate obsolete screenshot.
   [FLHScreenshotCache.sharedInstance invalidateObjectForKey:self.uniqueID];
+}
 
-  //    TODO: Notify canPop
+#pragma mark - Public
+
+- (void)pop {
+    [FLHFlutterHybrid.sharedInstance popOnPage:self.pageInfo.uniqueID];
+}
+
+#pragma mark - UIGestureRecognizerDelegate
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    return (FLHFlutterHybrid.sharedInstance.router.flutterCanPop == NO);
 }
 
 #pragma mark - Action

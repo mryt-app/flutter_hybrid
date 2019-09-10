@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @optional
 // Could flutter module pop
-@property (nonatomic, assign) BOOL canPop;
+@property (nonatomic, assign) BOOL flutterCanPop;
 
 - (void)openPage:(NSString *)route
           params:(nullable NSDictionary *)params

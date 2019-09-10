@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 AS_SINGLETON(FLHNativeNavigationMessenger)
 
+- (void)backButtonPressedOnPage:(NSString *)pageId;
+
 @end
 
 NS_ASSUME_NONNULL_END

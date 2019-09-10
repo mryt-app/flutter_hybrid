@@ -137,7 +137,7 @@ class HybridPageCanPopObserver extends HybridPageObserver {
   
   _notifyCanPopToNative(Route route){
     bool canPop = route.navigator.canPop();
-    // TODO: Notify native canPop
+    FlutterHybrid.sharedInstance.nativeNavigationMessenger.notifyFlutterCanPop(canPop);
   }
 }
 

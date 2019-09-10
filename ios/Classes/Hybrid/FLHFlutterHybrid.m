@@ -8,6 +8,7 @@
 #import "FLHFlutterHybrid.h"
 #import "FLHFlutterEngine.h"
 #import "FLHOrderedDictionary.h"
+#import "FLHNativeNavigationMessenger.h"
 
 typedef FLHFlutterContainerViewController * (^FLHPageBuilder)(NSString *route, NSDictionary *params);
 
@@ -54,6 +55,10 @@ DEF_SINGLETON(FLHFlutterHybrid)
         self.isRendering = YES;
         self.isRunning = YES;
     });
+}
+
+- (void)popOnPage:(NSString *)pageId {
+    [FLHNativeNavigationMessenger.sharedInstance backButtonPressedOnPage:pageId];
 }
 
 #pragma mark - Container Management

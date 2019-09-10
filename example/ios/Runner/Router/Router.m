@@ -8,7 +8,7 @@
 
 #import "Router.h"
 #import "UIViewController+Utility.h"
-#import <flutter_hybrid/FLHFlutterContainerViewController.h>
+#import "DemoFlutterViewController.h"
 
 @interface Router ()
 
@@ -17,6 +17,7 @@
 @end
 
 @implementation Router
+@synthesize flutterCanPop;
 
 + (instancetype)sharedInstance {
     static Router *_instance = nil;
@@ -27,13 +28,9 @@
     return _instance;
 }
 
-- (BOOL)canPop {
-    return YES;
-}
-
 - (void)openPage:(NSString *)route params:(NSDictionary *)params animated:(BOOL)animated completion:(void (^)(BOOL))completion {
     BOOL present = [params[@"present"] boolValue];
-    FLHFlutterContainerViewController *flutterVC = [[FLHFlutterContainerViewController alloc] initWithRoute:route params:params];
+    DemoFlutterViewController *flutterVC = [[DemoFlutterViewController alloc] initWithRoute:route params:params];
     if (present) {
         [self.navigationController presentViewController:flutterVC animated:animated completion:^{
             if (completion) {
@@ -49,7 +46,7 @@
 }
 
 - (void)closePage:(NSString *)pageId params:(NSDictionary *)params animated:(BOOL)animated completion:(void (^)(BOOL))completion {
-    FLHFlutterContainerViewController *flutterVC = (FLHFlutterContainerViewController *)self.navigationController.presentedViewController;
+    DemoFlutterViewController *flutterVC = (DemoFlutterViewController *)self.navigationController.presentedViewController;
     if ([flutterVC isKindOfClass:FLHFlutterContainerViewController.class] &&
         [flutterVC.uniqueID isEqual:pageId]) {
       [flutterVC dismissViewControllerAnimated:animated
