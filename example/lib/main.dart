@@ -3,7 +3,6 @@ import 'package:flutter_hybrid/flutter_hybrid.dart';
 import 'package:flutter_hybrid_example/color_page.dart';
 import 'package:flutter_hybrid_example/counter.dart';
 import 'package:flutter_hybrid_example/flutter_page.dart';
-import 'package:flutter_hybrid/support/logger.dart';
 import 'package:flutter_hybrid_example/flutter_fragment.dart';
 
 void main() => runApp(MyApp());

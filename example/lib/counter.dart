@@ -66,11 +66,7 @@ class _CounterPageState extends State<CounterPage> {
                   ),
                 ),
                 onPressed: () {
-                  if (widget.pageId != null) {
-                    FlutterHybrid.sharedInstance.router.closePage(widget.pageId);
-                  } else {
-                    Navigator.pop(context);
-                  }
+                  Navigator.pop(context);
                 },
               ),
           ],

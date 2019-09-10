@@ -50,11 +50,7 @@ class ColorPage extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
-                  if (pageId != null) {
-                    FlutterHybrid.sharedInstance.router.closePage(pageId);
-                  } else {
-                    Navigator.pop(context);
-                  }
+                  Navigator.pop(context);
                 },
               ),
             ],
