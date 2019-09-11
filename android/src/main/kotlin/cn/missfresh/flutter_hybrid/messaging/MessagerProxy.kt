@@ -28,7 +28,7 @@ class MessagerProxy {
             val methodName = components[1]
 
             messagerSet.forEach {
-                if (it.name() == messagerName) {
+                if (it.name == messagerName) {
                     Logger.d("messagerName=$messagerName,methodName=$methodName")
                     it.handleMethodCall(methodName, methodCall.arguments, result)
                 }

@@ -8,19 +8,17 @@ import io.flutter.plugin.common.MethodChannel
 /**
  * Created by sjl
  * on 2019-09-03
- * 数据通信
  */
-class DataMessager : Messager() {
+class DataMessager(name: String) : Messager(name) {
 
     companion object {
-        const val NAME_MESSAGER = "NativeNavigation"
-
         //protocol name
         const val OPEN_PAGE = "openPage"
         const val CLOSE_PAGE = "closePage"
         const val FETCH_START_PAGE_INFO = "fetchStartPageInfo"
         const val SHOWN_PAGE_CHANGED = "flutterShownPageChanged"
         const val FLUTTER_CAN_POP_CHANGED = "flutterCanPopChanged"
+        const val BACK_BUTTON_PRESSED = "backButtonPressed"
 
         // flutterCanPopChanged protocol parameter
         const val CAN_POP = "canPop"
@@ -30,13 +28,6 @@ class DataMessager : Messager() {
 
         // closePage protocol parameter
         const val PAGE_ID = "pageId"
-    }
-
-    /**
-     * Messager name
-     */
-    override fun name(): String {
-        return NAME_MESSAGER
     }
 
     override fun handleMethodCall(method: String, arguments: Any?, result: MethodChannel.Result) {
@@ -107,16 +98,11 @@ class DataMessager : Messager() {
             }
 
             containerStatus?.apply {
-
                 pageInfo[ROUTE_NAME] = getContainer().getContainerName()
                 if (getContainer().getContainerParams().isNullOrEmpty()) {
                     pageInfo[PARAMS] = getContainer().getContainerParams().toString()
                 }
                 pageInfo[UNIQUE_ID] = containerId()
-
-                Logger.d(ROUTE_NAME + "=" + pageInfo[ROUTE_NAME])
-                Logger.d(PARAMS + "=" + pageInfo[PARAMS])
-                Logger.d(UNIQUE_ID + "=" + pageInfo[UNIQUE_ID])
             }
 
             result.success(pageInfo)

@@ -6,6 +6,7 @@ import android.text.TextUtils
 import cn.missfresh.flutter_hybrid.interfaces.IContainerLifecycle
 import cn.missfresh.flutter_hybrid.interfaces.IContainerManager
 import cn.missfresh.flutter_hybrid.interfaces.IFlutterViewContainer
+import cn.missfresh.flutter_hybrid.messaging.DataMessager.Companion.BACK_BUTTON_PRESSED
 import cn.missfresh.flutter_hybrid.view.FHFlutterView
 import io.flutter.plugin.common.PluginRegistry
 import io.flutter.view.FlutterMain
@@ -128,11 +129,16 @@ class FlutterViewContainerManager : IContainerManager {
         assertCallOnMainThread()
 
         mStatusList[container]?.let {
-            if (container.getContainerCanPop()) {
-                FlutterHybridPlugin.instance.dataMessage().invokeMethod("backButtonPressed",
-                        container.getContainerName(), container.getContainerParams(), it.containerId())
+            if (FlutterHybridPlugin.instance.isUseCanPop) {
+                if (container.getContainerCanPop()) {
+                    FlutterHybridPlugin.instance.dataMessage().invokeMethod(BACK_BUTTON_PRESSED,
+                            container.getContainerName(), container.getContainerParams(), it.containerId())
+                } else {
+                    container.destroyContainerView()
+                }
             } else {
-                container.destroyContainerView()
+                FlutterHybridPlugin.instance.dataMessage().invokeMethod(BACK_BUTTON_PRESSED,
+                        container.getContainerName(), container.getContainerParams(), it.containerId())
             }
         }
     }

@@ -7,13 +7,16 @@ import io.flutter.plugin.common.MethodChannel
  * Created by sjl
  * on 2019-09-03
  */
-abstract class Messager {
+open class Messager(var name: String) {
 
     companion object {
         // protocol parameter
         const val ROUTE_NAME = "routeName"
         const val PARAMS = "params"
         const val UNIQUE_ID = "uniqueID"
+
+        const val NATIVE_PAGE_LIFECYCLE = "NativePageLifecycle"
+        const val NATIVE_NAVIGATION = "NativeNavigation"
     }
 
     private var mMethodChannel: MethodChannel? = null
@@ -32,7 +35,7 @@ abstract class Messager {
     }
 
     private fun invokeMethod(method: String, params: Map<*, *>) {
-        var channelMethod = name() + "." + method
+        var channelMethod = "$name.$method"
         Logger.d("$channelMethod")
         mMethodChannel?.invokeMethod(channelMethod, params, object : MethodChannel.Result {
             override fun notImplemented() {
@@ -49,9 +52,7 @@ abstract class Messager {
         })
     }
 
-    abstract fun name(): String
-
     // Native to flutter
-    abstract fun handleMethodCall(method: String, arguments: Any?, result: MethodChannel.Result)
+    open fun handleMethodCall(method: String, arguments: Any?, result: MethodChannel.Result) {}
 
 }

@@ -31,6 +31,8 @@ class MainActivity : FlutterActivity(), View.OnClickListener {
             }
         })
 
+        FlutterHybridPlugin.instance.isUseCanPop = true
+
         setContentView(R.layout.main_activity)
         initView()
         GeneratedPluginRegistrant.registerWith(this)

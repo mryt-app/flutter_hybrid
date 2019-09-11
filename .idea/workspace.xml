@@ -5,7 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="52f36c54-3c7b-4caa-a1a9-7a3a50cfd7b2" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/FlutterHybridPlugin.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/FlutterHybridPlugin.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/FlutterViewContainerManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/FlutterViewContainerManager.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/messaging/DataMessager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/messaging/DataMessager.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/messaging/LifecycleMessager.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/messaging/Messager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/messaging/Messager.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/messaging/MessagerProxy.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/messaging/MessagerProxy.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/MainActivity.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/activity/FlutterFragmentActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/activity/FlutterFragmentActivity.kt" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
@@ -28,7 +35,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/example/lib/counter.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="513">
+            <state relative-caret-position="918">
               <caret line="57" column="43" selection-start-line="57" selection-start-column="32" selection-end-line="57" selection-end-column="43" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
@@ -70,7 +77,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/example/lib/color_page.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-13">
+            <state relative-caret-position="221">
               <caret line="15" column="22" selection-start-line="15" selection-start-column="22" selection-end-line="15" selection-end-column="22" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
@@ -82,7 +89,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/example/lib/flutter_page.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
+            <state relative-caret-position="357">
               <caret line="25" column="53" selection-start-line="25" selection-start-column="53" selection-end-line="25" selection-end-column="53" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
@@ -94,7 +101,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/example/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="544">
+            <state relative-caret-position="469">
               <caret line="32" column="49" selection-start-line="32" selection-start-column="49" selection-end-line="32" selection-end-column="49" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
@@ -106,7 +113,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file:///Applications/flutter/bin/cache/pkg/sky_engine/lib/ui/window.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="478">
+            <state relative-caret-position="629">
               <caret line="39" column="24" selection-start-line="39" selection-start-column="24" selection-end-line="39" selection-end-column="24" />
             </state>
           </provider>
@@ -115,7 +122,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/example/android/app/src/main/AndroidManifest.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="294">
+            <state relative-caret-position="799">
               <caret line="47" column="46" selection-start-line="47" selection-start-column="46" selection-end-line="47" selection-end-column="46" />
             </state>
           </provider>
@@ -227,6 +234,42 @@
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="PackagesPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="flutter_hybrid" type="58d84e3e:PackageViewProjectNode" />
+              <item name="flutter_hybrid" type="616d4139:PackageViewModuleNode" />
+            </path>
+            <path>
+              <item name="flutter_hybrid" type="58d84e3e:PackageViewProjectNode" />
+              <item name="flutter_hybrid" type="616d4139:PackageViewModuleNode" />
+              <item name="messaging" type="1f31426a:PackageElementNode" />
+            </path>
+            <path>
+              <item name="flutter_hybrid" type="58d84e3e:PackageViewProjectNode" />
+              <item name="flutter_hybrid" type="616d4139:PackageViewModuleNode" />
+              <item name="page" type="1f31426a:PackageElementNode" />
+            </path>
+            <path>
+              <item name="flutter_hybrid" type="58d84e3e:PackageViewProjectNode" />
+              <item name="flutter_hybrid" type="616d4139:PackageViewModuleNode" />
+              <item name="router" type="1f31426a:PackageElementNode" />
+            </path>
+            <path>
+              <item name="flutter_hybrid" type="58d84e3e:PackageViewProjectNode" />
+              <item name="flutter_hybrid" type="616d4139:PackageViewModuleNode" />
+              <item name="support" type="1f31426a:PackageElementNode" />
+            </path>
+            <path>
+              <item name="flutter_hybrid" type="58d84e3e:PackageViewProjectNode" />
+              <item name="flutter_hybrid" type="616d4139:PackageViewModuleNode" />
+              <item name="Libraries" type="5c3f07af:PackageViewLibrariesNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -350,42 +393,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="flutter_hybrid" type="58d84e3e:PackageViewProjectNode" />
-              <item name="flutter_hybrid" type="616d4139:PackageViewModuleNode" />
-            </path>
-            <path>
-              <item name="flutter_hybrid" type="58d84e3e:PackageViewProjectNode" />
-              <item name="flutter_hybrid" type="616d4139:PackageViewModuleNode" />
-              <item name="messaging" type="1f31426a:PackageElementNode" />
-            </path>
-            <path>
-              <item name="flutter_hybrid" type="58d84e3e:PackageViewProjectNode" />
-              <item name="flutter_hybrid" type="616d4139:PackageViewModuleNode" />
-              <item name="page" type="1f31426a:PackageElementNode" />
-            </path>
-            <path>
-              <item name="flutter_hybrid" type="58d84e3e:PackageViewProjectNode" />
-              <item name="flutter_hybrid" type="616d4139:PackageViewModuleNode" />
-              <item name="router" type="1f31426a:PackageElementNode" />
-            </path>
-            <path>
-              <item name="flutter_hybrid" type="58d84e3e:PackageViewProjectNode" />
-              <item name="flutter_hybrid" type="616d4139:PackageViewModuleNode" />
-              <item name="support" type="1f31426a:PackageElementNode" />
-            </path>
-            <path>
-              <item name="flutter_hybrid" type="58d84e3e:PackageViewProjectNode" />
-              <item name="flutter_hybrid" type="616d4139:PackageViewModuleNode" />
-              <item name="Libraries" type="5c3f07af:PackageViewLibrariesNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -442,7 +449,7 @@
   <component name="ToolWindowManager">
     <frame x="-1680" y="58" width="1680" height="973" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4973913" visible="true" weight="0.20879121" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4973913" visible="true" weight="0.21123321" />
       <window_info id="Structure" order="1" sideWeight="0.5026087" side_tool="true" weight="0.3677686" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -570,16 +577,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/messaging/LifecycleMessager.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="571">
-          <caret line="39" column="26" selection-start-line="39" selection-start-column="26" selection-end-line="39" selection-end-column="26" />
-          <folding>
-            <element signature="e#47#134#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/messaging/LifecycleMessager.kt" />
     <entry file="file://$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/messaging/Messager.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -816,6 +814,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/example/lib/counter.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="918">
+          <caret line="57" column="43" selection-start-line="57" selection-start-column="32" selection-end-line="57" selection-end-column="43" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/activity/FlutterActivity.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -842,18 +850,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/example/lib/color_page.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-13">
+        <state relative-caret-position="221">
           <caret line="15" column="22" selection-start-line="15" selection-start-column="22" selection-end-line="15" selection-end-column="22" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/lib/counter.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="513">
-          <caret line="57" column="43" selection-start-line="57" selection-start-column="32" selection-end-line="57" selection-end-column="43" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
@@ -862,11 +860,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/example/lib/flutter_page.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
+        <state relative-caret-position="357">
           <caret line="25" column="53" selection-start-line="25" selection-start-column="53" selection-end-line="25" selection-end-column="53" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///Applications/flutter/bin/cache/pkg/sky_engine/lib/ui/window.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="629">
+          <caret line="39" column="24" selection-start-line="39" selection-start-column="24" selection-end-line="39" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/example/android/app/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="799">
+          <caret line="47" column="46" selection-start-line="47" selection-start-column="46" selection-end-line="47" selection-end-column="46" />
         </state>
       </provider>
     </entry>
@@ -877,23 +889,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///Applications/flutter/bin/cache/pkg/sky_engine/lib/ui/window.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="478">
-          <caret line="39" column="24" selection-start-line="39" selection-start-column="24" selection-end-line="39" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/android/app/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="47" column="46" selection-start-line="47" selection-start-column="46" selection-end-line="47" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/example/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
+        <state relative-caret-position="469">
           <caret line="32" column="49" selection-start-line="32" selection-start-column="49" selection-end-line="32" selection-end-column="49" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />

@@ -32,7 +32,6 @@ class FlutterFragmentActivity : AppCompatActivity() {
         }
     }
 
-
     override fun onBackPressed() {
         FlutterHybridPlugin.instance.containerManager().onBackPressed(mFragment as IFlutterViewContainer)
     }

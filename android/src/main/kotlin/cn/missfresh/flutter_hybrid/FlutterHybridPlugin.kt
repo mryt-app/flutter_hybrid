@@ -7,7 +7,9 @@ import cn.missfresh.flutter_hybrid.interfaces.IAppInfo
 import cn.missfresh.flutter_hybrid.interfaces.IContainerManager
 import cn.missfresh.flutter_hybrid.interfaces.IFlutterHybridViewProvider
 import cn.missfresh.flutter_hybrid.messaging.DataMessager
-import cn.missfresh.flutter_hybrid.messaging.LifecycleMessager
+import cn.missfresh.flutter_hybrid.messaging.Messager
+import cn.missfresh.flutter_hybrid.messaging.Messager.Companion.NATIVE_NAVIGATION
+import cn.missfresh.flutter_hybrid.messaging.Messager.Companion.NATIVE_PAGE_LIFECYCLE
 import cn.missfresh.flutter_hybrid.messaging.MessagerProxy
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
@@ -19,6 +21,8 @@ class FlutterHybridPlugin : MethodCallHandler, Application.ActivityLifecycleCall
 
     companion object {
         val instance = FlutterHybridPluginHolder.holder
+
+        const val FLUTTER_HYBRID = "flutter_hybrid"
     }
 
     private object FlutterHybridPluginHolder {
@@ -29,11 +33,13 @@ class FlutterHybridPlugin : MethodCallHandler, Application.ActivityLifecycleCall
     private lateinit var mManager: IContainerManager
     private lateinit var mAppInfo: IAppInfo
 
-    private lateinit var mMessagerProxy: MessagerProxy
-    private lateinit var mLifecycleMessager: LifecycleMessager
+    private lateinit var mLifecycleMessager: Messager
     private lateinit var mDataMessager: DataMessager
 
-    private var mCurrentActiveActivity: Activity? = null
+    private var mCurrentActivity: Activity? = null
+
+    // Whether to use the DataMessager FLUTTER_CAN_POP_CHANGED agreement
+    var isUseCanPop = false
 
     fun init(appInfo: IAppInfo) {
         mManager = FlutterViewContainerManager()
@@ -45,19 +51,19 @@ class FlutterHybridPlugin : MethodCallHandler, Application.ActivityLifecycleCall
     }
 
     fun registerWith(registrar: Registrar) {
-        val channel = MethodChannel(registrar.view(), "flutter_hybrid")
+        val channel = MethodChannel(registrar.view(), FLUTTER_HYBRID)
         channel.setMethodCallHandler(instance)
 
-        mMessagerProxy = MessagerProxy(channel)
+        val mMessagerProxy = MessagerProxy(channel)
 
-        mDataMessager = DataMessager()
+        mDataMessager = DataMessager(NATIVE_NAVIGATION)
         mMessagerProxy.addMessager(mDataMessager)
 
-        mLifecycleMessager = LifecycleMessager()
+        mLifecycleMessager = Messager(NATIVE_PAGE_LIFECYCLE)
         mMessagerProxy.addMessager(mLifecycleMessager)
     }
 
-    fun lifecycleMessager(): LifecycleMessager {
+    fun lifecycleMessager(): Messager {
         return mLifecycleMessager
     }
 
@@ -78,7 +84,7 @@ class FlutterHybridPlugin : MethodCallHandler, Application.ActivityLifecycleCall
     }
 
     fun currentActivity(): Activity? {
-        return mCurrentActiveActivity
+        return mCurrentActivity
     }
 
     override fun onMethodCall(call: MethodCall, result: Result) {
@@ -94,11 +100,11 @@ class FlutterHybridPlugin : MethodCallHandler, Application.ActivityLifecycleCall
     }
 
     override fun onActivityStarted(activity: Activity?) {
-        mCurrentActiveActivity = activity
+        mCurrentActivity = activity
     }
 
     override fun onActivityResumed(activity: Activity?) {
-        mCurrentActiveActivity = activity
+        mCurrentActivity = activity
     }
 
     override fun onActivityPaused(activity: Activity?) {
@@ -106,14 +112,14 @@ class FlutterHybridPlugin : MethodCallHandler, Application.ActivityLifecycleCall
     }
 
     override fun onActivityStopped(activity: Activity?) {
-        if (mCurrentActiveActivity == activity) {
-            mCurrentActiveActivity = null
+        if (mCurrentActivity == activity) {
+            mCurrentActivity = null
         }
     }
 
     override fun onActivityDestroyed(activity: Activity?) {
-        if (mCurrentActiveActivity == activity) {
-            mCurrentActiveActivity = null
+        if (mCurrentActivity == activity) {
+            mCurrentActivity = null
         }
     }
 
