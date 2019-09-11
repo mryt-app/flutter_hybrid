@@ -2,8 +2,8 @@ package cn.missfresh.flutter_hybrid_example.util
 
 import android.content.Context
 import android.content.Intent
+import cn.missfresh.flutter_hybrid.containers.FHFlutterActivity
 import cn.missfresh.flutter_hybrid.messaging.Messager
-import cn.missfresh.flutter_hybrid_example.activity.FlutterActivity
 import cn.missfresh.flutter_hybrid_example.activity.FlutterFragmentActivity
 import cn.missfresh.flutter_hybrid_example.activity.NativeActivity
 import java.io.Serializable
@@ -35,7 +35,7 @@ object RouterUtil {
 
             when (type) {
                 FRAGMENT_TYPE -> {
-                    val intent = Intent(context, FlutterActivity::class.java)
+                    val intent = Intent(context, FHFlutterActivity::class.java)
                     startActivity(context, intent, routeName, params)
                 }
                 ACTIVITY_TYPE -> {

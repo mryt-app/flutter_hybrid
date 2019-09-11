@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Window
 import cn.missfresh.flutter_hybrid.FlutterHybridPlugin
+import cn.missfresh.flutter_hybrid.containers.FHFlutterFragment
 import cn.missfresh.flutter_hybrid.interfaces.IFlutterViewContainer
 import cn.missfresh.flutter_hybrid_example.R
-import cn.missfresh.flutter_hybrid_example.fragment.FlutterFragment
 
 /**
  * Created by sjl
@@ -14,7 +14,7 @@ import cn.missfresh.flutter_hybrid_example.fragment.FlutterFragment
  */
 class FlutterFragmentActivity : AppCompatActivity() {
 
-    private var mFragment: FlutterFragment? = null
+    private var mFragment: FHFlutterFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -22,7 +22,7 @@ class FlutterFragmentActivity : AppCompatActivity() {
 
         setContentView(R.layout.flutter_fragment)
 
-        mFragment = FlutterFragment.instance("hello world")
+        mFragment = FHFlutterFragment.instance("hello world")
 
         mFragment?.let {
             supportFragmentManager

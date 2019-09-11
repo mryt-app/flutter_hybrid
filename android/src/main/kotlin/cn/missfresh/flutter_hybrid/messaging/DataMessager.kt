@@ -69,11 +69,11 @@ class DataMessager(name: String) : Messager(name) {
 
     private fun flutterCanPop(canPop: Boolean) {
         var containerStatus = FlutterHybridPlugin
-                .instance.containerManager().getCurrentStatus()
+                .instance.containerManager().getCurrentLifecycleState()
 
         if (containerStatus == null) {
             containerStatus = FlutterHybridPlugin.instance
-                    .containerManager().getLastContainerStatus()
+                    .containerManager().getLastContainerLifecycle()
         }
 
         containerStatus?.getContainer()?.setContainerCanPop(canPop)
@@ -90,11 +90,11 @@ class DataMessager(name: String) : Messager(name) {
         val pageInfo = HashMap<String, Any>()
         try {
             var containerStatus = FlutterHybridPlugin
-                    .instance.containerManager().getCurrentStatus()
+                    .instance.containerManager().getCurrentLifecycleState()
 
             if (containerStatus == null) {
                 containerStatus = FlutterHybridPlugin.instance
-                        .containerManager().getLastContainerStatus()
+                        .containerManager().getLastContainerLifecycle()
             }
 
             containerStatus?.apply {

@@ -17,7 +17,7 @@ import cn.missfresh.flutter_hybrid.view.FHFlutterView
  * Created by sjl
  * on 2019-09-02
  */
-abstract class FHFlutterFragment : Fragment(), IFlutterViewContainer {
+class FHFlutterFragment : Fragment(), IFlutterViewContainer {
 
     private lateinit var mFlutterContent: FlutterViewStub
     private var resumed = false
@@ -25,7 +25,7 @@ abstract class FHFlutterFragment : Fragment(), IFlutterViewContainer {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        onRegisterPlugins(FlutterHybridPlugin.instance.containerManager().onContainerCreate(this))
+        FlutterHybridPlugin.instance.containerManager().onContainerCreate(this)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -103,5 +103,19 @@ abstract class FHFlutterFragment : Fragment(), IFlutterViewContainer {
 
     override fun getContainerCanPop(): Boolean {
         return canPopFlutterView
+    }
+
+    fun setTabTag(tag: String) {
+        val args = Bundle()
+        args.putString("tag", tag)
+        arguments = args
+    }
+
+    companion object {
+        fun instance(tag: String): FHFlutterFragment {
+            val fragment = FHFlutterFragment()
+            fragment.setTabTag(tag)
+            return fragment
+        }
     }
 }

@@ -2,7 +2,6 @@ package cn.missfresh.flutter_hybrid.interfaces
 
 import android.app.Activity
 import cn.missfresh.flutter_hybrid.view.FHFlutterView
-import io.flutter.plugin.common.PluginRegistry
 
 /**
  * Created by sjl
@@ -25,8 +24,6 @@ interface IFlutterViewContainer {
     fun destroyContainerView()
 
     fun isFinishing(): Boolean
-
-    fun onRegisterPlugins(registry: PluginRegistry)
 
     fun setContainerCanPop(canPop: Boolean)
 

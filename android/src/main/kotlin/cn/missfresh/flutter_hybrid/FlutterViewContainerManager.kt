@@ -18,17 +18,20 @@ import io.flutter.view.FlutterRunArguments
  */
 class FlutterViewContainerManager : IContainerManager {
 
-    private var mCurrentStatus: IContainerLifecycle? = null
+    private var mCurrentLifecycleState: IContainerLifecycle? = null
 
-    private val mStatusList = HashMap<IFlutterViewContainer, IContainerLifecycle>()
+    private val mContainLifecycleList = HashMap<IFlutterViewContainer, IContainerLifecycle>()
 
     override fun onContainerCreate(container: IFlutterViewContainer): PluginRegistry {
         assertCallOnMainThread()
 
         val containerLifecycleManager = ContainerLifecycleManager(container)
-        if (mStatusList.put(container, containerLifecycleManager) != null) {
+        val pluginRegistry: PluginRegistryImpl
+        if (mContainLifecycleList.put(container, containerLifecycleManager) != null) {
             Logger.e("container ${container.getContainerName()} already exists!")
-            return PluginRegistryImpl(container.getFHFlutterView())
+            pluginRegistry = PluginRegistryImpl(container.getFHFlutterView())
+            registerPlugins(pluginRegistry)
+            return pluginRegistry
         }
 
         FlutterMain.ensureInitializationComplete(container.getCurrActivity().applicationContext, null)
@@ -43,38 +46,39 @@ class FlutterViewContainerManager : IContainerManager {
             }
         }
 
-        mStatusList[container]?.apply {
+        mContainLifecycleList[container]?.apply {
             if (getState() == ContainerLifecycleEnum.STATE_UN_KNOW.status) {
                 onCreate()
             }
 
-            mCurrentStatus = this
+            mCurrentLifecycleState = this
         }
-
-        return PluginRegistryImpl(container.getFHFlutterView())
+        pluginRegistry = PluginRegistryImpl(container.getFHFlutterView())
+        registerPlugins(pluginRegistry)
+        return pluginRegistry
     }
 
     override fun onContainerAppear(container: IFlutterViewContainer) {
         assertCallOnMainThread()
 
-        mStatusList[container]?.apply {
+        mContainLifecycleList[container]?.apply {
             if (getState() != ContainerLifecycleEnum.STATE_CREATED.status
                     && getState() != ContainerLifecycleEnum.STATE_DISAPPEAR.status) {
                 Logger.e("onContainerAppear state error, current state:" + getState())
                 return
             }
             onAppear()
-            mCurrentStatus = this
+            mCurrentLifecycleState = this
         }
     }
 
     override fun onContainerDisappear(container: IFlutterViewContainer) {
         assertCallOnMainThread()
-        mStatusList[container]?.apply {
+        mContainLifecycleList[container]?.apply {
             if (getState() == ContainerLifecycleEnum.STATE_APPEAR.status) {
                 onDisappear()
             }
-            mCurrentStatus = this
+            mCurrentLifecycleState = this
         }
         if (!container.isFinishing()) {
             checkIfFlutterViewNeedStopLater()
@@ -84,23 +88,23 @@ class FlutterViewContainerManager : IContainerManager {
     override fun onContainerDestroy(container: IFlutterViewContainer) {
         assertCallOnMainThread()
 
-        mCurrentStatus?.let {
+        mCurrentLifecycleState?.let {
             if (it.getContainer() == container) {
-                mCurrentStatus = null
+                mCurrentLifecycleState = null
             }
         }
 
-        val record = mStatusList.remove(container)
+        val record = mContainLifecycleList.remove(container)
         if (record == null) {
             Logger.e("container:" + container.getContainerName() + " not exists yet!")
             return
         }
 
-        mStatusList[container]?.apply {
+        mContainLifecycleList[container]?.apply {
             if (getState() == ContainerLifecycleEnum.STATE_DESTROYED.status) {
                 onDestroy()
             }
-            mCurrentStatus = this
+            mCurrentLifecycleState = this
         }
 
         checkIfFlutterViewNeedStopLater()
@@ -117,7 +121,7 @@ class FlutterViewContainerManager : IContainerManager {
     override fun hasContainerAppear(): Boolean {
         assertCallOnMainThread()
 
-        for (entry in mStatusList.entries) {
+        for (entry in mContainLifecycleList.entries) {
             if (entry.value.getState() === ContainerLifecycleEnum.STATE_APPEAR.status) {
                 return true
             }
@@ -128,7 +132,7 @@ class FlutterViewContainerManager : IContainerManager {
     override fun onBackPressed(container: IFlutterViewContainer) {
         assertCallOnMainThread()
 
-        mStatusList[container]?.let {
+        mContainLifecycleList[container]?.let {
             if (FlutterHybridPlugin.instance.isUseCanPop) {
                 if (container.getContainerCanPop()) {
                     FlutterHybridPlugin.instance.dataMessage().invokeMethod(BACK_BUTTON_PRESSED,
@@ -147,7 +151,7 @@ class FlutterViewContainerManager : IContainerManager {
         assertCallOnMainThread()
 
         var done = false
-        for (entry in mStatusList.entries) {
+        for (entry in mContainLifecycleList.entries) {
             if (TextUtils.equals(uq, entry.value.containerId())) {
                 entry.key.destroyContainerView()
                 done = true
@@ -160,12 +164,12 @@ class FlutterViewContainerManager : IContainerManager {
         }
     }
 
-    override fun getCurrentStatus(): IContainerLifecycle? {
-        return mCurrentStatus
+    override fun getCurrentLifecycleState(): IContainerLifecycle? {
+        return mCurrentLifecycleState
     }
 
-    override fun getLastContainerStatus(): IContainerLifecycle? {
-        val values = mStatusList.values
+    override fun getLastContainerLifecycle(): IContainerLifecycle? {
+        val values = mContainLifecycleList.values
         if (!values.isEmpty()) {
             val array = ArrayList(values)
             return array[array.size - 1]
@@ -179,7 +183,7 @@ class FlutterViewContainerManager : IContainerManager {
         var oldContainer: IFlutterViewContainer? = null
         var nowContainer: IFlutterViewContainer? = null
 
-        for (entry in mStatusList.entries) {
+        for (entry in mContainLifecycleList.entries) {
             if (TextUtils.equals(old, entry.value.containerId())) {
                 oldContainer = entry.key
             }
@@ -216,6 +220,16 @@ class FlutterViewContainerManager : IContainerManager {
 
         override fun <T> valuePublishedByPlugin(pluginKey: String): T {
             return fhFlutterView.pluginRegistry.valuePublishedByPlugin(pluginKey)
+        }
+    }
+
+    private fun registerPlugins(registry: PluginRegistry) {
+        try {
+            val clz = Class.forName("io.flutter.plugins.GeneratedPluginRegistrant")
+            val method = clz.getDeclaredMethod("registerWith", PluginRegistry::class.java)
+            method.invoke(null, registry)
+        } catch (t: Throwable) {
+
         }
     }
 }

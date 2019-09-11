@@ -20,9 +20,9 @@ interface IContainerManager {
 
     fun destroyContainer(name: String, containerId: String)
 
-    fun getCurrentStatus(): IContainerLifecycle?
+    fun getCurrentLifecycleState(): IContainerLifecycle?
 
-    fun getLastContainerStatus(): IContainerLifecycle?
+    fun getLastContainerLifecycle(): IContainerLifecycle?
 
     fun onShownContainerChanged(old: String, now: String)
 

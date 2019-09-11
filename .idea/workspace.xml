@@ -5,16 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="52f36c54-3c7b-4caa-a1a9-7a3a50cfd7b2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/example/lib/page_type.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/MainActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/activity/NativeActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/activity/NativeActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/FlutterHybridPlugin.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/FlutterHybridPlugin.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/FlutterViewContainerManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/FlutterViewContainerManager.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/containers/FHFlutterActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/containers/FHFlutterActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/containers/FHFlutterFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/containers/FHFlutterFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/interfaces/IContainerManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/interfaces/IContainerManager.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/interfaces/IFlutterViewContainer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/interfaces/IFlutterViewContainer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/messaging/DataMessager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/messaging/DataMessager.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/activity/FlutterActivity.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/activity/FlutterFragmentActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/activity/FlutterFragmentActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/fragment/FlutterFragment.kt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/util/RouterUtil.kt" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/util/RouterUtil.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/lib/color_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/color_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/lib/counter.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/counter.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/lib/flutter_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/flutter_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/.idea/" />
@@ -46,27 +49,6 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/page/hybrid_page_observer.dart">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2074">
-              <caret line="126" selection-start-line="126" selection-end-line="126" />
-              <folding>
-                <element signature="e#0#38#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/fragment/FlutterFragment.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="11" column="41" selection-start-line="11" selection-start-column="24" selection-end-line="11" selection-end-column="41" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/example/lib/color_page.dart">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="493">
@@ -93,8 +75,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/example/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="547">
-              <caret line="41" column="1" selection-start-line="41" selection-start-column="1" selection-end-line="41" selection-end-column="1" />
+            <state relative-caret-position="253">
+              <caret line="27" column="28" lean-forward="true" selection-start-line="27" selection-start-column="28" selection-end-line="27" selection-end-column="28" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -105,8 +87,17 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/example/lib/page_type.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="6" selection-start-line="6" selection-end-line="6" />
+            <state relative-caret-position="34">
+              <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/MainActivity.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="697">
+              <caret line="49" column="22" selection-start-line="49" selection-start-column="22" selection-end-line="49" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -220,13 +211,14 @@
         <option value="$PROJECT_DIR$/example/lib/counter.dart" />
         <option value="$PROJECT_DIR$/example/lib/color_page.dart" />
         <option value="$PROJECT_DIR$/example/lib/flutter_page.dart" />
+        <option value="$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/util/RouterUtil.kt" />
         <option value="$PROJECT_DIR$/example/lib/page_type.dart" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-1680" />
-    <option name="y" value="58" />
+    <option name="x" value="-2329" />
+    <option name="y" value="212" />
     <option name="width" value="1680" />
     <option name="height" value="1283" />
   </component>
@@ -349,17 +341,6 @@
               <item name="flutter_hybrid" type="b2602c69:ProjectViewProjectNode" />
               <item name="flutter_hybrid" type="462c0819:PsiDirectoryNode" />
               <item name="example" type="462c0819:PsiDirectoryNode" />
-              <item name="android" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="flutter_hybrid_example" type="462c0819:PsiDirectoryNode" />
-              <item name="fragment" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="flutter_hybrid" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flutter_hybrid" type="462c0819:PsiDirectoryNode" />
-              <item name="example" type="462c0819:PsiDirectoryNode" />
               <item name="lib" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -449,9 +430,9 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1680" y="58" width="1680" height="1283" extended-state="0" />
+    <frame x="-2329" y="212" width="1680" height="1283" extended-state="0" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4973913" visible="true" weight="0.21123321" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4973913" visible="true" weight="0.21123321" />
       <window_info id="Structure" order="1" sideWeight="0.5026087" side_tool="true" weight="0.3677686" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -462,7 +443,7 @@
       <window_info anchor="bottom" id="Run" order="1" sideWeight="0.49586776" weight="0.35664335" />
       <window_info anchor="bottom" id="TODO" order="2" weight="0.32867134" />
       <window_info anchor="bottom" id="Debug" order="3" />
-      <window_info anchor="bottom" id="Terminal" order="4" visible="true" weight="0.3844178" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="4" visible="true" weight="0.3844178" />
       <window_info anchor="bottom" id="Event Log" order="5" sideWeight="0.5041322" side_tool="true" weight="0.14452215" />
       <window_info anchor="bottom" id="Flutter Performance" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.432363" />
@@ -771,13 +752,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/MainActivity.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="765">
-          <caret line="54" column="40" selection-start-line="54" selection-start-column="27" selection-end-line="54" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///Applications/flutter/packages/flutter/lib/src/material/page.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="612">
@@ -829,7 +803,7 @@
     <entry file="file://$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/fragment/FlutterFragment.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
-          <caret line="11" column="41" selection-start-line="11" selection-start-column="24" selection-end-line="11" selection-end-column="41" />
+          <caret line="9" column="41" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="41" />
         </state>
       </provider>
     </entry>
@@ -864,16 +838,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/example/lib/main.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="547">
-          <caret line="41" column="1" selection-start-line="41" selection-start-column="1" selection-end-line="41" selection-end-column="1" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/example/lib/color_page.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="493">
@@ -894,10 +858,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/MainActivity.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="697">
+          <caret line="49" column="22" selection-start-line="49" selection-start-column="22" selection-end-line="49" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/example/lib/main.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="27" column="28" lean-forward="true" selection-start-line="27" selection-start-column="28" selection-end-line="27" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/example/lib/page_type.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" selection-start-line="6" selection-end-line="6" />
+        <state relative-caret-position="34">
+          <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
         </state>
       </provider>
     </entry>

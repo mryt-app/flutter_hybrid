@@ -13,7 +13,7 @@ import cn.missfresh.flutter_hybrid.view.FHFlutterView
  * Created by sjl
  * on 2019-09-02
  */
-abstract class FHFlutterActivity : Activity(), IFlutterViewContainer {
+class FHFlutterActivity : Activity(), IFlutterViewContainer {
 
     private lateinit var mFlutterContent: FlutterViewStub
 
@@ -28,8 +28,8 @@ abstract class FHFlutterActivity : Activity(), IFlutterViewContainer {
 
         setContentView(mFlutterContent)
 
-        onRegisterPlugins(FlutterHybridPlugin.instance
-                .containerManager().onContainerCreate(this))
+        FlutterHybridPlugin.instance
+                .containerManager().onContainerCreate(this)
     }
 
     override fun onPostResume() {
