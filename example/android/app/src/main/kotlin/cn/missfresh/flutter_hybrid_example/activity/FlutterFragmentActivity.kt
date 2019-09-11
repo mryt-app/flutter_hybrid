@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Window
 import cn.missfresh.flutter_hybrid.FlutterHybridPlugin
+import cn.missfresh.flutter_hybrid.interfaces.IFlutterViewContainer
 import cn.missfresh.flutter_hybrid_example.R
 import cn.missfresh.flutter_hybrid_example.fragment.FlutterFragment
 
@@ -33,15 +34,6 @@ class FlutterFragmentActivity : AppCompatActivity() {
 
 
     override fun onBackPressed() {
-        var containerStatus = FlutterHybridPlugin
-                .instance.containerManager().getCurrentStatus()
-
-        if (containerStatus == null) {
-            containerStatus = FlutterHybridPlugin.instance
-                    .containerManager().getLastContainerStatus()
-        }
-        containerStatus?.getContainer()?.let {
-            FlutterHybridPlugin.instance.containerManager().onBackPressed(it)
-        }
+        FlutterHybridPlugin.instance.containerManager().onBackPressed(mFragment as IFlutterViewContainer)
     }
 }

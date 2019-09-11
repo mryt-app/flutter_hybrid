@@ -3,7 +3,6 @@ package cn.missfresh.flutter_hybrid
 import android.os.Handler
 import android.os.Looper
 import android.text.TextUtils
-import cn.missfresh.flutter_hybrid.containers.FHFlutterActivity
 import cn.missfresh.flutter_hybrid.interfaces.IContainerLifecycle
 import cn.missfresh.flutter_hybrid.interfaces.IContainerManager
 import cn.missfresh.flutter_hybrid.interfaces.IFlutterViewContainer
@@ -63,9 +62,6 @@ class FlutterViewContainerManager : IContainerManager {
                 Logger.e("onContainerAppear state error, current state:" + getState())
                 return
             }
-            Logger.e("onContainerAppear state:" + (getContainer().getCurrActivity() is FHFlutterActivity).toString())
-            Logger.e("onContainerAppear state :" + getState())
-
             onAppear()
             mCurrentStatus = this
         }
@@ -132,12 +128,12 @@ class FlutterViewContainerManager : IContainerManager {
         assertCallOnMainThread()
 
         mStatusList[container]?.let {
-            //if (container.getContainerCanPop()) {
-            FlutterHybridPlugin.instance.dataMessage().invokeMethod("backButtonPressed",
-                    container.getContainerName(), container.getContainerParams(), it.containerId())
-//            } else {
-//                container.destroyContainerView()
-//            }
+            if (container.getContainerCanPop()) {
+                FlutterHybridPlugin.instance.dataMessage().invokeMethod("backButtonPressed",
+                        container.getContainerName(), container.getContainerParams(), it.containerId())
+            } else {
+                container.destroyContainerView()
+            }
         }
     }
 
