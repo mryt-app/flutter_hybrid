@@ -9,10 +9,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ * The platform(iOS) should implements this protocol to route pages.
+ * The route and params is fully customized, the framework hasn't restrictions.
+ */
 @protocol FLHRouter <NSObject>
 
 @optional
-// Could flutter module pop
+
 @property (nonatomic, assign) BOOL flutterCanPop;
 
 - (void)openPage:(NSString *)route

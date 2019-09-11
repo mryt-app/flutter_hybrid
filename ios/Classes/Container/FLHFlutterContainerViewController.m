@@ -25,7 +25,6 @@
 @property(nonatomic, strong) FLHPageInfo *pageInfo;
 
 @property(nonatomic, strong) UIImageView *screenshotView;
-@property(nonatomic, assign) BOOL interactivePopGestureActive;
 
 @end
 
@@ -41,6 +40,10 @@ static NSUInteger kInstanceCount = 0;
 
 + (void)increaseInstanceCount {
     kInstanceCount++;
+    if (kInstanceCount == 1) {
+//        On the first Flutter page is readying to show, we also think it is resumed.
+        [FLHFlutterHybrid.sharedInstance resume];
+    }
 }
 
 + (void)decreaseInstanceCount {
@@ -108,11 +111,6 @@ static NSUInteger kInstanceCount = 0;
 #pragma mark - View Lifecyle
 
 - (void)viewWillAppear:(BOOL)animated {
-  if (self.navigationController.interactivePopGestureRecognizer.state ==
-      UIGestureRecognizerStateBegan) {
-    self.interactivePopGestureActive = true;
-  }
-
   // For new page, we should attach flutter view in viewWillAppear
   // for better performance.
   if (![FLHFlutterHybrid.sharedInstance containsContainerViewController:self]) {
@@ -143,18 +141,13 @@ static NSUInteger kInstanceCount = 0;
 
   [super viewDidAppear:animated];
 
-  self.interactivePopGestureActive = NO;
   self.navigationController.interactivePopGestureRecognizer.delegate = self;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-  if ([FLHFlutterHybrid.sharedInstance isTopContainerViewController:self] &&
-      self.navigationController.interactivePopGestureRecognizer.state !=
-          UIGestureRecognizerStateBegan &&
-      !self.interactivePopGestureActive) {
+  if ([FLHFlutterHybrid.sharedInstance isTopContainerViewController:self]) {
     [self cacheScreenshot];
   }
-  self.interactivePopGestureActive = NO;
 
   self.screenshotView.image = [self cachedScreenshotImage];
   if (self.screenshotView.image) {
@@ -170,7 +163,6 @@ static NSUInteger kInstanceCount = 0;
   [self _notifyLifecyleEvent:FLHHybridPageLifecycleDidDisappear];
 
   [self clearScreenshot];
-  self.interactivePopGestureActive = NO;
   [super viewDidDisappear:animated];
 }
 
@@ -289,6 +281,8 @@ static NSUInteger kInstanceCount = 0;
 #pragma mark - UIGestureRecognizerDelegate
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+//    If used Navigator.push to present new page in Flutter,
+//    the interactivePopGestureRecognizer should be handle by flutter
     return (FLHFlutterHybrid.sharedInstance.router.flutterCanPop == NO);
 }
 

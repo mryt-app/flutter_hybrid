@@ -9,6 +9,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ * The native pages is corresponding to flutter pages.
+ * `PageInfo` is the relationship.
+ */
 @interface FLHPageInfo : NSObject
 
 @property (nonatomic, copy) NSString *routeName;

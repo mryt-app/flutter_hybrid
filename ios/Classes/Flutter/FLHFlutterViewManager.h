@@ -25,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * AppLifecycleState.resumed
  * The FlutterViewController is visible and responding to user input.
+ * On the first Flutter page is readying to show, we also think it is resumed.
  */
 - (void)resume;
 /**

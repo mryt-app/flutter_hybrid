@@ -69,11 +69,8 @@ class HybridPageContainerState extends State<HybridPageContainer> {
   List<_HybridPageOverlayEntry> _hybridPageEntries;
 
   HybridPage _onstagePage;
-  bool _foreground = true;
 
   String _lastShownPageId;
-
-  bool get foreground => _foreground;
 
   PrePushRouteCallback get prePushRouteCallback => widget.prePushRouteCallback;
   PostPushRouteCallback get postPushRouteCallback => widget.postPushRouteCallback;
@@ -193,18 +190,6 @@ class HybridPageContainerState extends State<HybridPageContainer> {
     }
 
     fn();
-  }
-
-  void setForeground() {
-    _foreground = true;
-    FlutterHybrid.sharedInstance.pageLifecycleObserverManager
-      .notifyObservers(_onstagePage.settings, HybridPageLifecycle.foreground);
-  }
-
-  void setBackground() {
-    _foreground = false;
-    FlutterHybrid.sharedInstance.pageLifecycleObserverManager
-      .notifyObservers(_onstagePage.settings, HybridPageLifecycle.background);
   }
 
   // If page exists, bring it to front else

@@ -28,7 +28,7 @@
         ![self.callerDesc isEqualToString:currentCallerDesc]) {
         self.callerDesc = currentCallerDesc;
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(clearCallerDesc) object:nil];
-        [self performSelector:@selector(clearCallerDesc) withObject:nil afterDelay:3];
+        [self performSelector:@selector(clearCallerDesc) withObject:nil afterDelay:0.5];
         
         if (self.viewControllers.count != 0) {
             viewController.hidesBottomBarWhenPushed = YES;
@@ -38,7 +38,7 @@
     } else {
         self.callerDesc = currentCallerDesc;
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(clearCallerDesc) object:nil];
-        [self performSelector:@selector(clearCallerDesc) withObject:nil afterDelay:3];
+        [self performSelector:@selector(clearCallerDesc) withObject:nil afterDelay:0.5];
     }
 }
 

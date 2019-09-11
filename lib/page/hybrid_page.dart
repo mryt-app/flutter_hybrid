@@ -10,10 +10,9 @@ enum HybridPageLifecycle {
   appear,
   disappear,
   destroy,
-  background,
-  foreground,
 }
 
+/// The information to create new hybrid flutter page.
 class HybridPageSettings {
   final String uniqueID;
   final String routeName;
@@ -86,9 +85,6 @@ class HybridPage extends Navigator {
 
   @override
   HybridPageState createState() => HybridPageState();
-
-  @override
-  StatefulElement createElement() => _HybridPageElement(this);
 
   static HybridPageState tryOf(BuildContext context) {
     final HybridPageState pageState =
@@ -225,8 +221,4 @@ class HybridPageState extends NavigatorState {
         }
     });
   }
-}
-
-class _HybridPageElement extends StatefulElement {
-  _HybridPageElement(StatefulWidget widget) : super(widget);
 }
