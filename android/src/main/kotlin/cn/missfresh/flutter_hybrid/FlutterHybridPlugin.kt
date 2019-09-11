@@ -28,12 +28,12 @@ class FlutterHybridPlugin : MethodCallHandler, Application.ActivityLifecycleCall
     private lateinit var mViewProvider: IFlutterHybridViewProvider
     private lateinit var mManager: IContainerManager
     private lateinit var mAppInfo: IAppInfo
+
     private lateinit var mMessagerProxy: MessagerProxy
     private lateinit var mLifecycleMessager: LifecycleMessager
     private lateinit var mDataMessager: DataMessager
 
     private var mCurrentActiveActivity: Activity? = null
-
 
     fun init(appInfo: IAppInfo) {
         mManager = FlutterViewContainerManager()

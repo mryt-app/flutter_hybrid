@@ -3,7 +3,7 @@ import 'package:flutter_hybrid/flutter_hybrid.dart';
 import 'package:flutter_hybrid_example/color_page.dart';
 import 'package:flutter_hybrid_example/counter.dart';
 import 'package:flutter_hybrid_example/flutter_page.dart';
-import 'package:flutter_hybrid_example/flutter_fragment.dart';
+import 'package:flutter_hybrid/support/logger.dart';
 
 void main() => runApp(MyApp());
 
@@ -12,18 +12,19 @@ class MyApp extends StatefulWidget {
   _MyAppState createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
 
     FlutterHybrid.sharedInstance.registerPageBuilders({
       '/counter': (routeName, params, pageId) => CounterPage(pageId: pageId),
-      '/colorPage': (routeName, params, pageId) => ColorPage(color: Color(params['color']), pageId: pageId),
+      '/colorPage': (routeName, params, pageId) =>
+          ColorPage(color: Color(params != null ? params['color'] : Colors.green.value), pageId: pageId),
       '/flutterPage': (routeName, params, _) => FlutterPage(),
-      'flutterFragment': (pageName, params, _) => FragmentRouteWidget(params),
     });
     FlutterHybrid.sharedInstance.startRun();
+    WidgetsBinding.instance.addObserver(this);
   }
 
   @override
@@ -33,4 +34,10 @@ class _MyAppState extends State<MyApp> {
       home: Container(),
     );
   }
+
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    Logger.error("didChangeAppLifecycleState state :$state");
+  }
+
+
 }

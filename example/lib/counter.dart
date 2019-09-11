@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hybrid/flutter_hybrid.dart';
+import 'package:flutter_hybrid/support/logger.dart';
 import 'package:flutter_hybrid_example/color_page.dart';
 
 class CounterPage extends StatefulWidget {
@@ -42,7 +43,7 @@ class _CounterPageState extends State<CounterPage> {
                   ),
                 ),
                 onPressed: () {
-                  FlutterHybrid.sharedInstance.router.openPage('/colorPage', params: { 'color': 0xFFFFFF00 });
+                  FlutterHybrid.sharedInstance.router.openPage('/colorPage', params: { 'color': Colors.red[200].value });
                 },
               ),
               FlatButton(
@@ -54,6 +55,7 @@ class _CounterPageState extends State<CounterPage> {
                   ),
                 ),
                 onPressed: () {
+                  Logger.error("CounterPage onPressed");
                   Navigator.push(context, MaterialPageRoute(builder: (_) => ColorPage(color: Colors.green)));
                 },
               ),

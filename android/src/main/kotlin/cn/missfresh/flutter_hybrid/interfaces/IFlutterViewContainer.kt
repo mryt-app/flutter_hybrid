@@ -27,4 +27,8 @@ interface IFlutterViewContainer {
     fun isFinishing(): Boolean
 
     fun onRegisterPlugins(registry: PluginRegistry)
+
+    fun setContainerCanPop(canPop: Boolean)
+
+    fun getContainerCanPop(): Boolean
 }

@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import cn.missfresh.flutter_hybrid_example.R
 import cn.missfresh.flutter_hybrid_example.util.RouterUtil
-import io.flutter.plugins.GeneratedPluginRegistrant
 import kotlinx.android.synthetic.main.main_activity.*
 
 /**
@@ -13,7 +12,6 @@ import kotlinx.android.synthetic.main.main_activity.*
  * on 2019-09-01
  */
 class NativeActivity : AppCompatActivity(), View.OnClickListener {
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,10 +27,23 @@ class NativeActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
+        var params = hashMapOf<String, Any>()
         when (v?.id) {
-            R.id.tv_open_native_activity -> RouterUtil.openPageByUrl(this, RouterUtil.NATIVE_ACTIVITY_URL)
-            R.id.tv_open_flutter_activity -> RouterUtil.openPageByUrl(this, RouterUtil.FLUTTER_ACTIVITY_URL)
-            R.id.tv_open_flutter_fragment -> RouterUtil.openPageByUrl(this, RouterUtil.FLUTTER_FRAGMENT_ACTIVITY_URL)
+            R.id.tv_open_native_activity -> {
+                params[RouterUtil.FLUTTER_TYPE] = 2
+                RouterUtil.openPageByUrl(this, "/counter", params)
+            }
+            R.id.tv_open_flutter_activity -> {
+                params[RouterUtil.FLUTTER_TYPE] = 1
+                params["color"] = 0xFFFFFF00
+                RouterUtil.openPageByUrl(this, "/colorPage", params)
+            }
+            R.id.tv_open_flutter_fragment -> {
+                params[RouterUtil.FLUTTER_TYPE] = 0
+                RouterUtil.openPageByUrl(this, "/counter", params)
+            }
         }
     }
+
+
 }

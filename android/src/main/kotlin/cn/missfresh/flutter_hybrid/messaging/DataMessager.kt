@@ -1,5 +1,6 @@
 package cn.missfresh.flutter_hybrid.messaging
 
+import android.text.TextUtils
 import cn.missfresh.flutter_hybrid.FlutterHybridPlugin
 import cn.missfresh.flutter_hybrid.Logger
 import cn.missfresh.flutter_hybrid.router.Router
@@ -45,6 +46,10 @@ class DataMessager : Messager() {
         when (method) {
             OPEN_PAGE -> {
                 arguments as Map<*, *>
+
+                Logger.e("ROUTE_NAME=" + arguments[ROUTE_NAME].toString())
+                Logger.e("PARAMS=" + arguments[PARAMS].toString())
+
                 openPage(arguments[ROUTE_NAME].toString(), arguments[PARAMS] as Map<*, *>)
                 return
             }
@@ -58,7 +63,6 @@ class DataMessager : Messager() {
                 return
             }
             SHOWN_PAGE_CHANGED -> {
-                Logger.e(SHOWN_PAGE_CHANGED+"========")
                 arguments as Map<*, *>
                 showPageChanged(arguments[OLD_PAGE].toString(),
                         arguments[NEW_PAGE].toString())
@@ -66,14 +70,28 @@ class DataMessager : Messager() {
             }
             FLUTTER_CAN_POP_CHANGED -> {
                 arguments as Map<*, *>
-                flutterCanPop(result, arguments[CAN_POP] as Boolean)
+                Logger.e("$FLUTTER_CAN_POP_CHANGED======$arguments")
+                var canPop = false
+                if (arguments.containsKey(CAN_POP)) {
+                    canPop = arguments[CAN_POP] as Boolean
+                }
+                flutterCanPop(canPop)
                 return
             }
         }
     }
 
-    private fun flutterCanPop(result: MethodChannel.Result, canPop: Boolean) {
-        result?.success(canPop)
+    private fun flutterCanPop(canPop: Boolean) {
+        Logger.e("flutterCanPop ================ canPop:$canPop")
+        var containerStatus = FlutterHybridPlugin
+                .instance.containerManager().getCurrentStatus()
+
+        if (containerStatus == null) {
+            containerStatus = FlutterHybridPlugin.instance
+                    .containerManager().getLastContainerStatus()
+        }
+
+        containerStatus?.getContainer()?.setContainerCanPop(canPop)
     }
 
     private fun showPageChanged(oldPage: String, newPage: String) {
@@ -97,7 +115,9 @@ class DataMessager : Messager() {
             containerStatus?.apply {
 
                 pageInfo[ROUTE_NAME] = getContainer().getContainerName()
-                pageInfo[PARAMS] = getContainer().getContainerParams()
+                if (getContainer().getContainerParams().isNullOrEmpty()) {
+                    pageInfo[PARAMS] = getContainer().getContainerParams().toString()
+                }
                 pageInfo[UNIQUE_ID] = containerId()
 
                 Logger.d(ROUTE_NAME + "=" + pageInfo[ROUTE_NAME])

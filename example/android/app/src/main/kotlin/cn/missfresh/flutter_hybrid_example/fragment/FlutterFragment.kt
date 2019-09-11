@@ -4,7 +4,6 @@ import android.os.Bundle
 import cn.missfresh.flutter_hybrid.containers.FHFlutterFragment
 import io.flutter.plugin.common.PluginRegistry
 import io.flutter.plugins.GeneratedPluginRegistrant
-import java.util.HashMap
 
 /**
  * Created by sjl
@@ -13,7 +12,6 @@ import java.util.HashMap
 class FlutterFragment : FHFlutterFragment() {
 
     companion object {
-
         fun instance(tag: String): FlutterFragment {
             val fragment = FlutterFragment()
             fragment.setTabTag(tag)
@@ -21,32 +19,13 @@ class FlutterFragment : FHFlutterFragment() {
         }
     }
 
-
     fun setTabTag(tag: String) {
         val args = Bundle()
         args.putString("tag", tag)
         arguments = args
     }
 
-    override fun getContainerName(): String {
-        return "flutterFragment"
-        //return "/flutterPage"
-    }
-
-    override fun getContainerParams(): Map<String, Any> {
-        val params = HashMap<String, String>()
-        arguments?.let {
-            params["tag"] = it.getString("tag")
-        }
-        return params
-    }
-
-    override fun destroyContainerView() {
-        activity?.finish()
-    }
-
     override fun onRegisterPlugins(registry: PluginRegistry) {
         GeneratedPluginRegistrant.registerWith(registry)
     }
-
 }
