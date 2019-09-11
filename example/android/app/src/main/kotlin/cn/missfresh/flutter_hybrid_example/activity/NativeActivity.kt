@@ -17,7 +17,6 @@ class NativeActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
         initView()
-
     }
 
     private fun initView() {
@@ -30,16 +29,16 @@ class NativeActivity : AppCompatActivity(), View.OnClickListener {
         var params = hashMapOf<String, Any>()
         when (v?.id) {
             R.id.tv_open_native_activity -> {
-                params[RouterUtil.FLUTTER_TYPE] = 2
+                params[RouterUtil.PAGE_TYPE] = 2
                 RouterUtil.openPageByUrl(this, "/counter", params)
             }
             R.id.tv_open_flutter_activity -> {
-                params[RouterUtil.FLUTTER_TYPE] = 1
+                params[RouterUtil.PAGE_TYPE] = 1
                 params["color"] = 0xFFFFFF00
                 RouterUtil.openPageByUrl(this, "/colorPage", params)
             }
             R.id.tv_open_flutter_fragment -> {
-                params[RouterUtil.FLUTTER_TYPE] = 0
+                params[RouterUtil.PAGE_TYPE] = 0
                 RouterUtil.openPageByUrl(this, "/counter", params)
             }
         }

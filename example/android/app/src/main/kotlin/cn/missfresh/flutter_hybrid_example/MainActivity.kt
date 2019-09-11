@@ -47,18 +47,18 @@ class MainActivity : FlutterActivity(), View.OnClickListener {
         var params = hashMapOf<String, Any>()
         when (v?.id) {
             R.id.tv_open_native_activity -> {
-                params[RouterUtil.FLUTTER_TYPE] = 1
+                params[RouterUtil.PAGE_TYPE] = 2
+                RouterUtil.openPageByUrl(this, "/counter", params)
+            }
+            R.id.tv_open_flutter_activity -> {
+                params[RouterUtil.PAGE_TYPE] = 1
+                RouterUtil.openPageByUrl(this, "/counter", params)
+            }
+            R.id.tv_open_flutter_fragment -> {
+                params[RouterUtil.PAGE_TYPE] = 0
                 params["color"] = 0xffff0000
                 RouterUtil.openPageByUrl(this, "/colorPage", params)
             }
-//            R.id.tv_open_flutter_activity -> {
-//                params[RouterUtil.FLUTTER_TYPE] = 1
-//                RouterUtil.openPageByUrl(this, "/counter", params)
-//            }
-//            R.id.tv_open_flutter_fragment -> {
-//                params[RouterUtil.FLUTTER_TYPE] = 0
-//                RouterUtil.openPageByUrl(this, "/counter", params)
-//            }
         }
     }
 

@@ -30,7 +30,9 @@ abstract class FHFlutterFragment : Fragment(), IFlutterViewContainer {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        mFlutterContent = FlutterViewStub(activity!!, FlutterHybridPlugin.instance.viewProvider().createFlutterView(this))
+        mFlutterContent = FlutterViewStub(activity!!,
+                FlutterHybridPlugin.instance.viewProvider()
+                        .createFlutterView(this))
         return mFlutterContent
     }
 
@@ -56,6 +58,19 @@ abstract class FHFlutterFragment : Fragment(), IFlutterViewContainer {
         super.onDestroy()
         mFlutterContent.removeViews()
         FlutterHybridPlugin.instance.containerManager().onContainerDestroy(this)
+    }
+
+    override fun getContainerName(): String {
+        return activity?.intent?.extras?.getString(ROUTE_NAME) ?: ""
+    }
+
+    override fun getContainerParams(): Map<String, Any> {
+        var params = mapOf<String, Any>()
+        activity?.intent?.extras?.getSerializable(PARAMS)?.let {
+            params = it as Map<String, Any>
+        }
+        Logger.d("FHFlutterFragment containerParams:$params")
+        return params
     }
 
     override fun getFHFlutterView(): FHFlutterView {
@@ -88,36 +103,5 @@ abstract class FHFlutterFragment : Fragment(), IFlutterViewContainer {
 
     override fun getContainerCanPop(): Boolean {
         return canPopFlutterView
-    }
-
-    override fun getContainerName(): String {
-        activity?.intent?.extras?.getString(ROUTE_NAME)?.let {
-            return it
-        }
-        return ""
-    }
-
-    override fun getContainerParams(): Map<String, Any> {
-        var params = hashMapOf<String, Any>()
-        activity?.intent?.extras?.let {
-            if (it.containsKey(PARAMS)) {
-                it.getSerializable(PARAMS)?.let {
-                    Logger.e("FHFlutterFragment getContainerParams:$it")
-                    Logger.e("""FHFlutterFragment getContainerParams:${(it as HashMap<String, Any>)}""")
-                    it as HashMap<String, Any>
-                    if (!it.isNullOrEmpty()) {
-                        Logger.e("""FHFlutterFragment Params isNullOrEmpty :${(it as HashMap<String, Any>)}""")
-                        params = it
-                    }
-                }
-            }
-        }
-        if (params.isEmpty()) {
-            params["default"] = "default"
-            Logger.e("""FHFlutterFragment params is isEmpty:$params""")
-        } else {
-            Logger.e("""FHFlutterFragment params:$params""")
-        }
-        return params
     }
 }

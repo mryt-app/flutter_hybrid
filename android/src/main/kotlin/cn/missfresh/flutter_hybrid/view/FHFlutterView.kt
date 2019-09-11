@@ -17,7 +17,8 @@ class FHFlutterView : FlutterView {
 
     private var isResumed = false
 
-    constructor(context: Context, attrs: AttributeSet?, nativeView: FlutterNativeView) : super(context, attrs, nativeView) {
+    constructor(context: Context, attrs: AttributeSet?, nativeView: FlutterNativeView)
+            : super(context, attrs, nativeView) {
         // solve the first time loading a black screen
         setZOrderOnTop(true)
         holder.setFormat(PixelFormat.TRANSLUCENT)

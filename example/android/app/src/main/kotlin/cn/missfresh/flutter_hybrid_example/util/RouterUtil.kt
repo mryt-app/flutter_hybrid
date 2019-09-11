@@ -2,7 +2,6 @@ package cn.missfresh.flutter_hybrid_example.util
 
 import android.content.Context
 import android.content.Intent
-import cn.missfresh.flutter_hybrid.Logger
 import cn.missfresh.flutter_hybrid.messaging.Messager
 import cn.missfresh.flutter_hybrid_example.activity.FlutterActivity
 import cn.missfresh.flutter_hybrid_example.activity.FlutterFragmentActivity
@@ -15,7 +14,10 @@ import java.io.Serializable
  */
 object RouterUtil {
 
-    const val FLUTTER_TYPE = "flutter_type"
+    const val PAGE_TYPE = "page_type"
+    const val ACTIVITY_TYPE = 0
+    const val FRAGMENT_TYPE = 1
+    const val NATIVE_TYPE = 2
 
     fun openPageByUrl(context: Context, routeName: String, params: Map<*, *>?, requestCode: Int = 0): Boolean {
         try {
@@ -23,19 +25,15 @@ object RouterUtil {
                 return false
             }
 
-            var type = 1
-            // todo type=1,native->flutter
-            Logger.e("openPageByUrl == params:$params")
-//            if (params != null && params.isNotEmpty()) {
-//                Logger.e("openPageByUrl == params1111:$params")
-//
-//                if (params.containsKey(FLUTTER_TYPE)) {
-//                    type = params[FLUTTER_TYPE] as Int
-//                }
-//            }
+            var type = ACTIVITY_TYPE
+            if (params != null && params.isNotEmpty()) {
+                if (params.containsKey(PAGE_TYPE)) {
+                    type = params[PAGE_TYPE] as Int
+                }
+            }
 
             when (type) {
-                0 -> {
+                ACTIVITY_TYPE -> {
                     var intent = Intent(context, FlutterFragmentActivity::class.java)
                     intent.putExtra(Messager.ROUTE_NAME, routeName)
                     if (params != null && params.isNotEmpty()) {
@@ -43,7 +41,7 @@ object RouterUtil {
                     }
                     context.startActivity(intent)
                 }
-                1 -> {
+                FRAGMENT_TYPE -> {
                     var intent = Intent(context, FlutterActivity::class.java)
                     intent.putExtra(Messager.ROUTE_NAME, routeName)
                     if (params != null && params.isNotEmpty()) {
@@ -51,12 +49,11 @@ object RouterUtil {
                     }
                     context.startActivity(intent)
                 }
-                2 -> {
-                    // todo 打开native页面，使用url和params需业务方根据自己的路由规则调用已存在的路由处理方法打开业务方自己的页面
+                NATIVE_TYPE -> {
+                    // 打开native页面，使用url和params需业务方根据自己的路由规则调用已存在的路由处理方法打开业务方自己的页面
                     context.startActivity(Intent(context, NativeActivity::class.java))
                 }
             }
-
             return true
         } catch (t: Throwable) {
             return false

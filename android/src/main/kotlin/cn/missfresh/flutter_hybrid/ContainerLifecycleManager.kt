@@ -74,7 +74,7 @@ class ContainerLifecycleManager : IContainerLifecycle {
                         "nativePageDidInit", mContainer.getContainerName(),
                         mContainer.getContainerParams(), mUniqueId)
 
-                Logger.e("nativePageDidInit")
+                Logger.e("LifecycleProxy nativePageDidInit")
 
                 containerStatus = ContainerLifecycleEnum.STATE_CREATED
 
@@ -92,7 +92,7 @@ class ContainerLifecycleManager : IContainerLifecycle {
                         mContainer.getContainerParams(), mUniqueId)
 
             }, 10)
-            Logger.e("nativePageDidAppear")
+            Logger.e("LifecycleProxy nativePageDidAppear")
             containerStatus = ContainerLifecycleEnum.STATE_APPEAR
         }
 
@@ -108,7 +108,7 @@ class ContainerLifecycleManager : IContainerLifecycle {
                         "nativePageDidDisappear", mContainer.getContainerName(),
                         mContainer.getContainerParams(), mUniqueId)
 
-                Logger.e("nativePageDidDisappear")
+                Logger.e("LifecycleProxy nativePageWillDisappear and nativePageDidDisappear")
                 containerStatus = ContainerLifecycleEnum.STATE_DISAPPEAR
             }
         }
@@ -120,7 +120,7 @@ class ContainerLifecycleManager : IContainerLifecycle {
                         "nativePageWillDealloc", mContainer.getContainerName(),
                         mContainer.getContainerParams(), mUniqueId)
 
-                Logger.e("nativePageWillDealloc")
+                Logger.e("LifecycleProxy nativePageWillDealloc")
                 containerStatus = ContainerLifecycleEnum.STATE_DESTROYED
             }
         }

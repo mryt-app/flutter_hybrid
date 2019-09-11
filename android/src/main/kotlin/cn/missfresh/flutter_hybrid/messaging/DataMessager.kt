@@ -1,6 +1,5 @@
 package cn.missfresh.flutter_hybrid.messaging
 
-import android.text.TextUtils
 import cn.missfresh.flutter_hybrid.FlutterHybridPlugin
 import cn.missfresh.flutter_hybrid.Logger
 import cn.missfresh.flutter_hybrid.router.Router
@@ -46,10 +45,6 @@ class DataMessager : Messager() {
         when (method) {
             OPEN_PAGE -> {
                 arguments as Map<*, *>
-
-                Logger.e("ROUTE_NAME=" + arguments[ROUTE_NAME].toString())
-                Logger.e("PARAMS=" + arguments[PARAMS].toString())
-
                 openPage(arguments[ROUTE_NAME].toString(), arguments[PARAMS] as Map<*, *>)
                 return
             }
@@ -82,7 +77,6 @@ class DataMessager : Messager() {
     }
 
     private fun flutterCanPop(canPop: Boolean) {
-        Logger.e("flutterCanPop ================ canPop:$canPop")
         var containerStatus = FlutterHybridPlugin
                 .instance.containerManager().getCurrentStatus()
 
