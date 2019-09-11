@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hybrid/flutter_hybrid.dart';
 import 'package:flutter_hybrid_example/counter.dart';
+import 'package:flutter_hybrid_example/page_type.dart';
 
 class ColorPage extends StatelessWidget {
   final Color color;
@@ -20,34 +21,29 @@ class ColorPage extends StatelessWidget {
               FlatButton(
                 child: Text(
                   'Open page in native',
-                  style: TextStyle(
-                    color: Colors.white, 
-                    fontSize: 20
-                  ),
+                  style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
                 onPressed: () {
-                  FlutterHybrid.sharedInstance.router.openPage('/counter');
+                  FlutterHybrid.sharedInstance.router.openPage('/counter',
+                      params: {
+                        ShowPageTYpe.PAGE_TYPE: ShowPageTYpe.expectedPageType
+                      });
                 },
               ),
               FlatButton(
                 child: Text(
                   'Open page in Flutter',
-                  style: TextStyle(
-                    color: Colors.white, 
-                    fontSize: 20
-                  ),
+                  style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (_) => CounterPage()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => CounterPage()));
                 },
               ),
               FlatButton(
                 child: Text(
                   'Go Back',
-                  style: TextStyle(
-                    color: Colors.white, 
-                    fontSize: 20
-                  ),
+                  style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
                 onPressed: () {
                   Navigator.pop(context);

@@ -15,8 +15,8 @@ import java.io.Serializable
 object RouterUtil {
 
     const val PAGE_TYPE = "page_type"
-    const val ACTIVITY_TYPE = 0
-    const val FRAGMENT_TYPE = 1
+    const val FRAGMENT_TYPE = 0
+    const val ACTIVITY_TYPE = 1
     const val NATIVE_TYPE = 2
 
     fun openPageByUrl(context: Context, routeName: String, params: Map<*, *>?, requestCode: Int = 0): Boolean {
@@ -25,7 +25,8 @@ object RouterUtil {
                 return false
             }
 
-            var type = ACTIVITY_TYPE
+            var type = FRAGMENT_TYPE
+            // PAGE_TYPE 在Flutter可以不传，此处统一处理，简化使用参数
             if (params != null && params.isNotEmpty()) {
                 if (params.containsKey(PAGE_TYPE)) {
                     type = params[PAGE_TYPE] as Int
@@ -33,30 +34,33 @@ object RouterUtil {
             }
 
             when (type) {
-                ACTIVITY_TYPE -> {
-                    var intent = Intent(context, FlutterFragmentActivity::class.java)
-                    intent.putExtra(Messager.ROUTE_NAME, routeName)
-                    if (params != null && params.isNotEmpty()) {
-                        intent.putExtra(Messager.PARAMS, params as Serializable)
-                    }
-                    context.startActivity(intent)
-                }
                 FRAGMENT_TYPE -> {
-                    var intent = Intent(context, FlutterActivity::class.java)
-                    intent.putExtra(Messager.ROUTE_NAME, routeName)
-                    if (params != null && params.isNotEmpty()) {
-                        intent.putExtra(Messager.PARAMS, params as Serializable)
-                    }
-                    context.startActivity(intent)
+                    val intent = Intent(context, FlutterActivity::class.java)
+                    startActivity(context, intent, routeName, params)
+                }
+                ACTIVITY_TYPE -> {
+                    val intent = Intent(context, FlutterFragmentActivity::class.java)
+                    startActivity(context, intent, routeName, params)
                 }
                 NATIVE_TYPE -> {
                     // 打开native页面，使用url和params需业务方根据自己的路由规则调用已存在的路由处理方法打开业务方自己的页面
-                    context.startActivity(Intent(context, NativeActivity::class.java))
+                    val intent = Intent(context, NativeActivity::class.java)
+                    startActivity(context, intent, routeName, params)
                 }
             }
             return true
         } catch (t: Throwable) {
             return false
+        }
+    }
+
+    private fun startActivity(context: Context, intent: Intent, routeName: String, params: Map<*, *>?) {
+        context?.let {
+            intent.putExtra(Messager.ROUTE_NAME, routeName)
+            if (params != null && params.isNotEmpty()) {
+                intent.putExtra(Messager.PARAMS, params as Serializable)
+            }
+            it.startActivity(intent)
         }
     }
 }

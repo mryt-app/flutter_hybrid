@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hybrid/flutter_hybrid.dart';
+import 'package:flutter_hybrid_example/page_type.dart';
 
 class FlutterPage extends StatefulWidget {
   @override
@@ -13,8 +14,8 @@ class FlutterPageState extends State<FlutterPage> {
   final Random random = Random();
 
   void _openCounterPage() {
-    FlutterHybrid.sharedInstance
-      .router.openPage('/counter');
+    FlutterHybrid.sharedInstance.router.openPage('/counter',
+        params: {ShowPageTYpe.PAGE_TYPE: ShowPageTYpe.expectedPageType});
   }
 
   void _openColorPage() {
@@ -22,8 +23,10 @@ class FlutterPageState extends State<FlutterPage> {
     int endColor = 0xFFFFFFFF;
     int randomColor = startColor + random.nextInt(endColor - startColor);
 
-    FlutterHybrid.sharedInstance
-      .router.openPage('/colorPage', params: { 'color': randomColor });
+    FlutterHybrid.sharedInstance.router.openPage('/colorPage', params: {
+      'color': randomColor,
+      ShowPageTYpe.PAGE_TYPE: ShowPageTYpe.expectedPageType
+    });
   }
 
   @override
