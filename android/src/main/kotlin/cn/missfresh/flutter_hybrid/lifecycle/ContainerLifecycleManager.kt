@@ -1,6 +1,8 @@
-package cn.missfresh.flutter_hybrid
+package cn.missfresh.flutter_hybrid.lifecycle
 
 import android.os.Handler
+import cn.missfresh.flutter_hybrid.FlutterHybridPlugin
+import cn.missfresh.flutter_hybrid.Logger
 import cn.missfresh.flutter_hybrid.interfaces.IContainerLifecycle
 import cn.missfresh.flutter_hybrid.interfaces.IFlutterViewContainer
 
@@ -56,8 +58,8 @@ class ContainerLifecycleManager : IContainerLifecycle {
         return mContainer
     }
 
-    override fun getState(): Int {
-        return mContainerStatus.status
+    override fun getContainerLifecycleState(): Int {
+        return mContainerStatus.lifecycleState
     }
 
     override fun containerId(): String {
@@ -70,15 +72,15 @@ class ContainerLifecycleManager : IContainerLifecycle {
         fun create() {
             if (containerStatus == ContainerLifecycleEnum.STATE_UN_KNOW) {
 
-                FlutterHybridPlugin.instance.lifecycleMessager().invokeMethod(
+                FlutterHybridPlugin.instance.getLifecycleMessager().invokeMethod(
                         "nativePageDidInit", mContainer.getContainerName(),
                         mContainer.getContainerParams(), mUniqueId)
 
-                Logger.e("LifecycleProxy nativePageDidInit")
+                Logger.d("LifecycleProxy nativePageDidInit")
 
                 containerStatus = ContainerLifecycleEnum.STATE_CREATED
 
-                FlutterHybridPlugin.instance.lifecycleMessager().invokeMethod(
+                FlutterHybridPlugin.instance.getLifecycleMessager().invokeMethod(
                         "nativePageWillAppear", mContainer.getContainerName(),
                         mContainer.getContainerParams(), mUniqueId)
             }
@@ -87,28 +89,28 @@ class ContainerLifecycleManager : IContainerLifecycle {
         fun appear() {
             mHandler.postDelayed({
 
-                FlutterHybridPlugin.instance.lifecycleMessager().invokeMethod(
+                FlutterHybridPlugin.instance.getLifecycleMessager().invokeMethod(
                         "nativePageDidAppear", mContainer.getContainerName(),
                         mContainer.getContainerParams(), mUniqueId)
 
             }, 10)
-            Logger.e("LifecycleProxy nativePageDidAppear")
+            Logger.d("LifecycleProxy nativePageDidAppear")
             containerStatus = ContainerLifecycleEnum.STATE_APPEAR
         }
 
         fun disappear() {
             if (containerStatus < ContainerLifecycleEnum.STATE_DISAPPEAR) {
 
-                FlutterHybridPlugin.instance.lifecycleMessager().invokeMethod(
+                FlutterHybridPlugin.instance.getLifecycleMessager().invokeMethod(
                         "nativePageWillDisappear", mContainer.getContainerName(),
                         mContainer.getContainerParams(), mUniqueId)
 
 
-                FlutterHybridPlugin.instance.lifecycleMessager().invokeMethod(
+                FlutterHybridPlugin.instance.getLifecycleMessager().invokeMethod(
                         "nativePageDidDisappear", mContainer.getContainerName(),
                         mContainer.getContainerParams(), mUniqueId)
 
-                Logger.e("LifecycleProxy nativePageWillDisappear and nativePageDidDisappear")
+                Logger.d("LifecycleProxy nativePageWillDisappear and nativePageDidDisappear")
                 containerStatus = ContainerLifecycleEnum.STATE_DISAPPEAR
             }
         }
@@ -116,11 +118,11 @@ class ContainerLifecycleManager : IContainerLifecycle {
         fun destroy() {
             if (containerStatus < ContainerLifecycleEnum.STATE_DESTROYED) {
 
-                FlutterHybridPlugin.instance.lifecycleMessager().invokeMethod(
+                FlutterHybridPlugin.instance.getLifecycleMessager().invokeMethod(
                         "nativePageWillDealloc", mContainer.getContainerName(),
                         mContainer.getContainerParams(), mUniqueId)
 
-                Logger.e("LifecycleProxy nativePageWillDealloc")
+                Logger.d("LifecycleProxy nativePageWillDealloc")
                 containerStatus = ContainerLifecycleEnum.STATE_DESTROYED
             }
         }

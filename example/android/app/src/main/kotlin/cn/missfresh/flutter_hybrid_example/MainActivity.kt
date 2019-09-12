@@ -7,6 +7,8 @@ import android.view.View
 import cn.missfresh.flutter_hybrid.FlutterHybridPlugin
 import cn.missfresh.flutter_hybrid.interfaces.IAppInfo
 import cn.missfresh.flutter_hybrid_example.util.RouterUtil
+import cn.missfresh.flutter_hybrid_example.util.RouterUtil.NATIVE_TYPE
+import cn.missfresh.flutter_hybrid_example.util.RouterUtil.PAGE_TYPE
 import io.flutter.app.FlutterActivity
 import io.flutter.plugins.GeneratedPluginRegistrant
 import kotlinx.android.synthetic.main.main_activity.*
@@ -22,8 +24,8 @@ class MainActivity : FlutterActivity(), View.OnClickListener {
                 return application
             }
 
-            override fun startActivity(context: Context, routeName: String, params: Map<*, *>?, requestCode: Int): Boolean {
-                return RouterUtil.openPageByUrl(context, routeName, params, requestCode)
+            override fun startActivity(context: Context?, routeName: String, params: Map<*, *>?): Boolean {
+                return RouterUtil.openPageByUrl(this@MainActivity, routeName, params)
             }
 
             override fun isDebug(): Boolean {
@@ -49,7 +51,8 @@ class MainActivity : FlutterActivity(), View.OnClickListener {
         var params = hashMapOf<String, Any>()
         when (v?.id) {
             R.id.tv_open_native_activity -> {
-                RouterUtil.openPageByUrl(this, "/counter", params)
+                params[PAGE_TYPE] = NATIVE_TYPE
+                RouterUtil.openPageByUrl(this, "", params)
             }
             R.id.tv_open_flutter_activity -> {
                 RouterUtil.openPageByUrl(this, "/counter", params)
@@ -63,6 +66,6 @@ class MainActivity : FlutterActivity(), View.OnClickListener {
 
     override fun onDestroy() {
         super.onDestroy()
-        FlutterHybridPlugin.instance.viewProvider().destroy()
+        FlutterHybridPlugin.instance.getViewProvider().destroy()
     }
 }

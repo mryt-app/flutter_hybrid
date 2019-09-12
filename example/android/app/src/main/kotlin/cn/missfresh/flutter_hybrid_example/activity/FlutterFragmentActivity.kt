@@ -22,7 +22,7 @@ class FlutterFragmentActivity : AppCompatActivity() {
 
         setContentView(R.layout.flutter_fragment)
 
-        mFragment = FHFlutterFragment.instance("hello world")
+        mFragment = FHFlutterFragment.instance("FlutterFragmentActivity Demo")
 
         mFragment?.let {
             supportFragmentManager
@@ -33,6 +33,6 @@ class FlutterFragmentActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        FlutterHybridPlugin.instance.containerManager().onBackPressed(mFragment as IFlutterViewContainer)
+        FlutterHybridPlugin.instance.getContainerManager().onBackPressed(mFragment as IFlutterViewContainer)
     }
 }

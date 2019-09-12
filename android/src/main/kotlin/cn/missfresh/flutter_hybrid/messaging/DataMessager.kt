@@ -36,12 +36,15 @@ class DataMessager(name: String) : Messager(name) {
         when (method) {
             OPEN_PAGE -> {
                 arguments as Map<*, *>
-                openPage(arguments[ROUTE_NAME].toString(), arguments[PARAMS] as Map<*, *>)
+                val routeName = arguments[ROUTE_NAME].toString()
+                val params = arguments[PARAMS] as Map<*, *>
+                Router().openPage(FlutterHybridPlugin.instance.getCurrentActivity(), routeName, params)
                 return
             }
             CLOSE_PAGE -> {
                 arguments as Map<*, *>
-                closePage(arguments[PAGE_ID].toString())
+                val pagId = arguments[PAGE_ID].toString()
+                Router().closePage(pagId)
                 return
             }
             FETCH_START_PAGE_INFO -> {
@@ -69,11 +72,11 @@ class DataMessager(name: String) : Messager(name) {
 
     private fun flutterCanPop(canPop: Boolean) {
         var containerStatus = FlutterHybridPlugin
-                .instance.containerManager().getCurrentLifecycleState()
+                .instance.getContainerManager().getCurrentLifecycleState()
 
         if (containerStatus == null) {
             containerStatus = FlutterHybridPlugin.instance
-                    .containerManager().getLastContainerLifecycle()
+                    .getContainerManager().getLastContainerLifecycle()
         }
 
         containerStatus?.getContainer()?.setContainerCanPop(canPop)
@@ -82,7 +85,7 @@ class DataMessager(name: String) : Messager(name) {
     private fun showPageChanged(oldPage: String, newPage: String) {
         Logger.e("$OLD_PAGE=$oldPage")
         Logger.e("$NEW_PAGE=$newPage")
-        FlutterHybridPlugin.instance.containerManager()
+        FlutterHybridPlugin.instance.getContainerManager()
                 .onShownContainerChanged(oldPage, newPage)
     }
 
@@ -90,11 +93,11 @@ class DataMessager(name: String) : Messager(name) {
         val pageInfo = HashMap<String, Any>()
         try {
             var containerStatus = FlutterHybridPlugin
-                    .instance.containerManager().getCurrentLifecycleState()
+                    .instance.getContainerManager().getCurrentLifecycleState()
 
             if (containerStatus == null) {
                 containerStatus = FlutterHybridPlugin.instance
-                        .containerManager().getLastContainerLifecycle()
+                        .getContainerManager().getLastContainerLifecycle()
             }
 
             containerStatus?.apply {
@@ -110,22 +113,5 @@ class DataMessager(name: String) : Messager(name) {
         } catch (t: Throwable) {
             result.success(pageInfo)
         }
-    }
-
-    /**
-     * Close page with pageId
-     * @param pageId
-     */
-    private fun closePage(pageId: String) {
-        Router().closePage(pageId)
-    }
-
-    /**
-     * open a new page
-     * @param routeName
-     * @param params
-     */
-    private fun openPage(routeName: String, params: Map<*, *>) {
-        Router().openPage(null, routeName, params)
     }
 }

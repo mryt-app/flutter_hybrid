@@ -1,11 +1,10 @@
 package cn.missfresh.flutter_hybrid
 
 import android.app.Activity
-import android.app.Application
-import android.os.Bundle
 import cn.missfresh.flutter_hybrid.interfaces.IAppInfo
 import cn.missfresh.flutter_hybrid.interfaces.IContainerManager
 import cn.missfresh.flutter_hybrid.interfaces.IFlutterHybridViewProvider
+import cn.missfresh.flutter_hybrid.lifecycle.AppActivityLifecycle
 import cn.missfresh.flutter_hybrid.messaging.DataMessager
 import cn.missfresh.flutter_hybrid.messaging.Messager
 import cn.missfresh.flutter_hybrid.messaging.Messager.Companion.NATIVE_NAVIGATION
@@ -16,8 +15,9 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry.Registrar
+import java.lang.ref.WeakReference
 
-class FlutterHybridPlugin : MethodCallHandler, Application.ActivityLifecycleCallbacks {
+class FlutterHybridPlugin : MethodCallHandler {
 
     companion object {
         val instance = FlutterHybridPluginHolder.holder
@@ -36,7 +36,7 @@ class FlutterHybridPlugin : MethodCallHandler, Application.ActivityLifecycleCall
     private lateinit var mLifecycleMessager: Messager
     private lateinit var mDataMessager: DataMessager
 
-    private var mCurrentActivity: Activity? = null
+    var currentActivityWeek: WeakReference<Activity>? = null
 
     // Whether to use the DataMessager FLUTTER_CAN_POP_CHANGED agreement
     var isUseCanPop = false
@@ -46,7 +46,7 @@ class FlutterHybridPlugin : MethodCallHandler, Application.ActivityLifecycleCall
         mViewProvider = FlutterHybridViewProvider()
         appInfo?.let {
             mAppInfo = it
-            appInfo.getApplication().registerActivityLifecycleCallbacks(instance)
+            appInfo.getApplication().registerActivityLifecycleCallbacks(AppActivityLifecycle())
         }
     }
 
@@ -63,28 +63,28 @@ class FlutterHybridPlugin : MethodCallHandler, Application.ActivityLifecycleCall
         mMessagerProxy.addMessager(mLifecycleMessager)
     }
 
-    fun lifecycleMessager(): Messager {
+    fun getLifecycleMessager(): Messager {
         return mLifecycleMessager
     }
 
-    fun dataMessage(): DataMessager {
+    fun getDataMessage(): DataMessager {
         return mDataMessager
     }
 
-    fun viewProvider(): IFlutterHybridViewProvider {
+    fun getViewProvider(): IFlutterHybridViewProvider {
         return mViewProvider
     }
 
-    fun containerManager(): IContainerManager {
+    fun getContainerManager(): IContainerManager {
         return mManager
     }
 
-    fun appInfo(): IAppInfo {
+    fun getAppInfo(): IAppInfo {
         return mAppInfo
     }
 
-    fun currentActivity(): Activity? {
-        return mCurrentActivity
+    fun getCurrentActivity(): Activity? {
+        return currentActivityWeek?.get()
     }
 
     override fun onMethodCall(call: MethodCall, result: Result) {
@@ -93,37 +93,5 @@ class FlutterHybridPlugin : MethodCallHandler, Application.ActivityLifecycleCall
         } else {
             result.notImplemented()
         }
-    }
-
-    override fun onActivityCreated(activity: Activity?, bundle: Bundle?) {
-
-    }
-
-    override fun onActivityStarted(activity: Activity?) {
-        mCurrentActivity = activity
-    }
-
-    override fun onActivityResumed(activity: Activity?) {
-        mCurrentActivity = activity
-    }
-
-    override fun onActivityPaused(activity: Activity?) {
-
-    }
-
-    override fun onActivityStopped(activity: Activity?) {
-        if (mCurrentActivity == activity) {
-            mCurrentActivity = null
-        }
-    }
-
-    override fun onActivityDestroyed(activity: Activity?) {
-        if (mCurrentActivity == activity) {
-            mCurrentActivity = null
-        }
-    }
-
-    override fun onActivitySaveInstanceState(activity: Activity?, bundle: Bundle?) {
-
     }
 }

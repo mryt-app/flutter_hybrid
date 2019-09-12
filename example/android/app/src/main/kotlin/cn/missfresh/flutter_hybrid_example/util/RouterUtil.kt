@@ -19,9 +19,9 @@ object RouterUtil {
     const val ACTIVITY_TYPE = 1
     const val NATIVE_TYPE = 2
 
-    fun openPageByUrl(context: Context, routeName: String, params: Map<*, *>?, requestCode: Int = 0): Boolean {
+    fun openPageByUrl(context: Context, routeName: String, params: Map<*, *>?): Boolean {
         try {
-            if (routeName.isNullOrEmpty() || context == null) {
+            if (context == null) {
                 return false
             }
 
@@ -35,11 +35,11 @@ object RouterUtil {
 
             when (type) {
                 FRAGMENT_TYPE -> {
-                    val intent = Intent(context, FHFlutterActivity::class.java)
+                    val intent = Intent(context, FlutterFragmentActivity::class.java)
                     startActivity(context, intent, routeName, params)
                 }
                 ACTIVITY_TYPE -> {
-                    val intent = Intent(context, FlutterFragmentActivity::class.java)
+                    val intent = Intent(context, FHFlutterActivity::class.java)
                     startActivity(context, intent, routeName, params)
                 }
                 NATIVE_TYPE -> {

@@ -25,13 +25,13 @@ class FHFlutterFragment : Fragment(), IFlutterViewContainer {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        FlutterHybridPlugin.instance.containerManager().onContainerCreate(this)
+        FlutterHybridPlugin.instance.getContainerManager().onContainerCreate(this)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         mFlutterContent = FlutterViewStub(activity!!,
-                FlutterHybridPlugin.instance.viewProvider()
+                FlutterHybridPlugin.instance.getViewProvider()
                         .createFlutterView(this))
         return mFlutterContent
     }
@@ -40,7 +40,7 @@ class FHFlutterFragment : Fragment(), IFlutterViewContainer {
         super.onResume()
         if (!resumed) {
             resumed = true
-            FlutterHybridPlugin.instance.containerManager().onContainerAppear(this)
+            FlutterHybridPlugin.instance.getContainerManager().onContainerAppear(this)
             mFlutterContent.attachFlutterView(getFHFlutterView())
         }
     }
@@ -50,14 +50,14 @@ class FHFlutterFragment : Fragment(), IFlutterViewContainer {
         if (resumed) {
             resumed = false
             mFlutterContent.snapshot()
-            FlutterHybridPlugin.instance.containerManager().onContainerDisappear(this)
+            FlutterHybridPlugin.instance.getContainerManager().onContainerDisappear(this)
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
         mFlutterContent.removeViews()
-        FlutterHybridPlugin.instance.containerManager().onContainerDestroy(this)
+        FlutterHybridPlugin.instance.getContainerManager().onContainerDestroy(this)
     }
 
     override fun getContainerName(): String {
@@ -74,7 +74,7 @@ class FHFlutterFragment : Fragment(), IFlutterViewContainer {
     }
 
     override fun getFHFlutterView(): FHFlutterView {
-        return FlutterHybridPlugin.instance.viewProvider().createFlutterView(this)
+        return FlutterHybridPlugin.instance.getViewProvider().createFlutterView(this)
     }
 
     override fun getCurrActivity(): Activity {

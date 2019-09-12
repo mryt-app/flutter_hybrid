@@ -35,19 +35,18 @@ class NativeActivity : AppCompatActivity(), View.OnClickListener {
         when (v?.id) {
             R.id.tv_open_native_activity -> {
                 params[RouterUtil.PAGE_TYPE] = NATIVE_TYPE
-                RouterUtil.openPageByUrl(this, "/counter", params)
+                RouterUtil.openPageByUrl(this, "", params)
             }
             R.id.tv_open_flutter_activity -> {
-                params[RouterUtil.PAGE_TYPE] = ACTIVITY_TYPE
+                //params[RouterUtil.PAGE_TYPE] = ACTIVITY_TYPE
                 params["color"] = 0xFFFFFF00
                 RouterUtil.openPageByUrl(this, "/colorPage", params)
             }
             R.id.tv_open_flutter_fragment -> {
-                params[RouterUtil.PAGE_TYPE] = FRAGMENT_TYPE
+                //params[RouterUtil.PAGE_TYPE] = FRAGMENT_TYPE
                 RouterUtil.openPageByUrl(this, "/counter", params)
             }
         }
     }
-
 
 }

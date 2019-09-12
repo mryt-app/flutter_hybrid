@@ -24,34 +24,34 @@ class FHFlutterActivity : Activity(), IFlutterViewContainer {
         super.onCreate(savedInstanceState)
 
         mFlutterContent = FlutterViewStub(this, FlutterHybridPlugin
-                .instance.viewProvider().createFlutterView(this))
+                .instance.getViewProvider().createFlutterView(this))
 
         setContentView(mFlutterContent)
 
         FlutterHybridPlugin.instance
-                .containerManager().onContainerCreate(this)
+                .getContainerManager().onContainerCreate(this)
     }
 
     override fun onPostResume() {
         super.onPostResume()
-        FlutterHybridPlugin.instance.containerManager().onContainerAppear(this)
+        FlutterHybridPlugin.instance.getContainerManager().onContainerAppear(this)
         mFlutterContent.attachFlutterView(getFHFlutterView())
     }
 
     override fun onPause() {
         mFlutterContent.detachFlutterView()
-        FlutterHybridPlugin.instance.containerManager().onContainerDisappear(this)
+        FlutterHybridPlugin.instance.getContainerManager().onContainerDisappear(this)
         super.onPause()
     }
 
     override fun onDestroy() {
-        FlutterHybridPlugin.instance.containerManager().onContainerDestroy(this)
+        FlutterHybridPlugin.instance.getContainerManager().onContainerDestroy(this)
         super.onDestroy()
         mFlutterContent.removeViews()
     }
 
     override fun onBackPressed() {
-        FlutterHybridPlugin.instance.containerManager().onBackPressed(this)
+        FlutterHybridPlugin.instance.getContainerManager().onBackPressed(this)
     }
 
     override fun getContainerName(): String {
@@ -68,7 +68,7 @@ class FHFlutterActivity : Activity(), IFlutterViewContainer {
     }
 
     override fun getFHFlutterView(): FHFlutterView {
-        return FlutterHybridPlugin.instance.viewProvider().createFlutterView(this)
+        return FlutterHybridPlugin.instance.getViewProvider().createFlutterView(this)
     }
 
     override fun getCurrActivity(): Activity {

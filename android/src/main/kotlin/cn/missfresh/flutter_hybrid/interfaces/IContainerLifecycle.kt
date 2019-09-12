@@ -14,9 +14,9 @@ interface IContainerLifecycle {
 
     fun onDestroy()
 
+    fun containerId(): String
+
     fun getContainer(): IFlutterViewContainer
 
-    fun getState(): Int
-
-    fun containerId(): String
+    fun getContainerLifecycleState(): Int
 }

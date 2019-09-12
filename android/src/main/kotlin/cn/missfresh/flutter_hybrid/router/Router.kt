@@ -9,22 +9,22 @@ import cn.missfresh.flutter_hybrid.FlutterHybridPlugin
  */
 class Router {
 
-    fun openPage(context: Context?, routeName: String, params: Map<*, *>?, requestCode: Int = -1) {
+    fun openPage(context: Context?, routeName: String, params: Map<*, *>?) {
         var ctx: Context? = context
         if (ctx == null) {
-            ctx = FlutterHybridPlugin.instance.currentActivity()
+            ctx = FlutterHybridPlugin.instance.getCurrentActivity()
         }
 
         if (ctx == null) {
-            ctx = FlutterHybridPlugin.instance.appInfo()?.getApplication()
+            ctx = FlutterHybridPlugin.instance.getAppInfo()?.getApplication()
         }
 
         ctx?.let {
-            FlutterHybridPlugin.instance.appInfo()?.startActivity(it, routeName, params, requestCode)
+            FlutterHybridPlugin.instance.getAppInfo()?.startActivity(it, routeName, params)
         }
     }
 
     fun closePage(pageId: String) {
-        FlutterHybridPlugin.instance.containerManager().destroyContainer("", pageId)
+        FlutterHybridPlugin.instance.getContainerManager().destroyContainer("", pageId)
     }
 }

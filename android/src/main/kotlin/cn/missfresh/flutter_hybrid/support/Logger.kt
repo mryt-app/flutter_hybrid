@@ -30,8 +30,8 @@ object Logger {
 
     fun isDebug(): Boolean {
         return try {
-            if (FlutterHybridPlugin.instance.appInfo() != null) {
-                FlutterHybridPlugin.instance.appInfo()!!.isDebug()
+            if (FlutterHybridPlugin.instance.getAppInfo() != null) {
+                FlutterHybridPlugin.instance.getAppInfo()!!.isDebug()
             } else {
                 false
             }

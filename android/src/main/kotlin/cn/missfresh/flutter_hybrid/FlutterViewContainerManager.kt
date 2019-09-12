@@ -6,6 +6,8 @@ import android.text.TextUtils
 import cn.missfresh.flutter_hybrid.interfaces.IContainerLifecycle
 import cn.missfresh.flutter_hybrid.interfaces.IContainerManager
 import cn.missfresh.flutter_hybrid.interfaces.IFlutterViewContainer
+import cn.missfresh.flutter_hybrid.lifecycle.ContainerLifecycleEnum
+import cn.missfresh.flutter_hybrid.lifecycle.ContainerLifecycleManager
 import cn.missfresh.flutter_hybrid.messaging.DataMessager.Companion.BACK_BUTTON_PRESSED
 import cn.missfresh.flutter_hybrid.view.FHFlutterView
 import io.flutter.plugin.common.PluginRegistry
@@ -35,7 +37,7 @@ class FlutterViewContainerManager : IContainerManager {
         }
 
         FlutterMain.ensureInitializationComplete(container.getCurrActivity().applicationContext, null)
-        val flutterView = FlutterHybridPlugin.instance.viewProvider().createFlutterView(container)
+        val flutterView = FlutterHybridPlugin.instance.getViewProvider().createFlutterView(container)
         if (!flutterView.flutterNativeView.isApplicationRunning) {
             val appBundlePath = FlutterMain.findAppBundlePath(container.getCurrActivity().applicationContext)
             appBundlePath?.let {
@@ -47,7 +49,7 @@ class FlutterViewContainerManager : IContainerManager {
         }
 
         mContainLifecycleList[container]?.apply {
-            if (getState() == ContainerLifecycleEnum.STATE_UN_KNOW.status) {
+            if (getContainerLifecycleState() == ContainerLifecycleEnum.STATE_UN_KNOW.lifecycleState) {
                 onCreate()
             }
 
@@ -62,9 +64,9 @@ class FlutterViewContainerManager : IContainerManager {
         assertCallOnMainThread()
 
         mContainLifecycleList[container]?.apply {
-            if (getState() != ContainerLifecycleEnum.STATE_CREATED.status
-                    && getState() != ContainerLifecycleEnum.STATE_DISAPPEAR.status) {
-                Logger.e("onContainerAppear state error, current state:" + getState())
+            if (getContainerLifecycleState() != ContainerLifecycleEnum.STATE_CREATED.lifecycleState
+                    && getContainerLifecycleState() != ContainerLifecycleEnum.STATE_DISAPPEAR.lifecycleState) {
+                Logger.e("onContainerAppear state error, current state:" + getContainerLifecycleState())
                 return
             }
             onAppear()
@@ -75,7 +77,7 @@ class FlutterViewContainerManager : IContainerManager {
     override fun onContainerDisappear(container: IFlutterViewContainer) {
         assertCallOnMainThread()
         mContainLifecycleList[container]?.apply {
-            if (getState() == ContainerLifecycleEnum.STATE_APPEAR.status) {
+            if (getContainerLifecycleState() == ContainerLifecycleEnum.STATE_APPEAR.lifecycleState) {
                 onDisappear()
             }
             mCurrentLifecycleState = this
@@ -101,7 +103,7 @@ class FlutterViewContainerManager : IContainerManager {
         }
 
         mContainLifecycleList[container]?.apply {
-            if (getState() == ContainerLifecycleEnum.STATE_DESTROYED.status) {
+            if (getContainerLifecycleState() == ContainerLifecycleEnum.STATE_DESTROYED.lifecycleState) {
                 onDestroy()
             }
             mCurrentLifecycleState = this
@@ -113,7 +115,7 @@ class FlutterViewContainerManager : IContainerManager {
     private fun checkIfFlutterViewNeedStopLater() {
         Handler(Looper.getMainLooper()).postDelayed({
             if (!hasContainerAppear()) {
-                FlutterHybridPlugin.instance.viewProvider().stopFlutterView()
+                FlutterHybridPlugin.instance.getViewProvider().stopFlutterView()
             }
         }, 100)
     }
@@ -122,7 +124,7 @@ class FlutterViewContainerManager : IContainerManager {
         assertCallOnMainThread()
 
         for (entry in mContainLifecycleList.entries) {
-            if (entry.value.getState() === ContainerLifecycleEnum.STATE_APPEAR.status) {
+            if (entry.value.getContainerLifecycleState() === ContainerLifecycleEnum.STATE_APPEAR.lifecycleState) {
                 return true
             }
         }
@@ -135,13 +137,13 @@ class FlutterViewContainerManager : IContainerManager {
         mContainLifecycleList[container]?.let {
             if (FlutterHybridPlugin.instance.isUseCanPop) {
                 if (container.getContainerCanPop()) {
-                    FlutterHybridPlugin.instance.dataMessage().invokeMethod(BACK_BUTTON_PRESSED,
+                    FlutterHybridPlugin.instance.getDataMessage().invokeMethod(BACK_BUTTON_PRESSED,
                             container.getContainerName(), container.getContainerParams(), it.containerId())
                 } else {
                     container.destroyContainerView()
                 }
             } else {
-                FlutterHybridPlugin.instance.dataMessage().invokeMethod(BACK_BUTTON_PRESSED,
+                FlutterHybridPlugin.instance.getDataMessage().invokeMethod(BACK_BUTTON_PRESSED,
                         container.getContainerName(), container.getContainerParams(), it.containerId())
             }
         }
