@@ -23,23 +23,27 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    //Left blank intentionally.
+//     Left blank intentionally.
+//     Send AppLifecycleState.inactive in super, we will do it manually.
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    //Left blank intentionally.
+//    Left blank intentionally.
+//    Send AppLifecycleState.resumed in super, we will do it manually.
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
-    //Avoid super call intentionally.
+//    Avoid super call intentionally.
+//    Send AppLifecycleState.inactive in super, we will do it manually.
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
-    //Avoid super call intentionally.
+//    Avoid super call intentionally.
+//    Send AppLifecycleState.paused in super, we will do it manually.
     [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
 }
 
@@ -54,7 +58,7 @@
 }
 
 - (void)installSplashScreenViewIfNecessary {
-    //Override this to avoid unnecessary splash Screen.
+//    Override this to avoid unnecessary splash Screen.
 }
 
 #pragma mark - Custom view lifecycle

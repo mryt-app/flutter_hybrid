@@ -11,6 +11,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ * Dart's initialization may be late than the first native page shown.
+ * Record the first page info, on dart started,
+ * fetch the first page info to show corresponding flutter page.
+ */
 @interface FLHFirstPageInfo : NSObject
 
 AS_SINGLETON(FLHFirstPageInfo)

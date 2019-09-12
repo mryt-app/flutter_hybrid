@@ -26,6 +26,11 @@ AS_SINGLETON(FLHFlutterHybrid)
 
 #pragma mark - Public
 
+/**
+ * Pop on page `pageId`.
+ * If the flutter page navigated, then call Navigator.pop,
+ * else route.closePage.
+ */
 - (void)popOnPage:(NSString *)pageId;
 
 #pragma mark - Container Management

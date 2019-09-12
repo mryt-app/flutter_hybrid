@@ -13,6 +13,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ * Send native page lifecycle messages.
+ * Flutter side rely on native page lifecyle messages to sync pages with native.
+ */
 @interface FLHNativePageLifecycleMessenger : NSObject <FLHMessenger>
 
 AS_SINGLETON(FLHNativePageLifecycleMessenger)

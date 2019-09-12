@@ -11,6 +11,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ * Manage the sole `FlutterViewController`
+ */
 @protocol FLHFlutterViewManager <NSObject>
 
 @required

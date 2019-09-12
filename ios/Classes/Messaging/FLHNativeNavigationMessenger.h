@@ -11,6 +11,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ * Send and receive navigation related messages.
+ */
 @interface FLHNativeNavigationMessenger : NSObject<FLHMessenger>
 
 AS_SINGLETON(FLHNativeNavigationMessenger)

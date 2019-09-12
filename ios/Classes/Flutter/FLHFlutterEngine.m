@@ -44,15 +44,13 @@
 }
 
 - (void)pause {
-    [[_engine lifecycleChannel] sendMessage:@"AppLifecycleState.paused"];
-    [self.viewController flh_viewWillDisappear:NO];
-    [self.viewController flh_viewDidDisappear:NO];
+    [self.viewController flh_viewWillDisappear:NO]; // Send AppLifecycleState.inactive in FlutterViewController
+    [self.viewController flh_viewDidDisappear:NO]; // Send AppLifecycleState.paused in FlutterViewController
 }
 
 - (void)resume {
-    [self.viewController flh_viewWillAppear:NO];
-    [self.viewController flh_viewDidAppear:NO];
-    [self.engine.lifecycleChannel sendMessage:@"AppLifecycleState.resumed"];
+    [self.viewController flh_viewWillAppear:NO]; // Send AppLifecycleState.inactive in FlutterViewController
+    [self.viewController flh_viewDidAppear:NO]; // Send AppLifecycleState.resumed in FlutterViewController
 }
 
 - (void)inactive {
