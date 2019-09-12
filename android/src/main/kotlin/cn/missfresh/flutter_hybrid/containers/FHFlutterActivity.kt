@@ -2,7 +2,6 @@ package cn.missfresh.flutter_hybrid.containers
 
 import android.app.Activity
 import android.os.Bundle
-import android.view.Window
 import cn.missfresh.flutter_hybrid.FlutterHybridPlugin
 import cn.missfresh.flutter_hybrid.Logger
 import cn.missfresh.flutter_hybrid.interfaces.IFlutterViewContainer
@@ -20,7 +19,6 @@ class FHFlutterActivity : Activity(), IFlutterViewContainer {
     private var canPopFlutterView: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        window.requestFeature(Window.FEATURE_NO_TITLE)
         super.onCreate(savedInstanceState)
 
         mFlutterContent = FlutterViewStub(this, FlutterHybridPlugin
@@ -46,8 +44,8 @@ class FHFlutterActivity : Activity(), IFlutterViewContainer {
 
     override fun onDestroy() {
         FlutterHybridPlugin.instance.getContainerManager().onContainerDestroy(this)
-        super.onDestroy()
         mFlutterContent.removeViews()
+        super.onDestroy()
     }
 
     override fun onBackPressed() {

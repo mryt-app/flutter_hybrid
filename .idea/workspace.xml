@@ -5,25 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="52f36c54-3c7b-4caa-a1a9-7a3a50cfd7b2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/lifecycle/AppActivityLifecycle.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/ContainerLifecycleEnum.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/lifecycle/ContainerLifecycleEnum.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/ContainerLifecycleManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/lifecycle/ContainerLifecycleManager.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/FlutterHybridPlugin.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/FlutterHybridPlugin.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/FlutterViewContainerManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/FlutterViewContainerManager.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/containers/FHFlutterActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/containers/FHFlutterActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/containers/FHFlutterFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/containers/FHFlutterFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/interfaces/IAppInfo.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/interfaces/IAppInfo.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/interfaces/IContainerLifecycle.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/interfaces/IContainerLifecycle.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/messaging/DataMessager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/messaging/DataMessager.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/router/Router.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/router/Router.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/support/Logger.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/support/Logger.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/MyApplication.kt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/activity/FlutterFragmentActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/activity/FlutterFragmentActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/activity/NativeActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/activity/NativeActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/util/RouterUtil.kt" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/util/RouterUtil.kt" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/.idea/" />
@@ -93,8 +79,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/example/lib/page_type.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="37" selection-start-line="4" selection-start-column="37" selection-end-line="4" selection-end-column="37" />
+            <state relative-caret-position="153">
+              <caret line="9" selection-start-line="9" selection-end-line="9" />
             </state>
           </provider>
         </entry>
@@ -437,8 +423,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-2289" y="172" width="1680" height="1283" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4973913" visible="true" weight="0.21367522" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4973913" visible="true" weight="0.21367522" />
       <window_info id="Structure" order="1" sideWeight="0.5026087" side_tool="true" weight="0.3677686" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -452,8 +439,8 @@
       <window_info anchor="bottom" id="Terminal" order="4" weight="0.3844178" />
       <window_info anchor="bottom" id="Event Log" order="5" sideWeight="0.5041322" side_tool="true" weight="0.14452215" />
       <window_info anchor="bottom" id="Flutter Performance" order="6" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="7" weight="0.432363" />
-      <window_info anchor="bottom" id="Find" order="8" sideWeight="0.4972452" visible="true" weight="0.47431508" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="7" visible="true" weight="0.46404108" />
+      <window_info anchor="bottom" id="Find" order="8" sideWeight="0.4972452" weight="0.47431508" />
       <window_info active="true" anchor="bottom" id="Messages" order="9" visible="true" weight="0.36662883" />
       <window_info anchor="right" id="Capture Analysis" order="0" />
       <window_info anchor="right" id="Theme Preview" order="1" />
@@ -871,8 +858,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/example/lib/page_type.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="37" selection-start-line="4" selection-start-column="37" selection-end-line="4" selection-end-column="37" />
+        <state relative-caret-position="153">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
         </state>
       </provider>
     </entry>

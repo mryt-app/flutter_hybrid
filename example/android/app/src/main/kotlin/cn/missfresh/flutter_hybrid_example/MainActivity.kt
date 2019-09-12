@@ -25,7 +25,7 @@ class MainActivity : FlutterActivity(), View.OnClickListener {
             }
 
             override fun startActivity(context: Context?, routeName: String, params: Map<*, *>?): Boolean {
-                return RouterUtil.openPageByUrl(this@MainActivity, routeName, params)
+                return RouterUtil.openPageByUrl(context ?: this@MainActivity, routeName, params)
             }
 
             override fun isDebug(): Boolean {

@@ -2,7 +2,6 @@ package cn.missfresh.flutter_hybrid_example.activity
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.view.Window
 import cn.missfresh.flutter_hybrid.FlutterHybridPlugin
 import cn.missfresh.flutter_hybrid.containers.FHFlutterFragment
 import cn.missfresh.flutter_hybrid.interfaces.IFlutterViewContainer
@@ -17,7 +16,6 @@ class FlutterFragmentActivity : AppCompatActivity() {
     private var mFragment: FHFlutterFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.flutter_fragment)
