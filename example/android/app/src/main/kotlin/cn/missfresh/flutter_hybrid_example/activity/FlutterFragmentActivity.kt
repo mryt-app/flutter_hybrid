@@ -13,21 +13,18 @@ import cn.missfresh.flutter_hybrid_example.R
  */
 class FlutterFragmentActivity : AppCompatActivity() {
 
-    private var mFragment: FHFlutterFragment? = null
+    private lateinit var mFragment: FHFlutterFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.flutter_fragment)
 
-        mFragment = FHFlutterFragment.instance("FlutterFragmentActivity Demo")
+        mFragment = FHFlutterFragment.instance()
 
-        mFragment?.let {
-            supportFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.fragment_stub, mFragment!!)
-                    .commit()
-        }
+        supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.fragment_container, mFragment)
+                .commit()
     }
 
     override fun onBackPressed() {

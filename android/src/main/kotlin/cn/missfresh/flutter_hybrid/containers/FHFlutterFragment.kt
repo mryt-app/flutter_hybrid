@@ -112,10 +112,8 @@ class FHFlutterFragment : Fragment(), IFlutterViewContainer {
     }
 
     companion object {
-        fun instance(tag: String): FHFlutterFragment {
-            val fragment = FHFlutterFragment()
-            fragment.setTabTag(tag)
-            return fragment
+        fun instance(): FHFlutterFragment {
+            return FHFlutterFragment()
         }
     }
 }

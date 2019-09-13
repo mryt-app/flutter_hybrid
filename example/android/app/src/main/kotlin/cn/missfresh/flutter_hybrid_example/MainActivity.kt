@@ -18,6 +18,7 @@ class MainActivity : FlutterActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // Init FlutterHybrid
         FlutterHybridPlugin.instance.init(object : IAppInfo {
 
             override fun getApplication(): Application {
@@ -29,6 +30,7 @@ class MainActivity : FlutterActivity(), View.OnClickListener {
             }
 
             override fun isDebug(): Boolean {
+                // The return value depends on whether it is a Debug package.
                 return true
             }
         })
@@ -66,6 +68,7 @@ class MainActivity : FlutterActivity(), View.OnClickListener {
 
     override fun onDestroy() {
         super.onDestroy()
+        //Must be called
         FlutterHybridPlugin.instance.getViewProvider().destroy()
     }
 }

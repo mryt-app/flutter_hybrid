@@ -11,6 +11,8 @@ import java.io.Serializable
 /**
  * Created by sjl
  * on 2019-09-01
+ * RouterUtil is an example of specific route-hopping encapsulation.
+ * It can be modified according to its own business conditions.
  */
 object RouterUtil {
 
@@ -26,7 +28,10 @@ object RouterUtil {
             }
 
             var type = FRAGMENT_TYPE
-            // PAGE_TYPE 在Flutter可以不传，此处统一处理，简化使用参数
+            /**
+             * PAGE_TYPE can not be passed in the Dart code, here
+             * unified processing,simplify the use of parameters
+             */
             if (params != null && params.isNotEmpty()) {
                 if (params.containsKey(PAGE_TYPE)) {
                     type = params[PAGE_TYPE] as Int
@@ -43,7 +48,12 @@ object RouterUtil {
                     startActivity(context, intent, routeName, params)
                 }
                 NATIVE_TYPE -> {
-                    // 打开native页面，使用url和params需业务方根据自己的路由规则调用已存在的路由处理方法打开业务方自己的页面
+                    /**
+                     * Open the native page, use the url and params, the business party
+                     * needs to call the existing routing processing method according to
+                     * its own routing rules to open the business party's own realized or
+                     * newly created page.
+                     */
                     val intent = Intent(context, NativeActivity::class.java)
                     startActivity(context, intent, routeName, params)
                 }
