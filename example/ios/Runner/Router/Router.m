@@ -47,7 +47,7 @@
 
 - (void)closePage:(NSString *)pageId params:(NSDictionary *)params animated:(BOOL)animated completion:(void (^)(BOOL))completion {
     DemoFlutterViewController *flutterVC = (DemoFlutterViewController *)self.navigationController.presentedViewController;
-    if ([flutterVC isKindOfClass:FLHFlutterContainerViewController.class] &&
+    if ([flutterVC isKindOfClass:DemoFlutterViewController.class] &&
         [flutterVC.uniqueID isEqual:pageId]) {
       [flutterVC dismissViewControllerAnimated:animated
                                     completion:^{

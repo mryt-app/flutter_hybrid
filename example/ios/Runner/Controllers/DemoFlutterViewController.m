@@ -18,7 +18,7 @@
     [super viewDidLoad];
     
     self.navigationItem.leftBarButtonItem =
-    [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"go_back_button"] style:UIBarButtonItemStyleDone target:self action:@selector(pop)];
+    [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"go_back_button"] style:UIBarButtonItemStyleDone target:self action:@selector(popOrClose)];
 }
 
 @end

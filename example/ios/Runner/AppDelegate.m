@@ -14,13 +14,11 @@
 
 - (BOOL)application:(UIApplication *)application
     didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [GeneratedPluginRegistrant registerWithRegistry:self];
+    [FLHFlutterHybrid.sharedInstance startFlutterWithRouter:[Router sharedInstance]];
     
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     self.window.rootViewController = [TabBarController new];
     [self.window makeKeyAndVisible];
-    
-    [FLHFlutterHybrid.sharedInstance startFlutterWithRouter:[Router sharedInstance]];
     
     // Override point for customization after application launch.
     return [super application:application didFinishLaunchingWithOptions:launchOptions];

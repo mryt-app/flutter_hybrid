@@ -8,17 +8,20 @@
 #import <Foundation/Foundation.h>
 
 @class FlutterViewController;
+@class FlutterEngine;
 
 NS_ASSUME_NONNULL_BEGIN
 
 /**
  * Manage the sole `FlutterViewController`
  */
-@protocol FLHFlutterViewManager <NSObject>
+@protocol FLHFlutterManager <NSObject>
 
 @required
 
-- (FlutterViewController *)viewController;
+- (FlutterViewController *)flutterViewController;
+
+- (FlutterEngine *)flutterEngine;
 
 /**
  * AppLifecycleState.paused

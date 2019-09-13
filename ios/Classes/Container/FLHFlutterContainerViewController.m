@@ -10,12 +10,12 @@
 #import "FLHStackCacheImageObject.h"
 #import "FLHFlutterHybrid.h"
 #import "UIView+Screenshot.h"
-#import "FLHFirstPageInfo.h"
 #import "FLHHybridPageLifecycle.h"
 #import "FLHNativePageLifecycleMessenger.h"
+#import "FLHFlutterHybridPageManager.h"
 
 #define FLUTTER_VIEW_CONTROLLER                       \
-  FLHFlutterHybrid.sharedInstance.flutterViewController
+  FLHFlutterHybrid.sharedInstance.flutterManager.flutterViewController
 
 @interface FLHFlutterContainerViewController () <UIGestureRecognizerDelegate>
 
@@ -29,31 +29,6 @@
 @end
 
 @implementation FLHFlutterContainerViewController
-
-#pragma mark - Instance Counter
-
-static NSUInteger kInstanceCount = 0;
-
-+ (NSUInteger)instanceCount {
-    return kInstanceCount;
-}
-
-+ (void)increaseInstanceCount {
-    kInstanceCount++;
-    if (kInstanceCount == 1) {
-//        On the first Flutter page is readying to show, we also think it is resumed.
-        [FLHFlutterHybrid.sharedInstance resume];
-    }
-}
-
-+ (void)decreaseInstanceCount {
-    kInstanceCount--;
-    if ([self.class instanceCount] == 0) {
-        [[FLHScreenshotCache sharedInstance] clearAllObjects];
-//        The FlutterViewController isn't visible to user, we think the Flutter app is paused.
-        [FLHFlutterHybrid.sharedInstance pause];
-    }
-}
 
 #pragma mark - Lifecycle
 
@@ -82,14 +57,12 @@ static NSUInteger kInstanceCount = 0;
 #pragma mark - Setup
 
 - (void)_setup {
-  static long long serialNumber = 0;
-  serialNumber++;
-  _uniqueID = [NSString stringWithFormat:@"%lld", serialNumber];
+  NSUInteger serialNumber = [FLHFlutterHybrid.sharedInstance.pageManager nextPageSerialNumber];
+  _uniqueID = [NSString stringWithFormat:@"%lu", (unsigned long)serialNumber];
   _pageInfo = [[FLHPageInfo alloc] initWithRouteName:_routeName
                                               params:_params
                                             uniqueID:_uniqueID];
-
-  [self.class increaseInstanceCount];
+  [FLHFlutterHybrid.sharedInstance.pageManager increasePageCount];
 
   SEL sel = @selector(onFlutterShownPageChanged:);
   [NSNotificationCenter.defaultCenter addObserver:self
@@ -111,9 +84,11 @@ static NSUInteger kInstanceCount = 0;
 #pragma mark - View Lifecyle
 
 - (void)viewWillAppear:(BOOL)animated {
+  [super viewWillAppear:animated];
+
   // For new page, we should attach flutter view in viewWillAppear
   // for better performance.
-  if (![FLHFlutterHybrid.sharedInstance containsContainerViewController:self]) {
+  if (![FLHFlutterHybrid.sharedInstance.pageManager containsPage:self]) {
     [self attatchFlutterView];
   }
 
@@ -122,30 +97,27 @@ static NSUInteger kInstanceCount = 0;
   [self _notifyLifecyleEvent:FLHHybridPageLifecycleWillAppear];
 
   // Save first time page info.
-  if ([FLHFirstPageInfo.sharedInstance firstPageInfo] == nil) {
-    [FLHFirstPageInfo.sharedInstance initializeFirstPageInfo:_pageInfo];
+  if ([FLHFlutterHybrid.sharedInstance firstPageInfo] == nil) {
+    [FLHFlutterHybrid.sharedInstance initializeFirstPageInfo:_pageInfo];
   }
-
-  [super viewWillAppear:animated];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-  [FLHFlutterHybrid.sharedInstance resume];
-
+  [super viewDidAppear:animated];
+    
   // Ensure flutter view is attached.
+  [FLHFlutterHybrid.sharedInstance resume];
   [self attatchFlutterView];
 
   [self _notifyLifecyleEvent:FLHHybridPageLifecycleDidAppear];
 
-  [FLHFlutterHybrid.sharedInstance addContainerViewController:self];
-
-  [super viewDidAppear:animated];
+  [FLHFlutterHybrid.sharedInstance.pageManager addPage:self];
 
   self.navigationController.interactivePopGestureRecognizer.delegate = self;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-  if ([FLHFlutterHybrid.sharedInstance isTopContainerViewController:self]) {
+  if ([FLHFlutterHybrid.sharedInstance.pageManager isTopPage:self]) {
     [self cacheScreenshot];
   }
 
@@ -166,13 +138,15 @@ static NSUInteger kInstanceCount = 0;
   [super viewDidDisappear:animated];
 }
 
-#pragma mark - Notification
+#pragma mark - Notification Handler
 
 - (void)onFlutterShownPageChanged:(NSNotification *)notification {
     __weak typeof(self) weakSelf = self;
     NSDictionary *userInfo = notification.userInfo;
     if ([userInfo[@"newPage"] isEqual:self.uniqueID]) {
-        dispatch_async(dispatch_get_main_queue(), ^{
+        // After page transitioned, flutter resumed and start rendering
+        // may flash the past page, so we delay show the flutter view
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [weakSelf showFlutterView];
         });
     }
@@ -274,8 +248,8 @@ static NSUInteger kInstanceCount = 0;
 
 #pragma mark - Public
 
-- (void)pop {
-    [FLHFlutterHybrid.sharedInstance popOnPage:self.pageInfo.uniqueID];
+- (void)popOrClose {
+    [FLHFlutterHybrid.sharedInstance popOrCloseOnPage:self.pageInfo.uniqueID];
 }
 
 #pragma mark - UIGestureRecognizerDelegate
@@ -292,9 +266,9 @@ static NSUInteger kInstanceCount = 0;
   [self _notifyLifecyleEvent:FLHHybridPageLifecycleWillDealloc];
 
   [FLHScreenshotCache.sharedInstance removeObjectForKey:self.uniqueID];
-  [FLHFlutterHybrid.sharedInstance removeContainerViewController:self];
+  [FLHFlutterHybrid.sharedInstance.pageManager removePage:self];
 
-  [self.class decreaseInstanceCount];
+  [FLHFlutterHybrid.sharedInstance.pageManager decreasePageCount];
 }
 
 - (void)_notifyLifecyleEvent:(FLHHybridPageLifecycle)lifecycle {

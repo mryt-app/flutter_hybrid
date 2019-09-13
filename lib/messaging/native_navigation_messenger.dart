@@ -25,6 +25,7 @@ class NativeNavigationMessenger implements NativeMessenger {
     for (NativePageNavigationEventHandler eventHandler in _eventHandlers) {
       switch (method) {
         case 'backButtonPressed':
+        case 'popOrClose':
           eventHandler.nativePageBackButtonDidPressed(pageId);
           break;
         default:

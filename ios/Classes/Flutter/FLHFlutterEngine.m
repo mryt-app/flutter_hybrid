@@ -17,7 +17,7 @@
 
 @implementation FLHFlutterEngine
 
-- (instancetype)initWithRouter:(id<FLHRouter>)router {
+- (instancetype)init {
     if (self = [super init]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
@@ -39,8 +39,12 @@
     return self;
 }
 
-- (FlutterViewController *)viewController {
+- (FlutterViewController *)flutterViewController {
     return _viewController;
+}
+
+- (FlutterEngine *)flutterEngine {
+    return _engine;
 }
 
 - (void)pause {

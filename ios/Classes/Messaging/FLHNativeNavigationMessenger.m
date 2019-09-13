@@ -6,7 +6,6 @@
 //
 
 #import "FLHNativeNavigationMessenger.h"
-#import "FLHFirstPageInfo.h"
 #import "FLHFlutterHybrid.h"
 
 @implementation FLHNativeNavigationMessenger
@@ -20,8 +19,8 @@ DEF_SINGLETON(FLHNativeNavigationMessenger)
 
 #pragma mark - Public
 
-- (void)backButtonPressedOnPage:(NSString *)pageId {
-    NSString *flutterMethodName = [NSString stringWithFormat:@"%@.%@", self.name, @"backButtonPressed"];
+- (void)popOrCloseOnPage:(NSString *)pageId {
+    NSString *flutterMethodName = [NSString stringWithFormat:@"%@.%@", self.name, @"popOrClose"];
     [self.methodChannel invokeMethod:flutterMethodName arguments:@{ @"uniqueID": pageId }];
 }
 
@@ -32,7 +31,7 @@ DEF_SINGLETON(FLHNativeNavigationMessenger)
         [self _flutterCanPopChanged:arguments];
         result(@(YES));
     } else if ([method isEqualToString:@"fetchStartPageInfo"]) {
-        NSDictionary *pageInfo = [FLHFirstPageInfo.sharedInstance.firstPageInfo toJSON];
+        NSDictionary *pageInfo = [FLHFlutterHybrid.sharedInstance.firstPageInfo toJSON];
         result(pageInfo);
     } else if ([method isEqualToString:@"flutterShownPageChanged"]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"FlutterShownPageChanged"

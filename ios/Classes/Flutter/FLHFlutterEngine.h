@@ -6,14 +6,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "FLHFlutterViewManager.h"
+#import "FLHFlutterManager.h"
 #import "FLHRouter.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface FLHFlutterEngine : NSObject<FLHFlutterViewManager>
-
-- (instancetype)initWithRouter:(id<FLHRouter>)router;
+@interface FLHFlutterEngine : NSObject<FLHFlutterManager>
 
 @end
 
