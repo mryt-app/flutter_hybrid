@@ -15,17 +15,20 @@ open class Messager(var name: String) {
         const val PARAMS = "params"
         const val UNIQUE_ID = "uniqueID"
 
+        // Messager name
         const val NATIVE_PAGE_LIFECYCLE = "NativePageLifecycle"
         const val NATIVE_NAVIGATION = "NativeNavigation"
     }
 
     private var mMethodChannel: MethodChannel? = null
 
-    // flutter to Native
     fun setMethodChannel(channel: MethodChannel) {
         mMethodChannel = channel
     }
 
+    /**
+     * Native initiates call to flutter communication protocol
+     */
     fun invokeMethod(methodName: String, routeName: String, params: Map<*, *>, uniqueId: String) {
         val args = hashMapOf<String, Any>()
         args[ROUTE_NAME] = routeName
@@ -52,7 +55,9 @@ open class Messager(var name: String) {
         })
     }
 
-    // Native to flutter
+    /**
+     * Handling flutter to call native communication protocol
+     */
     open fun handleMethodCall(method: String, arguments: Any?, result: MethodChannel.Result) {}
 
 }

@@ -13,44 +13,44 @@ import cn.missfresh.flutter_hybrid.interfaces.IFlutterViewContainer
 class ContainerLifecycleManager : IContainerLifecycle {
 
     private val mContainer: IFlutterViewContainer
-    val mUniqueId: String
+    val mContainerId: String
 
     private var mContainerStatus = ContainerLifecycleEnum.STATE_UN_KNOW
-    private val mProxy = LifecycleProxy()
+    private val mLifecycleProxy = LifecycleProxy()
 
     private val mHandler = Handler()
 
     constructor(container: IFlutterViewContainer) {
         mContainer = container
-        mUniqueId = System.currentTimeMillis().toString() + "_" + hashCode()
+        mContainerId = System.currentTimeMillis().toString() + "_" + hashCode()
     }
 
     override fun onCreate() {
         mContainerStatus = ContainerLifecycleEnum.STATE_CREATED
         mContainer.getFHFlutterView().resumeFlutterView()
-        mProxy.create()
+        mLifecycleProxy.create()
     }
 
     override fun onAppear() {
         mContainerStatus = ContainerLifecycleEnum.STATE_APPEAR
         mContainer.getFHFlutterView().resumeFlutterView()
-        mProxy.appear()
+        mLifecycleProxy.appear()
     }
 
     override fun onDisappear() {
-        mProxy.disappear()
+        mLifecycleProxy.disappear()
         mContainerStatus = ContainerLifecycleEnum.STATE_DISAPPEAR
 
         /**
          * If current container is finishing, we should call destroy flutter page early.
          */
         if (mContainer.isFinishing()) {
-            mHandler.post { mProxy.destroy() }
+            mHandler.post { mLifecycleProxy.destroy() }
         }
     }
 
     override fun onDestroy() {
-        mProxy.destroy()
+        mLifecycleProxy.destroy()
         mContainerStatus = ContainerLifecycleEnum.STATE_DESTROYED
     }
 
@@ -63,7 +63,7 @@ class ContainerLifecycleManager : IContainerLifecycle {
     }
 
     override fun containerId(): String {
-        return mUniqueId
+        return mContainerId
     }
 
     private inner class LifecycleProxy {
@@ -74,7 +74,7 @@ class ContainerLifecycleManager : IContainerLifecycle {
 
                 FlutterHybridPlugin.instance.getLifecycleMessager().invokeMethod(
                         "nativePageDidInit", mContainer.getContainerName(),
-                        mContainer.getContainerParams(), mUniqueId)
+                        mContainer.getContainerParams(), mContainerId)
 
                 Logger.d("LifecycleProxy nativePageDidInit")
 
@@ -82,7 +82,7 @@ class ContainerLifecycleManager : IContainerLifecycle {
 
                 FlutterHybridPlugin.instance.getLifecycleMessager().invokeMethod(
                         "nativePageWillAppear", mContainer.getContainerName(),
-                        mContainer.getContainerParams(), mUniqueId)
+                        mContainer.getContainerParams(), mContainerId)
             }
         }
 
@@ -91,7 +91,7 @@ class ContainerLifecycleManager : IContainerLifecycle {
 
                 FlutterHybridPlugin.instance.getLifecycleMessager().invokeMethod(
                         "nativePageDidAppear", mContainer.getContainerName(),
-                        mContainer.getContainerParams(), mUniqueId)
+                        mContainer.getContainerParams(), mContainerId)
 
             }, 10)
             Logger.d("LifecycleProxy nativePageDidAppear")
@@ -103,12 +103,12 @@ class ContainerLifecycleManager : IContainerLifecycle {
 
                 FlutterHybridPlugin.instance.getLifecycleMessager().invokeMethod(
                         "nativePageWillDisappear", mContainer.getContainerName(),
-                        mContainer.getContainerParams(), mUniqueId)
+                        mContainer.getContainerParams(), mContainerId)
 
 
                 FlutterHybridPlugin.instance.getLifecycleMessager().invokeMethod(
                         "nativePageDidDisappear", mContainer.getContainerName(),
-                        mContainer.getContainerParams(), mUniqueId)
+                        mContainer.getContainerParams(), mContainerId)
 
                 Logger.d("LifecycleProxy nativePageWillDisappear and nativePageDidDisappear")
                 containerStatus = ContainerLifecycleEnum.STATE_DISAPPEAR
@@ -120,7 +120,7 @@ class ContainerLifecycleManager : IContainerLifecycle {
 
                 FlutterHybridPlugin.instance.getLifecycleMessager().invokeMethod(
                         "nativePageWillDealloc", mContainer.getContainerName(),
-                        mContainer.getContainerParams(), mUniqueId)
+                        mContainer.getContainerParams(), mContainerId)
 
                 Logger.d("LifecycleProxy nativePageWillDealloc")
                 containerStatus = ContainerLifecycleEnum.STATE_DESTROYED

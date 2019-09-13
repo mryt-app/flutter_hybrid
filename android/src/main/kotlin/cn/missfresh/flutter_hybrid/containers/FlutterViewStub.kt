@@ -38,12 +38,18 @@ class FlutterViewStub(context: Context, private val flutterView: FlutterView) : 
         addView(mCoverView, LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
     }
 
+    /**
+     * Called when Activity or Fragment onContainerAppear is called
+     */
     fun onContainerAppear() {
         Logger.d("onContainerAppear")
         refresh()
         removeCover()
     }
 
+    /**
+     * Called when Activity or Fragment onContainerDisappear is called
+     */
     fun onContainerDisappear() {
 
     }
@@ -53,12 +59,18 @@ class FlutterViewStub(context: Context, private val flutterView: FlutterView) : 
         flutterView.invalidate()
     }
 
+    /**
+     * Remove cover view
+     */
     private fun removeCover() {
         mCoverView?.let {
             removeView(it)
         }
     }
 
+    /**
+     * Called when the Fragment's onPause is called, add a snapshot
+     */
     fun snapshot() {
         if (mStub.childCount <= 0 || mSnapshot.parent != null) {
             return
@@ -74,12 +86,18 @@ class FlutterViewStub(context: Context, private val flutterView: FlutterView) : 
         }
     }
 
+    /**
+     * Initialize the cover of the FlutterView
+     */
     private fun initFlutterCoverView(): View {
         val initCover = View(context)
         initCover.setBackgroundColor(Color.WHITE)
         return initCover
     }
 
+    /**
+     * Called when Activity onPostResume or Fragment onResume is called
+     */
     fun attachFlutterView(flutterView: FHFlutterView) {
         Logger.d("attachFlutterView")
         if (flutterView.parent !== mStub) {
@@ -93,6 +111,9 @@ class FlutterViewStub(context: Context, private val flutterView: FlutterView) : 
         }
     }
 
+    /**
+     * Called when Activity onPause is called
+     */
     fun detachFlutterView() {
         Logger.d("detachFlutterView")
         if (mStub?.childCount <= 0) {
@@ -127,12 +148,19 @@ class FlutterViewStub(context: Context, private val flutterView: FlutterView) : 
         }
     }
 
+    /**
+     * Call this method to remove all child views from the
+     * ViewGroup. And release bitmap
+     */
     fun removeViews() {
         removeAllViews()
         mSnapshot?.setImageBitmap(null)
         recycleBitmap()
     }
 
+    /**
+     * Release bitmap
+     */
     private fun recycleBitmap() {
         mBitmap?.let {
             if (!it.isRecycled) {

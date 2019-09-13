@@ -70,6 +70,9 @@ class DataMessager(name: String) : Messager(name) {
         }
     }
 
+    /**
+     * Accepted the Flutter flutterCanPop protocol.
+     */
     private fun flutterCanPop(canPop: Boolean) {
         var containerStatus = FlutterHybridPlugin
                 .instance.getContainerManager().getCurrentLifecycleState()
@@ -82,6 +85,10 @@ class DataMessager(name: String) : Messager(name) {
         containerStatus?.getContainer()?.setContainerCanPop(canPop)
     }
 
+    /**
+     * Accepted the Flutter flutterShownPageChanged protocol.
+     * Called when the page display status changes.
+     */
     private fun showPageChanged(oldPage: String, newPage: String) {
         Logger.e("$OLD_PAGE=$oldPage")
         Logger.e("$NEW_PAGE=$newPage")
@@ -89,6 +96,9 @@ class DataMessager(name: String) : Messager(name) {
                 .onShownContainerChanged(oldPage, newPage)
     }
 
+    /**
+     * Accepted the Flutter fetchStartPageInfo protocol.
+     */
     private fun fetchStartPageInfo(result: MethodChannel.Result) {
         val pageInfo = HashMap<String, Any>()
         try {

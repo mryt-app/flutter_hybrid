@@ -6,8 +6,8 @@ package cn.missfresh.flutter_hybrid.lifecycle
  */
 enum class ContainerLifecycleEnum(val lifecycleState: Int) {
     STATE_UN_KNOW(0),
-    STATE_CREATED(1),
-    STATE_APPEAR(2),
-    STATE_DISAPPEAR(3),
-    STATE_DESTROYED(4)
+    STATE_CREATED(1), // onCreate
+    STATE_APPEAR(2), // onAppear
+    STATE_DISAPPEAR(3), // onDisappear
+    STATE_DESTROYED(4) // onDestroy
 }

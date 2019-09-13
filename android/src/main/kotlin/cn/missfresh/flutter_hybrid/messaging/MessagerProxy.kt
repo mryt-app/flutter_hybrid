@@ -15,7 +15,13 @@ class MessagerProxy {
 
     constructor(methodChannel: MethodChannel) {
         mMethodChannel = methodChannel
+        setMethodCallHandler()
+    }
 
+    /**
+     * Native accepts flutter call communication protocol, processing parameters and response
+     */
+    private fun setMethodCallHandler() {
         mMethodChannel.setMethodCallHandler { methodCall, result ->
 
             var components = methodCall.method.split(".")
@@ -36,11 +42,17 @@ class MessagerProxy {
         }
     }
 
+    /**
+     * Add a Messager to the messagerSet
+     */
     fun addMessager(messager: Messager) {
         messagerSet.add(messager)
         messager.setMethodChannel(mMethodChannel)
     }
 
+    /**
+     * Remove a Messager form the messagerSet
+     */
     fun removeMessager(messager: Messager) {
         messagerSet.remove(messager)
     }

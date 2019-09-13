@@ -24,6 +24,9 @@ class FlutterViewContainerManager : IContainerManager {
 
     private val mContainLifecycleList = HashMap<IFlutterViewContainer, IContainerLifecycle>()
 
+    /**
+     * Called when activity or fragment is onCreate.
+     */
     override fun onContainerCreate(container: IFlutterViewContainer): PluginRegistry {
         assertCallOnMainThread()
 
@@ -60,6 +63,9 @@ class FlutterViewContainerManager : IContainerManager {
         return pluginRegistry
     }
 
+    /**
+     * Called when activity is onPostResume or fragment is onResume.
+     */
     override fun onContainerAppear(container: IFlutterViewContainer) {
         assertCallOnMainThread()
 
@@ -74,6 +80,9 @@ class FlutterViewContainerManager : IContainerManager {
         }
     }
 
+    /**
+     * Called when activity or fragment is onPause.
+     */
     override fun onContainerDisappear(container: IFlutterViewContainer) {
         assertCallOnMainThread()
         mContainLifecycleList[container]?.apply {
@@ -87,6 +96,9 @@ class FlutterViewContainerManager : IContainerManager {
         }
     }
 
+    /**
+     * Called when activity or fragment is onDestroy.
+     */
     override fun onContainerDestroy(container: IFlutterViewContainer) {
         assertCallOnMainThread()
 
@@ -120,6 +132,9 @@ class FlutterViewContainerManager : IContainerManager {
         }, 100)
     }
 
+    /**
+     * Return whether the current container's lifecycle state is ContainerLifecycleEnum.STATE_APPEAR.
+     */
     override fun hasContainerAppear(): Boolean {
         assertCallOnMainThread()
 
@@ -131,6 +146,10 @@ class FlutterViewContainerManager : IContainerManager {
         return false
     }
 
+    /**
+     * Called when the activity has detected the user's press of the back key.
+     * @see android.app.Activity.onBackPressed
+     */
     override fun onBackPressed(container: IFlutterViewContainer) {
         assertCallOnMainThread()
 
@@ -149,12 +168,12 @@ class FlutterViewContainerManager : IContainerManager {
         }
     }
 
-    override fun destroyContainer(name: String, uq: String) {
+    override fun destroyContainer(name: String, containerId: String) {
         assertCallOnMainThread()
 
         var done = false
         for (entry in mContainLifecycleList.entries) {
-            if (TextUtils.equals(uq, entry.value.containerId())) {
+            if (TextUtils.equals(containerId, entry.value.containerId())) {
                 entry.key.destroyContainerView()
                 done = true
                 break
@@ -162,7 +181,7 @@ class FlutterViewContainerManager : IContainerManager {
         }
 
         if (!done) {
-            Logger.e("destroyContainer can not find name:$name containerId:$uq")
+            Logger.e("destroyContainer can not find name:$name containerId:$containerId")
         }
     }
 
@@ -179,6 +198,9 @@ class FlutterViewContainerManager : IContainerManager {
         return null
     }
 
+    /**
+     * Called when the page display status changes.
+     */
     override fun onShownContainerChanged(old: String, now: String) {
         assertCallOnMainThread()
         Logger.d("onShownContainerChanged")

@@ -33,14 +33,18 @@ class FlutterHybridPlugin : MethodCallHandler {
     private lateinit var mManager: IContainerManager
     private lateinit var mAppInfo: IAppInfo
 
+    // Messager
     private lateinit var mLifecycleMessager: Messager
     private lateinit var mDataMessager: DataMessager
 
     var currentActivityWeek: WeakReference<Activity>? = null
 
-    // Whether to use the DataMessager FLUTTER_CAN_POP_CHANGED agreement
+    // Whether to use the DataMessager FLUTTER_CAN_POP_CHANGED protocol
     var isUseCanPop = false
 
+    /**
+     * Initialize application information
+     */
     fun init(appInfo: IAppInfo) {
         mManager = FlutterViewContainerManager()
         mViewProvider = FlutterHybridViewProvider()
@@ -63,26 +67,44 @@ class FlutterHybridPlugin : MethodCallHandler {
         mMessagerProxy.addMessager(mLifecycleMessager)
     }
 
+    /**
+     * Return a messager to synchronize the Android lifecycle to Flutter
+     */
     fun getLifecycleMessager(): Messager {
         return mLifecycleMessager
     }
 
+    /**
+     * Return a DataMessager for Flutter to notify Android related communication protocol by MethodChannel
+     */
     fun getDataMessage(): DataMessager {
         return mDataMessager
     }
 
+    /**
+     * Returns the IFlutterHybridViewProvider
+     */
     fun getViewProvider(): IFlutterHybridViewProvider {
         return mViewProvider
     }
 
+    /**
+     * Returns the IContainerManager
+     */
     fun getContainerManager(): IContainerManager {
         return mManager
     }
 
+    /**
+     * Returns the IAppInfo
+     */
     fun getAppInfo(): IAppInfo {
         return mAppInfo
     }
 
+    /**
+     * Return current Activity , but Activity might be null
+     */
     fun getCurrentActivity(): Activity? {
         return currentActivityWeek?.get()
     }

@@ -17,9 +17,11 @@ class FHFlutterView : FlutterView {
 
     private var isResumed = false
 
+    /**
+     * solve the first time loading a black screen
+     */
     constructor(context: Context, attrs: AttributeSet?, nativeView: FlutterNativeView)
             : super(context, attrs, nativeView) {
-        // solve the first time loading a black screen
         setZOrderOnTop(true)
         holder.setFormat(PixelFormat.TRANSLUCENT)
     }
@@ -37,6 +39,12 @@ class FHFlutterView : FlutterView {
         Logger.d("resume flutter view")
     }
 
+    /**
+     * The AppLifecycleState.paused state of the Flutter lifecycle is
+     * prevented from being called when the two FlatterView pages are
+     * switched, so that the newly opened Flutter lifecycle calls the
+     * bug that the Flutter page cannot be refreshed after clicking the page.
+     */
     fun stopFlutterView() {
         if (isResumed) {
             isResumed = false
@@ -49,7 +57,11 @@ class FHFlutterView : FlutterView {
         return flutterNativeView
     }
 
+    /**
+     * Call the parent class getBitmap method to return a bitmap
+     */
     override fun getBitmap(): Bitmap? {
+        // Safety check
         if (flutterNativeView == null || !flutterNativeView.isAttached) {
             Logger.e("FlutterView not attached!")
             return null
@@ -59,6 +71,9 @@ class FHFlutterView : FlutterView {
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
+        /**
+         * Ask that a new dispatch of {@link #onApplyWindowInsets(WindowInsets)} be performed.
+         */
         ViewCompat.requestApplyInsets(this)
     }
 }

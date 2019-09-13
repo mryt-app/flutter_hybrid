@@ -35,12 +35,19 @@ class FlutterHybridViewProvider : IFlutterHybridViewProvider {
         return mFlutterView
     }
 
+    /**
+     * Calling the onStop method of FlutterView to synchronize the lifecycle state
+     */
     override fun stopFlutterView() {
         mFlutterView?.let {
             it.stopFlutterView()
         }
     }
 
+    /**
+     * Called when the application is no longer alive ,
+     * Call the FlutterView destroy method and the FlutterNativeView destroy method.
+     */
     override fun destroy() {
         try {
             mFlutterView?.destroy()
