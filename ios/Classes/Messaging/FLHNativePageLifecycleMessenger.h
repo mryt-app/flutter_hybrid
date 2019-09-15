@@ -7,7 +7,6 @@
 
 #import <Foundation/Foundation.h>
 #import "FLHMessenger.h"
-#import "FLHBaseToolMacro.h"
 #import "FLHHybridPageLifecycle.h"
 #import "FLHPageInfo.h"
 
@@ -18,8 +17,6 @@ NS_ASSUME_NONNULL_BEGIN
  * Flutter side rely on native page lifecyle messages to sync pages with native.
  */
 @interface FLHNativePageLifecycleMessenger : NSObject <FLHMessenger>
-
-AS_SINGLETON(FLHNativePageLifecycleMessenger)
 
 - (void)notifyHybridPageLifecycleChanged:(FLHHybridPageLifecycle)lifecycle pageInfo:(FLHPageInfo *)pageInfo;
 

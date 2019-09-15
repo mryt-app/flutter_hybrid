@@ -11,12 +11,15 @@
 #import "FLHFlutterHybrid.h"
 #import "FLHFlutterHybridPageManager.h"
 
-@interface FLHFlutterHybridViewController ()
+@interface FLHFlutterHybridViewController () <UIGestureRecognizerDelegate>
 
 @property(nonatomic, copy, readwrite) NSString *routeName;
 @property(nonatomic, strong, readwrite) NSDictionary *params;
 @property(nonatomic, copy, readwrite) NSString *uniqueID;
 @property(nonatomic, strong) FLHPageInfo *pageInfo;
+
+// Method in `FlutterViewController`, we need call it to restart UI rendering
+- (void)surfaceUpdated:(BOOL)appeared;
 
 @end
 
@@ -48,6 +51,12 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    if ([FLHFlutterHybrid.sharedInstance.pageManager containsPage:self]) {
+        [self _detachFromEngine];
+    } else {
+        [self _attachToEngine];
+    }
+    
     // Save first time page info.
     if ([FLHFlutterHybrid.sharedInstance firstPageInfo] == nil) {
         [FLHFlutterHybrid.sharedInstance initializeFirstPageInfo:_pageInfo];
@@ -59,13 +68,30 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
+    [self _attachToEngine];
+    // Must call, or Flutter UI won't update
+    [self surfaceUpdated:YES];
+    
     [self _notifyLifecyleEvent:FLHHybridPageLifecycleDidAppear];
+    self.navigationController.interactivePopGestureRecognizer.delegate = self;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
+    [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
     [self _notifyLifecyleEvent:FLHHybridPageLifecycleWillDisappear];
+    
+    if (self.isMovingFromParentViewController) {
+        // Avoid crash on create new instance
+        // Note that if we were doing things that might cause the VC
+        // to disappear (like using the image_picker plugin)
+        // we shouldn't do this.  But in this case we know we're
+        // just going back to the navigation controller.
+        // If we needed Flutter to tell us when we could actually go away,
+        // we'd need to communicate over a method channel with it.
+        [self _detachFromEngine];
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -82,6 +108,14 @@
 
 - (BOOL)loadDefaultSplashScreenView {
     return NO;
+}
+
+#pragma mark - UIGestureRecognizerDelegate
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    //    If used Navigator.push to present new page in Flutter,
+    //    the interactivePopGestureRecognizer should be handle by flutter
+    return (FLHFlutterHybrid.sharedInstance.router.flutterCanPop == NO);
 }
 
 #pragma mark - Setup
@@ -112,9 +146,19 @@
 }
 
 - (void)_notifyLifecyleEvent:(FLHHybridPageLifecycle)lifecycle {
-    [FLHNativePageLifecycleMessenger.sharedInstance
+    [FLHFlutterHybrid.sharedInstance.pageLifecyleMessenger
      notifyHybridPageLifecycleChanged:lifecycle
      pageInfo:_pageInfo];
+}
+
+- (void)_attachToEngine {
+    if (FLHFlutterHybrid.sharedInstance.flutterManager.flutterEngine.viewController != self) {
+        [FLHFlutterHybrid.sharedInstance.flutterManager.flutterEngine setViewController:self];
+    }
+}
+
+- (void)_detachFromEngine {
+    [FLHFlutterHybrid.sharedInstance.flutterManager.flutterEngine setViewController:nil];
 }
 
 @end

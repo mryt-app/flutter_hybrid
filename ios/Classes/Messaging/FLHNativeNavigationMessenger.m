@@ -11,8 +11,6 @@
 @implementation FLHNativeNavigationMessenger
 @synthesize methodChannel;
 
-DEF_SINGLETON(FLHNativeNavigationMessenger)
-
 - (NSString *)name {
     return @"NativeNavigation";
 }

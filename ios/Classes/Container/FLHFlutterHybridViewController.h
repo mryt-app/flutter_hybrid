@@ -11,10 +11,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/**
- * Don't use this class!!!
- * Hasn't finished.
- */
 @interface FLHFlutterHybridViewController : FlutterViewController <FLHFlutterPage>
 
 - (instancetype)initWithNibName:(nullable NSString *)nibNameOrNil bundle:(nullable NSBundle *)nibBundleOrNil NS_UNAVAILABLE;

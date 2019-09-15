@@ -1,6 +1,5 @@
 #import "FlutterHybridPlugin.h"
-#import "FLHNativePageLifecycleMessenger.h"
-#import "FLHNativeNavigationMessenger.h"
+#import "FLHFlutterHybrid.h"
 #import "NSArray+FLHUtility.h"
 
 @interface FlutterHybridPlugin ()
@@ -25,8 +24,8 @@
     if (self = [super init]) {
         _methodChannel = methodChannel;
         _messengers = @[
-                        [FLHNativePageLifecycleMessenger sharedInstance],
-                        [FLHNativeNavigationMessenger sharedInstance],
+                        FLHFlutterHybrid.sharedInstance.navigationMessenger,
+                        FLHFlutterHybrid.sharedInstance.pageLifecyleMessenger,
                         ];
         for (id<FLHMessenger> messenger in _messengers) {
             messenger.methodChannel = methodChannel;

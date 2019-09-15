@@ -9,6 +9,7 @@
 #import "Router.h"
 #import "UIViewController+Utility.h"
 #import "DemoFlutterViewController.h"
+#import "DemoFlutterContainerViewController.h"
 
 @interface Router ()
 
@@ -30,7 +31,10 @@
 
 - (void)openPage:(NSString *)route params:(NSDictionary *)params animated:(BOOL)animated completion:(void (^)(BOOL))completion {
     BOOL present = [params[@"present"] boolValue];
-    DemoFlutterViewController *flutterVC = [[DemoFlutterViewController alloc] initWithRoute:route params:params];
+    BOOL openInContainer = [params[@"openInContainer"] boolValue];
+    // Don't mix DemoFlutterContainerViewController with DemoFlutterViewController,
+    // you should always use one in an app.
+    UIViewController<FLHFlutterPage> *flutterVC = (openInContainer ? [[DemoFlutterContainerViewController alloc] initWithRoute:route params:params] : [[DemoFlutterViewController alloc] initWithRoute:route params:params]);
     if (present) {
         [self.navigationController presentViewController:flutterVC animated:animated completion:^{
             if (completion) {
@@ -46,7 +50,7 @@
 }
 
 - (void)closePage:(NSString *)pageId params:(NSDictionary *)params animated:(BOOL)animated completion:(void (^)(BOOL))completion {
-    DemoFlutterViewController *flutterVC = (DemoFlutterViewController *)self.navigationController.presentedViewController;
+    UIViewController<FLHFlutterPage> *flutterVC = (UIViewController<FLHFlutterPage> *)self.navigationController.presentedViewController;
     if ([flutterVC isKindOfClass:DemoFlutterViewController.class] &&
         [flutterVC.uniqueID isEqual:pageId]) {
       [flutterVC dismissViewControllerAnimated:animated

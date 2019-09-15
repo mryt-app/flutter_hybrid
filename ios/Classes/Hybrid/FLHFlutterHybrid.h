@@ -13,6 +13,9 @@
 #import "FLHFlutterHybridPageManager.h"
 #import "FLHFlutterManager.h"
 #import "FLHPageInfo.h"
+#import "FLHNativeNavigationMessenger.h"
+#import "FLHNativePageLifecycleMessenger.h"
+#import "FLHScreenshotCache.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -27,6 +30,11 @@ NS_ASSUME_NONNULL_BEGIN
  * fetch the first page info to show corresponding flutter page.
  */
 @property (nonatomic, readonly) FLHPageInfo *firstPageInfo;
+
+@property (nonatomic, readonly) FLHNativeNavigationMessenger *navigationMessenger;
+@property (nonatomic, readonly) FLHNativePageLifecycleMessenger *pageLifecyleMessenger;
+
+@property (nonatomic, readonly) FLHScreenshotCache *screenshotCache;
 
 AS_SINGLETON(FLHFlutterHybrid)
 
@@ -43,9 +51,9 @@ AS_SINGLETON(FLHFlutterHybrid)
 
 #pragma mark - App Control
 
-- (void)pause;
-- (void)resume;
-- (void)inactive;
+- (void)pauseFlutterRendering;
+- (void)resumeFlutterRendering;
+- (void)inactiveFlutterRendering;
 - (BOOL)isRunning;
 
 @end

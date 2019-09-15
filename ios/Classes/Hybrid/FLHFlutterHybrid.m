@@ -18,6 +18,11 @@ typedef FLHFlutterContainerViewController * (^FLHPageBuilder)(NSString *route, N
 @property (nonatomic, strong) id<FLHFlutterManager> flutterManager;
 @property (nonatomic, strong) FLHPageInfo *firstPageInfo;
 
+@property (nonatomic, strong) FLHNativeNavigationMessenger *navigationMessenger;
+@property (nonatomic, strong) FLHNativePageLifecycleMessenger *pageLifecyleMessenger;
+
+@property (nonatomic, strong) FLHScreenshotCache *screenshotCache;
+
 @property (nonatomic, assign) BOOL isRendering;
 @property (nonatomic, assign) BOOL isRunning;
 
@@ -36,6 +41,9 @@ DEF_SINGLETON(FLHFlutterHybrid)
         _isRendering = NO;
         _isRunning = NO;
         _pageManager = [FLHFlutterHybridPageManager new];
+        _navigationMessenger = [FLHNativeNavigationMessenger new];
+        _pageLifecyleMessenger = [FLHNativePageLifecycleMessenger new];
+        _screenshotCache = [FLHScreenshotCache new];
     }
     return self;
 }
@@ -47,7 +55,7 @@ DEF_SINGLETON(FLHFlutterHybrid)
     dispatch_once(&onceToken, ^{
         self.router = router;
         self.flutterManager = [[FLHFlutterEngine alloc] init];
-        [self.flutterManager resume];
+        [self.flutterManager resumeFlutterRendering];
         
         self.isRendering = YES;
         self.isRunning = YES;
@@ -55,7 +63,7 @@ DEF_SINGLETON(FLHFlutterHybrid)
 }
 
 - (void)popOrCloseOnPage:(NSString *)pageId {
-    [FLHNativeNavigationMessenger.sharedInstance popOrCloseOnPage:pageId];
+    [FLHFlutterHybrid.sharedInstance.navigationMessenger popOrCloseOnPage:pageId];
 }
 
 - (void)initializeFirstPageInfo:(FLHPageInfo *)firstPageInfo {
@@ -66,22 +74,22 @@ DEF_SINGLETON(FLHFlutterHybrid)
 
 #pragma mark - App Control
 
-- (void)pause {
-    guard(_isRendering) else { return; }
+- (void)inactiveFlutterRendering {
+    [self.flutterManager inactiveFlutterRendering];
+}
+
+- (void)pauseFlutterRendering {
+//    guard(_isRendering) else { return; }
     
-    [self.flutterManager pause];
+    [self.flutterManager pauseFlutterRendering];
     _isRendering = NO;
 }
 
-- (void)resume {
-    guard(!_isRendering) else { return; }
+- (void)resumeFlutterRendering {
+//    guard(!_isRendering) else { return; }
     
-    [self.flutterManager resume];
+    [self.flutterManager resumeFlutterRendering];
     _isRendering = YES;
-}
-
-- (void)inactive {
-    [self.flutterManager inactive];
 }
 
 - (BOOL)isRunning {

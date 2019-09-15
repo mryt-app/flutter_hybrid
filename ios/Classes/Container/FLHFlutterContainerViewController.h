@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
  * `FlutterViewController` is embedded in this viewController.
  * The `FlutterViewController` is shared in an application,
  * we use screenshots to seamlessly navigate viewControllers.
+ * Don't mix with `FLHFlutterHybridViewController`!!!
  */
 @interface FLHFlutterContainerViewController : UIViewController <FLHFlutterPage>
 

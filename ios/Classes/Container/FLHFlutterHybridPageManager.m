@@ -38,16 +38,16 @@ static NSUInteger pageSerialNumber = 0;
     _pageCount++;
     if (_pageCount == 1) {
         //        On the first Flutter page is readying to show, we also think it is resumed.
-        [FLHFlutterHybrid.sharedInstance resume];
+        [FLHFlutterHybrid.sharedInstance resumeFlutterRendering];
     }
 }
 
 - (void)decreasePageCount {
     _pageCount--;
     if (_pageCount == 0) {
-        [[FLHScreenshotCache sharedInstance] clearAllObjects];
+        [FLHFlutterHybrid.sharedInstance.screenshotCache clearAllObjects];
         //        The FlutterViewController isn't visible to user, we think the Flutter app is paused.
-        [FLHFlutterHybrid.sharedInstance pause];
+        [FLHFlutterHybrid.sharedInstance pauseFlutterRendering];
     }
 }
 

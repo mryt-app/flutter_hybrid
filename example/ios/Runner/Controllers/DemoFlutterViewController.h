@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <flutter_hybrid/FLHFlutterContainerViewController.h>
+#import <flutter_hybrid/FLHFlutterHybridViewController.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DemoFlutterViewController : FLHFlutterContainerViewController
+@interface DemoFlutterViewController : FLHFlutterHybridViewController
 
 @end
 

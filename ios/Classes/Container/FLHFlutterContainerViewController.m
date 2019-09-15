@@ -106,7 +106,7 @@
   [super viewDidAppear:animated];
     
   // Ensure flutter view is attached.
-  [FLHFlutterHybrid.sharedInstance resume];
+  [FLHFlutterHybrid.sharedInstance resumeFlutterRendering];
   [self attatchFlutterView];
 
   [self _notifyLifecyleEvent:FLHHybridPageLifecycleDidAppear];
@@ -127,7 +127,7 @@
   }
 
   [self _notifyLifecyleEvent:FLHHybridPageLifecycleWillDisappear];
-  [FLHFlutterHybrid.sharedInstance inactive];
+  [FLHFlutterHybrid.sharedInstance inactiveFlutterRendering];
   [super viewWillDisappear:animated];
 }
 
@@ -159,7 +159,7 @@
   if (screenshot) {
     FLHStackCacheImageObject *cacheImageObject =
         [[FLHStackCacheImageObject alloc] initWithImage:screenshot];
-    [FLHScreenshotCache.sharedInstance pushObject:cacheImageObject
+    [FLHFlutterHybrid.sharedInstance.screenshotCache pushObject:cacheImageObject
                                            forKey:self.uniqueID];
   }
 }
@@ -170,7 +170,7 @@
 
 - (UIImage *)cachedScreenshotImage {
   FLHStackCacheImageObject *cachedImageObject =
-      [FLHScreenshotCache.sharedInstance objectForKey:self.uniqueID];
+      [FLHFlutterHybrid.sharedInstance.screenshotCache objectForKey:self.uniqueID];
   return cachedImageObject.image;
 }
 
@@ -243,7 +243,7 @@
   [self clearScreenshot];
 
   // Invalidate obsolete screenshot.
-  [FLHScreenshotCache.sharedInstance invalidateObjectForKey:self.uniqueID];
+  [FLHFlutterHybrid.sharedInstance.screenshotCache invalidateObjectForKey:self.uniqueID];
 }
 
 #pragma mark - Public
@@ -265,14 +265,14 @@
 - (void)_notifyWillDealloc {
   [self _notifyLifecyleEvent:FLHHybridPageLifecycleWillDealloc];
 
-  [FLHScreenshotCache.sharedInstance removeObjectForKey:self.uniqueID];
+  [FLHFlutterHybrid.sharedInstance.screenshotCache removeObjectForKey:self.uniqueID];
   [FLHFlutterHybrid.sharedInstance.pageManager removePage:self];
 
   [FLHFlutterHybrid.sharedInstance.pageManager decreasePageCount];
 }
 
 - (void)_notifyLifecyleEvent:(FLHHybridPageLifecycle)lifecycle {
-  [FLHNativePageLifecycleMessenger.sharedInstance
+  [FLHFlutterHybrid.sharedInstance.pageLifecyleMessenger
       notifyHybridPageLifecycleChanged:lifecycle
                               pageInfo:_pageInfo];
 }

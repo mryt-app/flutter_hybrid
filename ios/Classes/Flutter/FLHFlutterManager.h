@@ -27,18 +27,18 @@ NS_ASSUME_NONNULL_BEGIN
  * AppLifecycleState.paused
  * The FlutterViewController's parentViewController is nil(isn't visible to user).
  */
-- (void)pause;
+- (void)pauseFlutterRendering;
 /**
  * AppLifecycleState.resumed
  * The FlutterViewController is visible and responding to user input.
  * On the first Flutter page is readying to show, we also think it is resumed.
  */
-- (void)resume;
+- (void)resumeFlutterRendering;
 /**
  * AppLifecycleState.inactive
  * The FlutterViewController is transitioning.
  */
-- (void)inactive;
+- (void)inactiveFlutterRendering;
 
 @end
 

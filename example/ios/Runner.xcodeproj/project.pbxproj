@@ -11,6 +11,7 @@
 		3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */; };
 		3B80C3941E831B6300D905FE /* App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B80C3931E831B6300D905FE /* App.framework */; };
 		3B80C3951E831B6300D905FE /* App.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3B80C3931E831B6300D905FE /* App.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6C19ADCA232C7A9300E704CB /* DemoFlutterContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C19ADC9232C7A9300E704CB /* DemoFlutterContainerViewController.m */; };
 		6CC324E52327419F00C99D53 /* DemoFlutterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC324E42327419F00C99D53 /* DemoFlutterViewController.m */; };
 		6CD6863C23154C8800B5895D /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD6863B23154C8800B5895D /* TabBarController.m */; };
 		6CD686402316107300B5895D /* NativeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD6863E2316107300B5895D /* NativeViewController.m */; };
@@ -49,6 +50,8 @@
 		3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AppFrameworkInfo.plist; path = Flutter/AppFrameworkInfo.plist; sourceTree = "<group>"; };
 		3B80C3931E831B6300D905FE /* App.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = App.framework; path = Flutter/App.framework; sourceTree = "<group>"; };
 		45CEE5A290A695274689741A /* libPods-Runner.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Runner.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C19ADC8232C7A9300E704CB /* DemoFlutterContainerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DemoFlutterContainerViewController.h; sourceTree = "<group>"; };
+		6C19ADC9232C7A9300E704CB /* DemoFlutterContainerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemoFlutterContainerViewController.m; sourceTree = "<group>"; };
 		6CC324E32327419F00C99D53 /* DemoFlutterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DemoFlutterViewController.h; sourceTree = "<group>"; };
 		6CC324E42327419F00C99D53 /* DemoFlutterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemoFlutterViewController.m; sourceTree = "<group>"; };
 		6CD6863A23154C8800B5895D /* TabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
@@ -111,6 +114,8 @@
 				6CD6864C2316511F00B5895D /* NavigationController.m */,
 				6CC324E32327419F00C99D53 /* DemoFlutterViewController.h */,
 				6CC324E42327419F00C99D53 /* DemoFlutterViewController.m */,
+				6C19ADC8232C7A9300E704CB /* DemoFlutterContainerViewController.h */,
+				6C19ADC9232C7A9300E704CB /* DemoFlutterContainerViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -350,6 +355,7 @@
 			files = (
 				978B8F6F1D3862AE00F588F7 /* AppDelegate.m in Sources */,
 				6CD686402316107300B5895D /* NativeViewController.m in Sources */,
+				6C19ADCA232C7A9300E704CB /* DemoFlutterContainerViewController.m in Sources */,
 				6CD6863C23154C8800B5895D /* TabBarController.m in Sources */,
 				6CC324E52327419F00C99D53 /* DemoFlutterViewController.m in Sources */,
 				97C146F31CF9000F007C117D /* main.m in Sources */,

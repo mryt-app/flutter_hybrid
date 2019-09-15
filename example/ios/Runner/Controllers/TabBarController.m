@@ -9,6 +9,7 @@
 #import "TabBarController.h"
 #import "NativeViewController.h"
 #import <flutter_hybrid/FLHFlutterContainerViewController.h>
+#import <flutter_hybrid/FLHFlutterHybridViewController.h>
 #import "NavigationController.h"
 
 @interface TabBarController ()

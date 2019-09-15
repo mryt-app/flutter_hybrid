@@ -9,8 +9,6 @@
 
 @implementation FLHScreenshotCache
 
-DEF_SINGLETON(FLHScreenshotCache)
-
 - (NSString *)cacheDir {
     static NSString *cachePath = nil;
     if (!cachePath) {

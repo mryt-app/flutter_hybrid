@@ -13,8 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FLHScreenshotCache : FLHStackCache
 
-AS_SINGLETON(FLHScreenshotCache)
-
 @end
 
 NS_ASSUME_NONNULL_END

@@ -10,8 +10,6 @@
 @implementation FLHNativePageLifecycleMessenger
 @synthesize methodChannel;
 
-DEF_SINGLETON(FLHNativePageLifecycleMessenger)
-
 - (NSString *)name {
     return @"NativePageLifecycle";
 }
