@@ -1,5 +1,5 @@
 name: flutter_hybrid
-description: A new flutter plugin project.
+description: A new flutter plugin for hybrid app, supports integrate flutter pages into iOS and Android app.
 version: 0.0.1
 author:
 homepage:

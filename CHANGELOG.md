@@ -1,3 +1,3 @@
 ## 0.0.1
 
-* TODO: Describe initial release.
+* Supports integrate flutter pages into iOS or Android app.
