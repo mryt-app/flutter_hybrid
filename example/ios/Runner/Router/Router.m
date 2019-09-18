@@ -18,7 +18,6 @@
 @end
 
 @implementation Router
-@synthesize flutterCanPop;
 
 + (instancetype)sharedInstance {
     static Router *_instance = nil;

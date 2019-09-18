@@ -257,7 +257,7 @@
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
 //    If used Navigator.push to present new page in Flutter,
 //    the interactivePopGestureRecognizer should be handle by flutter
-    return (FLHFlutterHybrid.sharedInstance.router.flutterCanPop == NO);
+    return (FLHFlutterHybrid.sharedInstance.flutterCanPop == NO);
 }
 
 #pragma mark - Action

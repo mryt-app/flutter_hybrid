@@ -15,10 +15,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @protocol FLHRouter <NSObject>
 
-@optional
-
-@property (nonatomic, assign) BOOL flutterCanPop;
-
 - (void)openPage:(NSString *)route
           params:(nullable NSDictionary *)params
         animated:(BOOL)animated
