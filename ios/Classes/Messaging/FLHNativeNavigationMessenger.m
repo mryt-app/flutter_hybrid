@@ -65,7 +65,7 @@
 
 - (void)_flutterCanPopChanged:(id)arguments {
     BOOL canPop = [arguments[@"canPop"] boolValue];
-    FLHFlutterHybrid.sharedInstance.router.flutterCanPop = canPop;
+    FLHFlutterHybrid.sharedInstance.flutterCanPop = canPop;
 }
 
 @end

@@ -36,6 +36,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, readonly) FLHScreenshotCache *screenshotCache;
 
+@property (nonatomic, assign) BOOL flutterCanPop;
+
 AS_SINGLETON(FLHFlutterHybrid)
 
 - (void)startFlutterWithRouter:(id<FLHRouter>)router;
