@@ -41,7 +41,6 @@ class MainActivity : FlutterActivity(), View.OnClickListener {
     }
 
     private fun initView() {
-        tv_title.text = "MainActivity"
         tv_open_native_activity.setOnClickListener(this)
         tv_open_flutter_activity.setOnClickListener(this)
         tv_open_flutter_fragment.setOnClickListener(this)

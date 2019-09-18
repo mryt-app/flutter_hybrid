@@ -12,7 +12,7 @@
         android:background="@android:color/holo_blue_bright"
         android:gravity="center"
         android:padding="30dp"
-        android:text="NativeActivity" />
+        android:text="MainActivity" />
 
     <TextView
         android:id="@+id/tv_open_native_activity"
