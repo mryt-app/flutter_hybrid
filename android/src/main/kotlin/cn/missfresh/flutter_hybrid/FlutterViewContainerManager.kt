@@ -154,17 +154,8 @@ class FlutterViewContainerManager : IContainerManager {
         assertCallOnMainThread()
 
         mContainLifecycleList[container]?.let {
-            if (FlutterHybridPlugin.instance.isUseCanPop) {
-                if (container.getContainerCanPop()) {
-                    FlutterHybridPlugin.instance.getDataMessage().invokeMethod(BACK_BUTTON_PRESSED,
-                            container.getContainerName(), container.getContainerParams(), it.containerId())
-                } else {
-                    container.destroyContainerView()
-                }
-            } else {
-                FlutterHybridPlugin.instance.getDataMessage().invokeMethod(BACK_BUTTON_PRESSED,
-                        container.getContainerName(), container.getContainerParams(), it.containerId())
-            }
+            FlutterHybridPlugin.instance.getDataMessage().invokeMethod(BACK_BUTTON_PRESSED,
+                    container.getContainerName(), container.getContainerParams(), it.containerId())
         }
     }
 

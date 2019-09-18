@@ -6,11 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="52f36c54-3c7b-4caa-a1a9-7a3a50cfd7b2" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/FlutterHybridPlugin.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/FlutterHybridPlugin.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/FlutterViewContainerManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/FlutterViewContainerManager.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/containers/FHFlutterActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/containers/FHFlutterActivity.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/containers/FHFlutterFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/containers/FHFlutterFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/interfaces/IFlutterViewContainer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/interfaces/IFlutterViewContainer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/messaging/DataMessager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/messaging/DataMessager.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/MainActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/activity/FlutterFragmentActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/activity/FlutterFragmentActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/util/RouterUtil.kt" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/util/RouterUtil.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/android/app/src/main/res/layout/flutter_fragment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/src/main/res/layout/flutter_fragment.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/.idea/" />
@@ -30,10 +32,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/example/lib/counter.dart">
+        <entry file="file://$PROJECT_DIR$/lib/page/hybrid_page_container.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="561">
-              <caret line="37" column="14" selection-start-line="37" selection-start-column="14" selection-end-line="37" selection-end-column="14" />
+            <state relative-caret-position="3570">
+              <caret line="215" column="3" selection-start-line="215" selection-start-column="3" selection-end-line="215" selection-end-column="3" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -42,91 +44,91 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/example/lib/color_page.dart">
+        <entry file="file://$PROJECT_DIR$/lib/router/router.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="19" column="4" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="4" />
+            <state relative-caret-position="51">
+              <caret line="3" column="15" selection-start-line="3" selection-start-column="15" selection-end-line="3" selection-end-column="15" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/page/hybrid_page_route.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="425">
+              <caret line="26" column="20" selection-start-line="26" selection-start-column="20" selection-end-line="26" selection-end-column="20" />
               <folding>
-                <element signature="e#0#39#0" expanded="true" />
+                <element signature="e#0#38#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/activity/FlutterFragmentActivity.kt">
+        <entry file="file://$PROJECT_DIR$/lib/page/hybrid_page_observer.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="29" column="34" selection-start-line="29" selection-start-column="34" selection-end-line="29" selection-end-column="34" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/example/lib/flutter_page.dart">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="14" selection-start-line="14" selection-end-line="14" />
+            <state relative-caret-position="986">
+              <caret line="58" column="5" selection-start-line="58" selection-start-column="5" selection-end-line="58" selection-end-column="5" />
               <folding>
-                <element signature="e#0#19#0" expanded="true" />
+                <element signature="e#0#38#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/example/lib/main.dart">
+        <entry file="file://$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/FlutterHybridViewProvider.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="27" column="28" selection-start-line="27" selection-start-column="28" selection-end-line="27" selection-end-column="28" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="85">
+              <caret line="9" column="16" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="16" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/example/lib/page_type.dart">
+        <entry file="file://$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/FlutterHybridPlugin.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="37" selection-start-line="4" selection-start-column="37" selection-end-line="4" selection-end-column="37" />
+            <state relative-caret-position="-810">
+              <caret line="42" column="41" selection-start-line="42" selection-start-column="41" selection-end-line="42" selection-end-column="41" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/MainActivity.kt">
+        <entry file="file://$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/containers/FHFlutterActivity.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="33" column="46" selection-start-line="33" selection-end-line="34" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/util/RouterUtil.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="471">
-              <caret line="77" column="1" selection-start-line="16" selection-end-line="77" selection-end-column="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/activity/NativeActivity.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="38" column="13" selection-start-line="38" selection-start-column="13" selection-end-line="38" selection-end-column="13" />
+            <state relative-caret-position="442">
+              <caret line="85" column="5" selection-start-line="85" selection-start-column="5" selection-end-line="85" selection-end-column="5" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/example/android/app/src/main/AndroidManifest.xml">
+        <entry file="file://$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/containers/FHFlutterFragment.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="3" lean-forward="true" selection-start-line="8" selection-start-column="3" selection-end-line="11" selection-end-column="47" />
+            <state relative-caret-position="351">
+              <caret line="97" column="5" selection-start-line="97" selection-start-column="5" selection-end-line="97" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/FlutterViewContainerManager.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="220">
+              <caret line="157" column="99" selection-start-line="157" selection-start-column="99" selection-end-line="157" selection-end-column="99" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/interfaces/IFlutterViewContainer.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="4" selection-start-line="4" selection-end-line="4" />
+              <folding>
+                <element signature="e#48#129#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -142,8 +144,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>showHybridPage</find>
-      <find>backPressedCallback</find>
       <find>pop()</find>
       <find>newPage</find>
       <find>pop</find>
@@ -172,6 +172,8 @@
       <find>canPop</find>
       <find>_notifyCanPopToNative</find>
       <find>counter</find>
+      <find>isU</find>
+      <find>isUseCanPop</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -191,15 +193,11 @@
         <option value="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/messaging/FlutterLifecycleMessager.kt" />
         <option value="$PROJECT_DIR$/lib/flutter_hybrid.dart" />
         <option value="$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/activity/FlutterActivity.kt" />
-        <option value="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/containers/FHFlutterFragment.kt" />
         <option value="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/containers/FlutterViewStub.kt" />
         <option value="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/ContainerStatus.kt" />
-        <option value="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/FlutterViewContainerManager.kt" />
         <option value="$PROJECT_DIR$/lib/messaging/native_messenger_proxy.dart" />
-        <option value="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/containers/FHFlutterActivity.kt" />
         <option value="$PROJECT_DIR$/lib/page/hybrid_page_container.dart" />
         <option value="$PROJECT_DIR$/lib/messaging/native_page_lifecycle_messenger.dart" />
-        <option value="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/FlutterHybridPlugin.kt" />
         <option value="$PROJECT_DIR$/example/lib/flutter_fragment.dart" />
         <option value="$PROJECT_DIR$/lib/page/hybrid_page_coordinator.dart" />
         <option value="$PROJECT_DIR$/lib/page/hybrid_page.dart" />
@@ -213,14 +211,18 @@
         <option value="$PROJECT_DIR$/example/lib/flutter_page.dart" />
         <option value="$PROJECT_DIR$/example/lib/page_type.dart" />
         <option value="$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/activity/FlutterFragmentActivity.kt" />
-        <option value="$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/MainActivity.kt" />
         <option value="$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/util/RouterUtil.kt" />
+        <option value="$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/MainActivity.kt" />
+        <option value="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/FlutterHybridPlugin.kt" />
+        <option value="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/FlutterViewContainerManager.kt" />
+        <option value="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/interfaces/IFlutterViewContainer.kt" />
+        <option value="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/containers/FHFlutterActivity.kt" />
+        <option value="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/containers/FHFlutterFragment.kt" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="338" />
-    <option name="y" value="24" />
+    <option name="y" value="23" />
     <option name="width" value="1680" />
     <option name="height" value="973" />
   </component>
@@ -229,48 +231,78 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="flutter_hybrid" type="58d84e3e:PackageViewProjectNode" />
-              <item name="flutter_hybrid" type="616d4139:PackageViewModuleNode" />
-            </path>
-            <path>
-              <item name="flutter_hybrid" type="58d84e3e:PackageViewProjectNode" />
-              <item name="flutter_hybrid" type="616d4139:PackageViewModuleNode" />
-              <item name="messaging" type="1f31426a:PackageElementNode" />
-            </path>
-            <path>
-              <item name="flutter_hybrid" type="58d84e3e:PackageViewProjectNode" />
-              <item name="flutter_hybrid" type="616d4139:PackageViewModuleNode" />
-              <item name="page" type="1f31426a:PackageElementNode" />
-            </path>
-            <path>
-              <item name="flutter_hybrid" type="58d84e3e:PackageViewProjectNode" />
-              <item name="flutter_hybrid" type="616d4139:PackageViewModuleNode" />
-              <item name="router" type="1f31426a:PackageElementNode" />
-            </path>
-            <path>
-              <item name="flutter_hybrid" type="58d84e3e:PackageViewProjectNode" />
-              <item name="flutter_hybrid" type="616d4139:PackageViewModuleNode" />
-              <item name="support" type="1f31426a:PackageElementNode" />
-            </path>
-            <path>
-              <item name="flutter_hybrid" type="58d84e3e:PackageViewProjectNode" />
-              <item name="flutter_hybrid" type="616d4139:PackageViewModuleNode" />
-              <item name="Libraries" type="5c3f07af:PackageViewLibrariesNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="flutter_hybrid" type="b2602c69:ProjectViewProjectNode" />
               <item name="flutter_hybrid" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="flutter_hybrid" type="b2602c69:ProjectViewProjectNode" />
+              <item name="flutter_hybrid" type="462c0819:PsiDirectoryNode" />
+              <item name="android" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="flutter_hybrid" type="b2602c69:ProjectViewProjectNode" />
+              <item name="flutter_hybrid" type="462c0819:PsiDirectoryNode" />
+              <item name="android" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="flutter_hybrid" type="b2602c69:ProjectViewProjectNode" />
+              <item name="flutter_hybrid" type="462c0819:PsiDirectoryNode" />
+              <item name="android" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="flutter_hybrid" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="flutter_hybrid" type="b2602c69:ProjectViewProjectNode" />
+              <item name="flutter_hybrid" type="462c0819:PsiDirectoryNode" />
+              <item name="android" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="flutter_hybrid" type="462c0819:PsiDirectoryNode" />
+              <item name="containers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="flutter_hybrid" type="b2602c69:ProjectViewProjectNode" />
+              <item name="flutter_hybrid" type="462c0819:PsiDirectoryNode" />
+              <item name="android" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="flutter_hybrid" type="462c0819:PsiDirectoryNode" />
+              <item name="interfaces" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="flutter_hybrid" type="b2602c69:ProjectViewProjectNode" />
+              <item name="flutter_hybrid" type="462c0819:PsiDirectoryNode" />
+              <item name="android" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="flutter_hybrid" type="462c0819:PsiDirectoryNode" />
+              <item name="lifecycle" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="flutter_hybrid" type="b2602c69:ProjectViewProjectNode" />
+              <item name="flutter_hybrid" type="462c0819:PsiDirectoryNode" />
+              <item name="android" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="flutter_hybrid" type="462c0819:PsiDirectoryNode" />
+              <item name="messaging" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="flutter_hybrid" type="b2602c69:ProjectViewProjectNode" />
+              <item name="flutter_hybrid" type="462c0819:PsiDirectoryNode" />
+              <item name="android" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="flutter_hybrid" type="462c0819:PsiDirectoryNode" />
+              <item name="router" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="flutter_hybrid" type="b2602c69:ProjectViewProjectNode" />
+              <item name="flutter_hybrid" type="462c0819:PsiDirectoryNode" />
+              <item name="android" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="flutter_hybrid" type="462c0819:PsiDirectoryNode" />
+              <item name="support" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="flutter_hybrid" type="b2602c69:ProjectViewProjectNode" />
@@ -342,27 +374,6 @@
               <item name="flutter_hybrid" type="b2602c69:ProjectViewProjectNode" />
               <item name="flutter_hybrid" type="462c0819:PsiDirectoryNode" />
               <item name="example" type="462c0819:PsiDirectoryNode" />
-              <item name="android" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="flutter_hybrid_example" type="462c0819:PsiDirectoryNode" />
-              <item name="util" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="flutter_hybrid" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flutter_hybrid" type="462c0819:PsiDirectoryNode" />
-              <item name="example" type="462c0819:PsiDirectoryNode" />
-              <item name="android" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="res" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="flutter_hybrid" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flutter_hybrid" type="462c0819:PsiDirectoryNode" />
-              <item name="example" type="462c0819:PsiDirectoryNode" />
               <item name="lib" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -399,6 +410,42 @@
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="PackagesPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="flutter_hybrid" type="58d84e3e:PackageViewProjectNode" />
+              <item name="flutter_hybrid" type="616d4139:PackageViewModuleNode" />
+            </path>
+            <path>
+              <item name="flutter_hybrid" type="58d84e3e:PackageViewProjectNode" />
+              <item name="flutter_hybrid" type="616d4139:PackageViewModuleNode" />
+              <item name="messaging" type="1f31426a:PackageElementNode" />
+            </path>
+            <path>
+              <item name="flutter_hybrid" type="58d84e3e:PackageViewProjectNode" />
+              <item name="flutter_hybrid" type="616d4139:PackageViewModuleNode" />
+              <item name="page" type="1f31426a:PackageElementNode" />
+            </path>
+            <path>
+              <item name="flutter_hybrid" type="58d84e3e:PackageViewProjectNode" />
+              <item name="flutter_hybrid" type="616d4139:PackageViewModuleNode" />
+              <item name="router" type="1f31426a:PackageElementNode" />
+            </path>
+            <path>
+              <item name="flutter_hybrid" type="58d84e3e:PackageViewProjectNode" />
+              <item name="flutter_hybrid" type="616d4139:PackageViewModuleNode" />
+              <item name="support" type="1f31426a:PackageElementNode" />
+            </path>
+            <path>
+              <item name="flutter_hybrid" type="58d84e3e:PackageViewProjectNode" />
+              <item name="flutter_hybrid" type="616d4139:PackageViewModuleNode" />
+              <item name="Libraries" type="5c3f07af:PackageViewLibrariesNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -410,12 +457,13 @@
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/support" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/messaging" />
       <recent name="$PROJECT_DIR$/example/android/app/src/main/res/layout" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/example/android" />
+      <recent name="$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/support" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -453,9 +501,9 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-39" y="232" width="1680" height="973" extended-state="0" />
+    <frame x="0" y="23" width="1680" height="973" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4973913" visible="true" weight="0.2747253" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4973913" visible="true" weight="0.2905983" />
       <window_info id="Structure" order="1" sideWeight="0.5026087" side_tool="true" weight="0.3677686" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -463,13 +511,13 @@
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" sideWeight="0.50212765" side_tool="true" weight="0.34848484" />
       <window_info anchor="bottom" id="Dart Analysis" order="0" weight="0.32904884" />
-      <window_info anchor="bottom" id="Run" order="1" sideWeight="0.49586776" visible="true" weight="0.35664335" />
+      <window_info anchor="bottom" id="Run" order="1" sideWeight="0.49586776" weight="0.35664335" />
       <window_info anchor="bottom" id="TODO" order="2" weight="0.32867134" />
       <window_info anchor="bottom" id="Debug" order="3" />
-      <window_info anchor="bottom" id="Terminal" order="4" weight="0.3844178" />
+      <window_info anchor="bottom" id="Terminal" order="4" visible="true" weight="0.25990677" />
       <window_info anchor="bottom" id="Event Log" order="5" sideWeight="0.5041322" side_tool="true" weight="0.14452215" />
       <window_info anchor="bottom" id="Flutter Performance" order="6" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="7" weight="0.33799535" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.19347319" />
       <window_info anchor="bottom" id="Find" order="8" sideWeight="0.4972452" weight="0.47431508" />
       <window_info active="true" anchor="bottom" id="Messages" order="9" visible="true" weight="0.36662883" />
       <window_info anchor="right" id="Capture Analysis" order="0" />
@@ -531,16 +579,6 @@
     </option>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/lib/flutter_hybrid.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="901">
-          <caret line="63" column="7" selection-start-line="63" selection-start-column="7" selection-end-line="63" selection-end-column="7" />
-          <folding>
-            <element signature="e#0#20#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/interfaces/IContainerManager.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="544">
@@ -559,13 +597,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="9" column="10" selection-start-line="9" selection-start-column="10" selection-end-line="9" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/interfaces/IFlutterViewContainer.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-14">
-          <caret line="10" column="10" selection-start-line="10" selection-start-column="10" selection-end-line="10" selection-end-column="10" />
         </state>
       </provider>
     </entry>
@@ -599,24 +630,10 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/view/FHFlutterNativeView.kt" />
-    <entry file="file://$PROJECT_DIR$/lib/messaging/native_page_event_handler.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="7" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/messaging/DataMessager.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="952">
           <caret line="58" column="13" selection-start-line="58" selection-start-column="13" selection-end-line="58" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/FlutterViewContainerManager.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="17" column="17" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
         </state>
       </provider>
     </entry>
@@ -641,85 +658,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/page/hybrid_page_route.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="370">
-          <caret line="26" column="20" selection-start-line="26" selection-start-column="20" selection-end-line="26" selection-end-column="20" />
-          <folding>
-            <element signature="e#0#38#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/support/logger.dart">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/FlutterHybridPlugin.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
-          <caret line="65" column="5" selection-start-line="65" selection-start-column="5" selection-end-line="65" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/page/hybrid_page_container.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3570">
-          <caret line="215" column="5" selection-start-line="215" selection-start-column="5" selection-end-line="215" selection-end-column="5" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/FlutterHybridViewProvider.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="13" column="6" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/containers/FHFlutterActivity.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/containers/FHFlutterFragment.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="18" column="25" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/messaging/native_messenger.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="15" selection-start-line="5" selection-start-column="15" selection-end-line="5" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/messaging/native_messenger_proxy.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="28" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/example/lib/flutter_fragment.dart" />
-    <entry file="file://$PROJECT_DIR$/lib/page/hybrid_page.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="748">
-          <caret line="49" column="39" selection-start-line="49" selection-start-column="39" selection-end-line="49" selection-end-column="39" />
-          <folding>
-            <element signature="e#0#38#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/page/hybrid_page_coordinator.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1972">
@@ -727,37 +669,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/messaging/native_page_lifecycle_messenger.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="21" column="37" selection-start-line="21" selection-start-column="37" selection-end-line="21" selection-end-column="37" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/messaging/native_navigation_messenger.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="782">
-          <caret line="49" column="47" selection-start-line="49" selection-start-column="27" selection-end-line="49" selection-end-column="47" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///Applications/flutter/packages/flutter/lib/src/widgets/navigator.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1071">
           <caret line="78" column="20" selection-start-line="78" selection-start-column="15" selection-end-line="78" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/router/router.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="15" selection-start-line="3" selection-start-column="15" selection-end-line="3" selection-end-column="15" />
         </state>
       </provider>
     </entry>
@@ -786,16 +701,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/activity/FlutterActivity.kt" />
-    <entry file="file://$PROJECT_DIR$/lib/page/hybrid_page_observer.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2074">
-          <caret line="126" selection-start-line="126" selection-end-line="126" />
-          <folding>
-            <element signature="e#0#38#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/fragment/FlutterFragment.kt" />
     <entry file="file:///Applications/flutter/bin/cache/pkg/sky_engine/lib/ui/window.dart">
       <provider selected="true" editor-type-id="text-editor">
@@ -823,7 +728,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/example/lib/counter.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
+        <state relative-caret-position="629">
           <caret line="37" column="14" selection-start-line="37" selection-start-column="14" selection-end-line="37" selection-end-column="14" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
@@ -831,20 +736,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/example/lib/main.dart">
+    <entry file="file://$PROJECT_DIR$/example/android/readme.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="27" column="28" selection-start-line="27" selection-start-column="28" selection-end-line="27" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="289">
+          <caret line="17" column="58" selection-start-line="17" selection-start-column="58" selection-end-line="17" selection-end-column="58" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/example/lib/color_page.dart">
+    <entry file="file://$PROJECT_DIR$/example/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="19" column="4" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="4" />
+        <state relative-caret-position="459">
+          <caret line="27" column="28" selection-start-line="27" selection-start-column="28" selection-end-line="27" selection-end-column="28" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
@@ -858,10 +760,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/MainActivity.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="32" column="46" selection-start-line="32" selection-end-line="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/util/RouterUtil.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1173">
+          <caret line="75" column="1" selection-start-line="16" selection-end-line="75" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/activity/NativeActivity.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="510">
           <caret line="38" column="13" selection-start-line="38" selection-start-column="13" selection-end-line="38" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/example/android/app/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="12" selection-start-line="11" selection-start-column="12" selection-end-line="11" selection-end-column="12" />
         </state>
       </provider>
     </entry>
@@ -872,24 +795,149 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/MainActivity.kt">
+    <entry file="file://$PROJECT_DIR$/example/lib/color_page.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="33" column="46" selection-start-line="33" selection-end-line="34" />
+        <state relative-caret-position="272">
+          <caret line="19" column="4" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/example/android/app/src/main/kotlin/cn/missfresh/flutter_hybrid_example/util/RouterUtil.kt">
+    <entry file="file://$PROJECT_DIR$/lib/messaging/native_messenger.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="471">
-          <caret line="77" column="1" selection-start-line="16" selection-end-line="77" selection-end-column="1" />
+        <state relative-caret-position="85">
+          <caret line="5" column="15" selection-start-line="5" selection-start-column="15" selection-end-line="5" selection-end-column="15" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/example/android/app/src/main/AndroidManifest.xml">
+    <entry file="file://$PROJECT_DIR$/lib/messaging/native_messenger_proxy.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="3" lean-forward="true" selection-start-line="8" selection-start-column="3" selection-end-line="11" selection-end-column="47" />
+        <state relative-caret-position="357">
+          <caret line="23" column="28" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/messaging/native_navigation_messenger.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="782">
+          <caret line="49" column="9" selection-start-line="49" selection-start-column="9" selection-end-line="49" selection-end-column="9" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/messaging/native_page_event_handler.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="7" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/messaging/native_page_lifecycle_messenger.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="21" column="37" selection-start-line="21" selection-start-column="37" selection-end-line="21" selection-end-column="37" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/page/hybrid_page.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="748">
+          <caret line="49" column="39" selection-start-line="49" selection-start-column="39" selection-end-line="49" selection-end-column="39" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/page/hybrid_page_container.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3570">
+          <caret line="215" column="3" selection-start-line="215" selection-start-column="3" selection-end-line="215" selection-end-column="3" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/router/router.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="15" selection-start-line="3" selection-start-column="15" selection-end-line="3" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/page/hybrid_page_route.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="26" column="20" selection-start-line="26" selection-start-column="20" selection-end-line="26" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/page/hybrid_page_observer.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="986">
+          <caret line="58" column="5" selection-start-line="58" selection-start-column="5" selection-end-line="58" selection-end-column="5" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/FlutterHybridViewProvider.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="9" column="16" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/FlutterViewContainerManager.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="157" column="99" selection-start-line="157" selection-start-column="99" selection-end-line="157" selection-end-column="99" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/interfaces/IFlutterViewContainer.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
+          <folding>
+            <element signature="e#48#129#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/FlutterHybridPlugin.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-810">
+          <caret line="42" column="41" selection-start-line="42" selection-start-column="41" selection-end-line="42" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/containers/FHFlutterActivity.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="85" column="5" selection-start-line="85" selection-start-column="5" selection-end-line="85" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/android/src/main/kotlin/cn/missfresh/flutter_hybrid/containers/FHFlutterFragment.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="351">
+          <caret line="97" column="5" selection-start-line="97" selection-start-column="5" selection-end-line="97" selection-end-column="5" />
         </state>
       </provider>
     </entry>

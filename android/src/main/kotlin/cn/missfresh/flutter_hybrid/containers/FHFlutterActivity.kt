@@ -84,12 +84,4 @@ class FHFlutterActivity : Activity(), IFlutterViewContainer {
     override fun destroyContainerView() {
         finish()
     }
-
-    override fun setContainerCanPop(canPop: Boolean) {
-        canPopFlutterView = canPop
-    }
-
-    override fun getContainerCanPop(): Boolean {
-        return canPopFlutterView
-    }
 }

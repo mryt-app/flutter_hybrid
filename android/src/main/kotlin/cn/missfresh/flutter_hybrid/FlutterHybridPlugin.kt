@@ -39,9 +39,6 @@ class FlutterHybridPlugin : MethodCallHandler {
 
     var currentActivityWeek: WeakReference<Activity>? = null
 
-    // Whether to use the DataMessager FLUTTER_CAN_POP_CHANGED protocol
-    var isUseCanPop = false
-
     /**
      * Initialize application information
      */

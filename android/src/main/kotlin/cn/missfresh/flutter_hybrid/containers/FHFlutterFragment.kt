@@ -97,14 +97,6 @@ class FHFlutterFragment : Fragment(), IFlutterViewContainer {
         return (context as Activity).isFinishing
     }
 
-    override fun setContainerCanPop(canPop: Boolean) {
-        canPopFlutterView = canPop
-    }
-
-    override fun getContainerCanPop(): Boolean {
-        return canPopFlutterView
-    }
-
     fun setTabTag(tag: String) {
         val args = Bundle()
         args.putString("tag", tag)

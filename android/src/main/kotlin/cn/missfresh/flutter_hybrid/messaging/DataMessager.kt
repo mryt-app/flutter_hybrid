@@ -58,31 +58,9 @@ class DataMessager(name: String) : Messager(name) {
                 return
             }
             FLUTTER_CAN_POP_CHANGED -> {
-                arguments as Map<*, *>
-                Logger.e("$FLUTTER_CAN_POP_CHANGED======$arguments")
-                var canPop = false
-                if (arguments.containsKey(CAN_POP)) {
-                    canPop = arguments[CAN_POP] as Boolean
-                }
-                flutterCanPop(canPop)
                 return
             }
         }
-    }
-
-    /**
-     * Accepted the Flutter flutterCanPop protocol.
-     */
-    private fun flutterCanPop(canPop: Boolean) {
-        var containerStatus = FlutterHybridPlugin
-                .instance.getContainerManager().getCurrentLifecycleState()
-
-        if (containerStatus == null) {
-            containerStatus = FlutterHybridPlugin.instance
-                    .getContainerManager().getLastContainerLifecycle()
-        }
-
-        containerStatus?.getContainer()?.setContainerCanPop(canPop)
     }
 
     /**

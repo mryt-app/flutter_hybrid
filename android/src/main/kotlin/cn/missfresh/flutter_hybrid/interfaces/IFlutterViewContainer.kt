@@ -48,16 +48,4 @@ interface IFlutterViewContainer {
      * Check to see whether this container is in the process of finishing.
      */
     fun isFinishing(): Boolean
-
-    /**
-     * Control whether the return key needs to be processed.
-     * @param canPop If it is true, there is no need to process the back key, otherwise it is the opposite.
-     */
-    fun setContainerCanPop(canPop: Boolean)
-
-    /**
-     * Return whether the current container can handle the back key.
-     * @return If it is true, there is no need to process the back key, otherwise it is the opposite.
-     */
-    fun getContainerCanPop(): Boolean
 }
