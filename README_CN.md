@@ -1,30 +1,32 @@
-# Introduction
+# 简介
 
-A flutter plugin for hybrid app, helps you integrate Flutter pages into iOS or Android app, influenced by [flutter_boost](https://github.com/alibaba/flutter_boost).
+Flutter混合开发框架，可以方便地在iOS、Android原生应用中集成Flutter页面，实现思路与FlutterBoost一样，但代码更清晰和规范。
 
-The plugin's core role is hybrid page stack management, syncs lifecycles of native pages with flutter pages. Like H5 in app, all hybrid pages are identified by URI, compatible with various route solutions.
+与FlutterBoost一样，主要解决混合栈管理问题。类似于在Native中嵌入H5页面，将页面资源化，通过`routeName`来标识一个页面，方便兼容各种路由跳转方案。
 
-As a tool for hybrid page stack management, it must:
+在一款成熟的App中接入Flutter至少需要解决几个问题：
 
-- ensures consistent user experience of hybrid pages, it should be same as native pages.
-- ensures integrity of page's lifecycle,  doesn't break page lifecycle related event tracks.
-- memory usage, performance, stability...
+- 保证Flutter页面和原生页面用户体验一致
+- 保证页面生命周期完整性，相关事件统计不受影响
+- 资源占用和性能问题
 
-# Integration
+想了解具体的实现思路和原理，可以看[如何实现Flutter混合开发框架 - FlutterBoost深度解析](https://www.yuque.com/ia8upe/lha6g7/aisx2z#2c913e87)。FlutterHybrid在实现思路上与FlutterBoost完全一致，但由于FlutterBoost代码比较烂（新版对代码做了比较大的重构，比之前好一些），同时为了深入理解Flutter，因此重新实现了一遍。
 
-## Requirements
+# 集成
 
-- flutter ^1.5.4
+## 环境要求
 
-## Add dependency to Flutter Module
+- flutter版本：^1.5.4
 
-`flutter_hybrid` is a normal Flutter plugin:
+## 在Flutter项目中添加依赖
+
+FlutterHybrid是一个Flutter Plugin，添加方式与其它Flutter库一样。
 
 ```yaml
 flutter_hybrid: ^0.0.2
 ```
 
-Or uses the github directly:
+或者直接依赖github项目，由于pub的发布不一定及时，建议直接依赖github项目：
 
 ```yaml
 flutter_hybrid:
@@ -32,9 +34,9 @@ flutter_hybrid:
   ref: 0.0.2
 ```
 
-## Integration in Dart
+## Dart代码集成
 
-At first, register page builders, and replaces the `builder` of `MaterialApp` with `FlutterHybrid.transitionBuilder()`, then runs the `flutter_hybrid`.  
+注册页面构造器，启动FlutterHybrid，将`MaterialApp`的`builder`替换为`FlutterHybrid.transitionBuilder()`。
 
 ```dart
 void main() => runApp(MyApp());
@@ -69,9 +71,9 @@ class _MyAppState extends State<MyApp> {
 }
 ```
 
-## Integration in iOS host app
+## iOS集成
 
-First, your `AppDelegate` should inherites from `FlutterAppDelegate`, as normal Flutter app.
+将`FlutterAppDelegate`作为`AppDelegate`的父类：
 
 ```objective-c
 #import <Flutter/Flutter.h>
@@ -81,13 +83,13 @@ First, your `AppDelegate` should inherites from `FlutterAppDelegate`, as normal 
 @end
 ```
 
-Then, creates a router class, which should implements `FLHRouter`,  `flutter_hybrid` will asks it to deal with routing. Uses it to start running:
+实现`FLHRouter`协议，并用相应的实例启动FlutterHybrid。
 
 ```objective-c
 [FLHFlutterHybrid.sharedInstance startFlutterWithRouter:[Router sharedInstance]];
 ```
 
-`FLHRouter` is very simple, open and close page:
+`FLHRouter`协议很简单，只有打开和关闭页面：
 
 ```objective-c
 @protocol FLHRouter <NSObject>
@@ -105,9 +107,9 @@ Then, creates a router class, which should implements `FLHRouter`,  `flutter_hyb
 @end
 ```
 
-## Integration in Android host app
+## Android集成
 
-Uses `io.flutter.app.FlutterApplication` as your application:
+在`AndroidManifest.xml`文件中，将application替换为`io.flutter.app.FlutterApplication`。
 
 ```xml
 <application
@@ -116,9 +118,9 @@ Uses `io.flutter.app.FlutterApplication` as your application:
         android:label="flutter_hybrid_example">
 ```
 
-`io.flutter.app.FlutterApplication` is an `android.app.Application` that calls `FlutterMain.startInitialization(this);` in its `onCreate` method. In most cases you can leave this as-is, but if you want to provide additional functionalities, it is fine to subclass or reimplement FlutterApplication.
+`io.flutter.app.FlutterApplication`是一个`android.app.Application`的子类，在`onCreate`方法中调用了`FlutterMain.startInitialization(this)`，一般情况下直接使用它即可。如果需要附加功能，可以继承它，或者在自定义类中实现`FlutterApplication`的逻辑。
 
-Init `flutter_hybrid` in `MainActivity`, it shoulds inherite from `FlutterActivity`:
+在`MainActivity`中初始化FlutterHybrid，`MainActivity`需要继承`FlutterActivity`：
 
 ```kotlin
 class MainActivity : FlutterActivity(), View.OnClickListener {
@@ -151,34 +153,36 @@ class MainActivity : FlutterActivity(), View.OnClickListener {
 }
 ```
 
-# Basic usage
+# 基本用法
 
-## Open a Flutter page in iOS native page
+## Native页面打开Flutter页面
 
-There are two ViewControllers:
+### 在iOS中打开Flutter页面
 
-- FLHFlutterContainerViewController: Add sole  `FlutterViewController` as its `childViewController`, snapshots to avoid empty page on transition.
-- FLHFlutterHybridViewController: Subclass of  `FlutterViewController`.
+iOS目前提供了两个ViewController：
 
-> Warning: Two types of viewController couldn't be used in an app, you should always use one type.
+- FLHFlutterContainerViewController：`FlutterViewController`作为其`childViewController`，多个页面共用一个`FlutterViewController`，通过截屏的方式解决页面切换时的页面空白和内容过渡问题。对应于FlutterBoost的0.0.42版本。
+- FLHFlutterHybridViewController：`FlutterViewController`的子类，每个页面即一个`FlutterViewController`。对应于FlutterBoost的最新版本。
+
+**注意：由于`FlutterViewController`生命周期会改变Flutter的状态，而两种Controller的生命周期逻辑不同，因此两种Controller在一个App中不能混合使用。**
 
 ```objective-c
 FLHFlutterContainerViewController *flutterVC = [[FLHFlutterContainerViewController alloc] initWithRoute:route params:params];
 [self.navigationController pushViewController:flutterVC animated:animated];
 ```
 
-Or:
+或者：
 
 ```objective-c
 FLHFlutterHybridViewController *flutterVC = [[FLHFlutterHybridViewController alloc] initWithRoute:route params:params];
 [self.navigationController pushViewController:flutterVC animated:animated];
 ```
 
-`route` is the page name registered in Dart, `params` is parameters needed to create flutter page.
+`route`即Dart中注册的页面名称，`params`是要传递的页面参数。
 
-## Open a Flutter page in Android native page
+### 在Android中打开Flutter页面
 
-Activity:
+目前Android提供了Activity和Fragment两种使用方式。
 
 ```kotlin
 context?.let {
@@ -191,7 +195,7 @@ context?.let {
         }
 ```
 
-Fragment：
+或者：
 
 ```kotlin
 class FlutterFragmentActivity : AppCompatActivity() {
@@ -216,20 +220,23 @@ class FlutterFragmentActivity : AppCompatActivity() {
 }
 ```
 
-## Open or close hybrid page in Dart
+### 在Dart中打开或关闭页面
+
+所有的路由管理都有Native端负责，Dart端打开、关闭页面都是通过Channel调用Native端功能。
 
 ```dart
-// Open page
+// 打开页面
 FlutterHybrid.sharedInstance.router.openPage('/counter',
                       params: {
                         ShowPageTYpe.PAGE_TYPE: ShowPageTYpe.expectedPageType
                       });
 
-// Close page
+// 关闭页面
 FlutterHybrid.sharedInstance.router.closePage(pageId, params);
 
-// You can call Navigator.pop to close flutter or hybrid page directly.
+// 可以直接调用Navigator.pop关闭页面
 Navigator.pop(context);
 ```
 
-All hybrid flutter pages are managed by custom `Navigator`, it pops Flutter route or closes page by calling native.
+在Dart端，所有的页面都在`Navigator`中，因此可以直接调用`Navigator.pop`关闭页面，在`Navigator`子类中对`pop`做了处理，可以自动处理Flutter页面的pop和原生页面的关闭。
+
