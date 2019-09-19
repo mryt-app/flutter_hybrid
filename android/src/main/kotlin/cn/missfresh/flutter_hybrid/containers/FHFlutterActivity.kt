@@ -16,8 +16,6 @@ class FHFlutterActivity : Activity(), IFlutterViewContainer {
 
     private lateinit var mFlutterContent: FlutterViewStub
 
-    private var canPopFlutterView: Boolean = false
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

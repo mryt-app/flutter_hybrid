@@ -20,8 +20,6 @@ class DataMessager(name: String) : Messager(name) {
         const val FLUTTER_CAN_POP_CHANGED = "flutterCanPopChanged"
         const val BACK_BUTTON_PRESSED = "backButtonPressed"
 
-        // flutterCanPopChanged protocol parameter
-        const val CAN_POP = "canPop"
         // flutterShownPageChanged protocol parameter
         const val OLD_PAGE = "oldPage"
         const val NEW_PAGE = "newPage"

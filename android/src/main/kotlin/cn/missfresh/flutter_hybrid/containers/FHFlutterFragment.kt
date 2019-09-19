@@ -21,7 +21,6 @@ class FHFlutterFragment : Fragment(), IFlutterViewContainer {
 
     private lateinit var mFlutterContent: FlutterViewStub
     private var resumed = false
-    private var canPopFlutterView: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
