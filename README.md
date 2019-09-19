@@ -1,3 +1,7 @@
+<p align="center">
+  <a href="README_CN.md">中文文档</a>
+</p>
+
 # Introduction
 
 A flutter plugin for hybrid app, helps you integrate Flutter pages into iOS or Android app, influenced by [flutter_boost](https://github.com/alibaba/flutter_boost).
